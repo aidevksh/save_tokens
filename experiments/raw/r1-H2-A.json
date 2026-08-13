@@ -1,5 +1,5 @@
 {
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t03/out.yaml": {
+  "t03/out.yaml": {
     "chars": 510,
     "chars_nows": 418,
     "words": 54,
@@ -10,7 +10,7 @@
     "latin": 335,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t10/out.yaml": {
+  "t10/out.yaml": {
     "chars": 510,
     "chars_nows": 418,
     "words": 54,
@@ -21,7 +21,7 @@
     "latin": 335,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t15/out.yaml": {
+  "t15/out.yaml": {
     "chars": 510,
     "chars_nows": 418,
     "words": 54,
@@ -32,7 +32,7 @@
     "latin": 335,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t22/out.yaml": {
+  "t22/out.yaml": {
     "chars": 510,
     "chars_nows": 418,
     "words": 54,

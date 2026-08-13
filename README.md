@@ -41,3 +41,13 @@ API 키가 확보되면 [experiments/scripts/](experiments/scripts/)의 실행 �
 - **조건 내 분산 0.** 결정적 과제라 조건별 4개 시행이 바이트 단위로 동일한 산출물을 냈다. n=4로 표기하되 통계적으로는 조건당 1건과 같다.
 - **baseline 오염.** 피험 서브에이전트가 프로젝트 `CLAUDE.md`를 물고 시작하는데 거기에 이미 억제 규칙이 있다. 순수 baseline을 만들 수단이 없어, 억제 프롬프트 가설의 측정치는 절감률의 **하한**으로만 읽는다.
 - **차등 탈락.** 하네스가 서브에이전트의 리포트성 `.md` 쓰기를 막았고, 그 차단이 조건 A에만 2/2로 걸려 가설 하나가 판정 불가가 됐다. 상세: [experiments/raw/r1-incidents.md](experiments/raw/r1-incidents.md)
+
+## 공개 시 적용한 편집
+
+공개 저장소로 올리면서 실행 환경의 로컬 사용자명이 든 절대 경로를 익명화했다. 내용상 변경은 없다.
+
+- `experiments/raw/r1-H*.json` — 측정 대상 키를 절대 경로에서 시행 ID(`t01/out.json`)로 축약
+- `experiments/round1-plan.md` — 경로의 사용자명을 `<USER>`로 치환
+- `experiments/scripts/score_r1.py` — 하드코딩된 시행 경로를 환경변수 `ST_R1_ROOT`로 분리 (익명화 후 재실행해 결과가 동일함을 확인)
+
+측정값·판정·사전등록 기준은 손대지 않았다.

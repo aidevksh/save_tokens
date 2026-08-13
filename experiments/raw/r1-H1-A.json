@@ -1,5 +1,5 @@
 {
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t01/out.json": {
+  "t01/out.json": {
     "chars": 2093,
     "chars_nows": 1875,
     "words": 194,
@@ -10,7 +10,7 @@
     "latin": 1081,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t08/out.json": {
+  "t08/out.json": {
     "chars": 2093,
     "chars_nows": 1875,
     "words": 194,
@@ -21,7 +21,7 @@
     "latin": 1081,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t13/out.json": {
+  "t13/out.json": {
     "chars": 2093,
     "chars_nows": 1875,
     "words": 194,
@@ -32,7 +32,7 @@
     "latin": 1081,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t20/out.json": {
+  "t20/out.json": {
     "chars": 2093,
     "chars_nows": 1875,
     "words": 194,

@@ -1,5 +1,5 @@
 {
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t04/out.diff": {
+  "t04/out.diff": {
     "chars": 644,
     "chars_nows": 511,
     "words": 82,
@@ -10,7 +10,7 @@
     "latin": 367,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t09/out.diff": {
+  "t09/out.diff": {
     "chars": 644,
     "chars_nows": 511,
     "words": 82,
@@ -21,7 +21,7 @@
     "latin": 367,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t16/out.diff": {
+  "t16/out.diff": {
     "chars": 644,
     "chars_nows": 511,
     "words": 82,
@@ -32,7 +32,7 @@
     "latin": 367,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t21/out.diff": {
+  "t21/out.diff": {
     "chars": 644,
     "chars_nows": 511,
     "words": 82,

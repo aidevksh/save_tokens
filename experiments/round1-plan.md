@@ -64,7 +64,7 @@
 
 - Claude Code 서브에이전트는 **프로젝트 `CLAUDE.md`를 컨텍스트로 물고 시작한다.** 저장소 밖 디렉터리를 작업 대상으로 지정해도, 오케스트레이터가 이 저장소에서 에이전트를 띄우는 한 로드된다. **따라서 축 5가 제안한 "저장소 밖에서 실행" 만으로는 해결되지 않는다.**
 - 확인한 사실(2026-08-13):
-  - 사용자 스코프 `C:/Users/FORYOUCOM/.claude/CLAUDE.md` **없음**, `C:/Users/FORYOUCOM/CLAUDE.md` **없음**. → 오염원은 프로젝트 `CLAUDE.md` **하나**로 특정된다.
+  - 사용자 스코프 `C:/Users/<USER>/.claude/CLAUDE.md` **없음**, `C:/Users/<USER>/CLAUDE.md` **없음**. → 오염원은 프로젝트 `CLAUDE.md` **하나**로 특정된다.
   - 그 파일의 SHA-256 = `cfaf94a02be69edd9b3fecddd6c110239564865ed2c375ee6e3ade61d9294165`. **라운드 1 시행 중 이 파일을 수정하지 않는다.** 수정하면 그 이후 시행은 앞선 시행과 비교 불가다. 종료 후 해시를 재확인해 기록한다.
 
 ### 1.2 오염원별 작용 분석
@@ -115,7 +115,7 @@ H1·H2의 조작 변수는 "출력 직렬화 형식"이고, `CLAUDE.md`는 형�
 | `run_in_background` | 자유. 단 **라운드(6개) 단위로만 병렬화**한다 — 라운드 내 6개는 서로 다른 조건이므로 시간 드리프트가 조건에 균등하게 걸린다 |
 | 후속 메시지 | 금지. 각 피험자는 **1회 프롬프트로 끝낸다**(SendMessage 사용 금지). 추가 지시는 처치 오염이다 |
 | 피험자의 최종 보고 텍스트 | **측정 대상 아님.** 측정은 지정 경로의 파일만 |
-| 시행 루트 | `C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/` (저장소 밖. 상위에 `CLAUDE.md` 없음을 확인함) |
+| 시행 루트 | `C:/Users/<USER>/AppData/Local/Temp/st-r1/` (저장소 밖. 상위에 `CLAUDE.md` 없음을 확인함) |
 | 디렉터리명 | `t01`~`t24`. **조건을 유추할 수 없는 이름**을 쓴다(축5 §4.7-4) |
 
 시행 순서는 6조건 라운드로빈이며, 라운드 2·4에서는 조건 순서를 뒤집어 A가 항상 먼저 오지 않게 한다.
@@ -160,12 +160,12 @@ H3-A : t05 t12 t17 t24      H3-B : t06 t11 t18 t23
 ### 2.2 시행 전 준비 (오케스트레이터가 수행, 피험자 관여 없음)
 
 ```bash
-R=/c/Users/FORYOUCOM/AppData/Local/Temp/st-r1
+R=/c/Users/<USER>/AppData/Local/Temp/st-r1
 mkdir -p $R
 for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24; do mkdir -p $R/t$i; done
 
 # H3 시행 디렉터리에만 픽스처를 복사한다. verify 스크립트는 절대 복사하지 않는다.
-cd /c/Users/FORYOUCOM/Desktop/save_tokens
+cd /c/Users/<USER>/Desktop/save_tokens
 for i in 05 06 11 12 17 18 23 24; do cp experiments/fixtures/task-a-bugfix/stats.py experiments/fixtures/task-a-bugfix/test_stats.py $R/t$i/; done
 
 # H1/H2 시행 디렉터리는 비워 둔다. 입력은 전부 프롬프트 인라인이다.
@@ -176,7 +176,7 @@ ls $R/t01 $R/t05
 
 ## 3. 피험 에이전트 프롬프트 (verbatim)
 
-**사용법:** 조건별 프롬프트 전문은 아래 3쌍 6개다. 치환하는 것은 **`<<DIR>>` 한 곳뿐**이며, 값은 §2.1의 저장 경로 디렉터리다(예: H1-A-1 → `C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t01`). 그 외에는 한 글자도 바꾸지 않는다.
+**사용법:** 조건별 프롬프트 전문은 아래 3쌍 6개다. 치환하는 것은 **`<<DIR>>` 한 곳뿐**이며, 값은 §2.1의 저장 경로 디렉터리다(예: H1-A-1 → `C:/Users/<USER>/AppData/Local/Temp/st-r1/t01`). 그 외에는 한 글자도 바꾸지 않는다.
 
 **검증 의무:** 실행 전, 각 쌍의 조건 A/B 프롬프트에서 조작 변수 블록을 제거한 나머지가 **글자 단위로 동일**한지 diff로 확인한다(§4.0).
 
@@ -506,8 +506,8 @@ When you are done, write a handover note at <<DIR>>/summary.md for the teammate 
 조건 A/B 프롬프트를 파일로 저장한 뒤, 조작 변수 블록을 뺀 나머지가 동일한지 확인한다. 다르면 실험을 시작하지 않는다.
 
 ```bash
-cd /c/Users/FORYOUCOM/Desktop/save_tokens
-P=/c/Users/FORYOUCOM/AppData/Local/Temp/st-r1/prompts   # §3 본문을 그대로 저장
+cd /c/Users/<USER>/Desktop/save_tokens
+P=/c/Users/<USER>/AppData/Local/Temp/st-r1/prompts   # §3 본문을 그대로 저장
 mkdir -p $P
 # H1/H2: '출력 형식:' 줄 앞까지(공통 도입부)가 동일해야 한다 -> 출력 없음이 정상
 for h in h1 h2; do
@@ -526,8 +526,8 @@ diff <(sed -n '/^# Task/,$p' $P/h3-a.txt) <(sed -n '/^# Task/,$p' $P/h3-b.txt)
 **길이는 `tools/measure.py` 로만 잰다.** 손으로 세지 않고, 다른 스크립트로 재지 않는다.
 
 ```bash
-cd /c/Users/FORYOUCOM/Desktop/save_tokens
-R=/c/Users/FORYOUCOM/AppData/Local/Temp/st-r1
+cd /c/Users/<USER>/Desktop/save_tokens
+R=/c/Users/<USER>/AppData/Local/Temp/st-r1
 mkdir -p experiments/raw
 
 # 조건별 4건 일괄 측정 (JSON)
@@ -620,13 +620,13 @@ rm -rf experiments/raw/r1-t*/__pycache__
 원본: `experiments/data/02-deploy-original.yaml`, 기대: `experiments/data/02-patch-expected.yaml`.
 
 ```bash
-J=/c/Users/FORYOUCOM/AppData/Local/Temp/st-r1/judge
+J=/c/Users/<USER>/AppData/Local/Temp/st-r1/judge
 mkdir -p $J/tNN && cp experiments/data/02-deploy-original.yaml $J/tNN/deploy.yaml
 # 조건 B: 적용 시도 순서 (하나라도 성공하면 적용 성공)
 cd $J/tNN && git init -q && git add -A && git -c user.email=j@x -c user.name=j commit -qm base
 git apply -p1 $R/tNN/out.diff || git apply -p0 $R/tNN/out.diff || git apply --recount -p1 $R/tNN/out.diff
 # 조건 A: out.yaml 자체가 최종 파일
-diff -u $J/tNN/deploy.yaml /c/Users/FORYOUCOM/Desktop/save_tokens/experiments/data/02-patch-expected.yaml
+diff -u $J/tNN/deploy.yaml /c/Users/<USER>/Desktop/save_tokens/experiments/data/02-patch-expected.yaml
 ```
 
 | # | 체크 | 실패 시 |

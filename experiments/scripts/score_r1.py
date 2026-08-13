@@ -5,19 +5,26 @@
 길이는 재지 않는다 — 길이는 tools/measure.py 전담.
 
 사용법:
-    python experiments/scripts/score_r1.py
+    ST_R1_ROOT=/path/to/st-r1 python experiments/scripts/score_r1.py
+
+시행 산출물 경로는 ST_R1_ROOT 로 지정한다. 생략하면 <임시디렉터리>/st-r1.
+라운드 1의 산출물 사본은 experiments/raw/r1-t*/ 에 보존되어 있다.
 """
 
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
-R = Path("C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1")
+# 시행 디렉터리는 저장소 밖(임시 경로)에 둔다 — 저장소 안에서 돌리면
+# 피험 에이전트가 프로젝트 규약과 정답 키를 보게 되어 naive 조건이 깨진다.
+# 라운드 1 실행 시 값: <임시디렉터리>/st-r1
+R = Path(os.environ.get("ST_R1_ROOT", Path(tempfile.gettempdir()) / "st-r1"))
 GT = REPO / "experiments/data/02-tickets-groundtruth.tsv"
 ORIG = REPO / "experiments/data/02-deploy-original.yaml"
 EXPECTED = REPO / "experiments/data/02-patch-expected.yaml"

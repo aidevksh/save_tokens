@@ -1,5 +1,5 @@
 {
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t02/out.tsv": {
+  "t02/out.tsv": {
     "chars": 744,
     "chars_nows": 640,
     "words": 104,
@@ -10,7 +10,7 @@
     "latin": 421,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t07/out.tsv": {
+  "t07/out.tsv": {
     "chars": 744,
     "chars_nows": 640,
     "words": 104,
@@ -21,7 +21,7 @@
     "latin": 421,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t14/out.tsv": {
+  "t14/out.tsv": {
     "chars": 744,
     "chars_nows": 640,
     "words": 104,
@@ -32,7 +32,7 @@
     "latin": 421,
     "hangul_ratio": 0.0
   },
-  "C:/Users/FORYOUCOM/AppData/Local/Temp/st-r1/t19/out.tsv": {
+  "t19/out.tsv": {
     "chars": 744,
     "chars_nows": 640,
     "words": 104,
