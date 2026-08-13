@@ -89,7 +89,7 @@ N=30 결과는 **라운드 1과 산출물 MD5가 동일**한 복제다 (`420324c
 | C=3, m=6, k=3 | **37.9줄** (F30 형상) / **40.0줄** (F120 형상) |
 | C=1, m=6, k=3~5 | **28.1줄** (F30) / **25.9줄** (F120) |
 
-출처: `experiments/round2-results.md`, 원시 데이터 `experiments/raw/r2-scores.json` 및 `raw/r2-t01`~`t12`. 라운드 1 대응 결과는 `experiments/round1-results.md` §1.2·§2.
+출처: `experiments/round2-results.md`, 원시 데이터 `experiments/raw/r2-scores.json` 및 `runs/r2/t01`~`t12`. 라운드 1 대응 결과는 `experiments/round1-results.md` §1.2·§2.
 
 ## 한계
 

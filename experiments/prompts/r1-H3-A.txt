@@ -1,0 +1,15 @@
+The working directory is <RUNDIR>. It is a standalone code exercise owned by another team; the instructions below are the only spec for this task, and conventions from other locations do not apply.
+
+# Project instructions
+
+Python 3.13 and Node 22 are available.
+
+- Respond in English.
+- Run the project's test suite to check your work.
+- Include a final verification step for any non-trivial task, and double-check your answer before responding.
+
+# Task
+
+The tests in test_stats.py are failing. Fix the bugs in stats.py so the whole suite passes. Do not modify test_stats.py.
+
+When you are done, write a handover note at <RUNDIR>/summary.md for the teammate who picks this work up next.

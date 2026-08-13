@@ -360,12 +360,12 @@ F120: (len("--- a/r2-deploy120-original.yaml")+1 + len("+++ b/r2-deploy120-expec
 
 | 조건 | 시행 | 산출물 | 문자 | MD5 |
 |---|---|---|---|---|
-| A30 | t01, t08 | `raw/r2-t{01,08}/out.yaml` | 510, 510 | `3c2e87dc54e93e158945cfe0f1fb234d` (2/2 동일, **라운드 1 H2-A와도 동일**) |
-| B30 | t02, t12 | `raw/r2-t{02,12}/out.diff` | 644, 637 | t02 `420324c325ca711636de50b058495a9d` (**라운드 1 H2-B와 동일**) / t12 `08a2bc5bf0962ff4c39a482faf7e11bd` |
-| C30 | t03, t10 | `raw/r2-t{03,10}/out.diff` | 478, 473 | 상이 |
-| A120 | t04, t11 | `raw/r2-t{04,11}/out.yaml` | 2469, 2469 | 2/2 동일 |
-| B120 | t05, t09 | `raw/r2-t{05,09}/out.diff` | 823, 823 | 2/2 동일 |
-| C120 | t06, t07 | `raw/r2-t{06,07}/out.diff` | 533, 533 | 2/2 동일 |
+| A30 | t01, t08 | `runs/r2/t{01,08}/out.yaml` | 510, 510 | `3c2e87dc54e93e158945cfe0f1fb234d` (2/2 동일, **라운드 1 H2-A와도 동일**) |
+| B30 | t02, t12 | `runs/r2/t{02,12}/out.diff` | 644, 637 | t02 `420324c325ca711636de50b058495a9d` (**라운드 1 H2-B와 동일**) / t12 `08a2bc5bf0962ff4c39a482faf7e11bd` |
+| C30 | t03, t10 | `runs/r2/t{03,10}/out.diff` | 478, 473 | 상이 |
+| A120 | t04, t11 | `runs/r2/t{04,11}/out.yaml` | 2469, 2469 | 2/2 동일 |
+| B120 | t05, t09 | `runs/r2/t{05,09}/out.diff` | 823, 823 | 2/2 동일 |
+| C120 | t06, t07 | `runs/r2/t{06,07}/out.diff` | 533, 533 | 2/2 동일 |
 
 채점: `raw/r2-scores.json`. 채점기: `scripts/score_r2.py`. 프롬프트: `prompts/r2-{A,B,C}{30,120}.txt` (조건 간 차이는 출력 형식 지시 1~2문장뿐 — 판정 에이전트가 `diff`로 확인).
 
@@ -381,7 +381,7 @@ python -c "import difflib; a=open(O).readlines(); b=open(E).readlines(); \
   print(len(''.join(difflib.unified_diff(a,b,'a/deploy.yaml','b/deploy.yaml',n=3))))"   # 644B
 
 # 적용 검증 (전 8건)
-git apply -p1 raw/r2-tNN/out.diff   # --unidiff-zero 미사용
+git apply -p1 runs/r2/tNN/out.diff   # --unidiff-zero 미사용
 ```
 
 §2·§3의 모든 수치는 위 명령으로 재현된다. 판정 에이전트는 `r2-scores.json`의 집계값을 쓰지 않고 원시 산출물에서 재계산했으며, 불일치는 발견되지 않았다.

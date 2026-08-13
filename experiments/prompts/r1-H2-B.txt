@@ -1,0 +1,52 @@
+작업 디렉터리는 <RUNDIR> 입니다. 이 디렉터리는 다른 팀이 관리하는 독립 프로젝트이고, 아래 지시가 이 작업의 유일한 명세입니다. 다른 위치의 파일이나 규약은 참조하지 마세요.
+
+아래는 배포 설정 파일 deploy.yaml 의 현재 내용과 변경 요청입니다. 요청대로 수정하세요.
+
+현재 deploy.yaml (30줄):
+
+```
+service: payments-api
+replicas: 3
+image: registry.example.com/payments-api:1.4.2
+port: 8080
+env: staging
+resources:
+  cpu: 500m
+  memory: 512Mi
+  gpu: 0
+healthcheck:
+  path: /healthz
+  interval_seconds: 10
+  timeout_seconds: 2
+  failure_threshold: 3
+logging:
+  level: debug
+  format: text
+  retention_days: 7
+autoscale:
+  enabled: false
+  min_replicas: 1
+  max_replicas: 5
+  target_cpu_percent: 80
+database:
+  host: db-staging.internal
+  port: 5432
+  pool_size: 10
+  ssl: false
+timeouts:
+  request_seconds: 30
+```
+
+변경 요청 6곳:
+1. replicas 를 3에서 6으로 변경
+2. env 를 staging 에서 production 으로 변경
+3. logging.level 을 debug 에서 info 로 변경
+4. logging.format 을 text 에서 json 으로 변경
+5. autoscale.enabled 를 false 에서 true 로 변경
+6. database.ssl 을 false 에서 true 로 변경
+
+나머지 24줄은 변경하지 않습니다.
+
+출력 형식: 원본 대비 변경분만 unified diff 형식으로 <RUNDIR>/out.diff 에 저장하세요. 파일 헤더는 --- a/deploy.yaml 과 +++ b/deploy.yaml 로 쓰고, 각 hunk 는 @@ 로 시작하며 컨텍스트 3줄 규칙을 따릅니다.
+
+파일에는 위 형식의 내용만 넣고 설명이나 주석은 넣지 않습니다. 이 대화에서 설명이 필요하면 한국어로 씁니다.

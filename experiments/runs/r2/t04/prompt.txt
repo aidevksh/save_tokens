@@ -1,0 +1,146 @@
+설정 파일 `deploy.yaml` 을 아래 요청대로 수정한다.
+
+## 원본 `deploy.yaml` (120줄)
+
+```
+  1  service: payments-api
+  2  namespace: payments
+  3  owner: platform-team
+  4  contact: platform@example.com
+  5  description: Handles card and wallet payment authorization.
+  6  metadata:
+  7    tier: critical
+  8    cost_center: CC-4417
+  9    revision: 42
+ 10  deployment:
+ 11    strategy: RollingUpdate
+ 12    max_surge: 1
+ 13    replicas: 3
+ 14    max_unavailable: 0
+ 15    min_ready_seconds: 15
+ 16    progress_deadline_seconds: 600
+ 17  env: staging
+ 18  image:
+ 19    registry: registry.example.com
+ 20    repository: payments-api
+ 21    tag: 1.4.2
+ 22    pull_policy: IfNotPresent
+ 23    digest_pinning: false
+ 24  port: 8080
+ 25  admin_port: 9090
+ 26  metrics_port: 9091
+ 27  resources:
+ 28    requests:
+ 29      cpu: 500m
+ 30      memory: 512Mi
+ 31      ephemeral_storage: 1Gi
+ 32    limits:
+ 33      cpu: 2000m
+ 34      memory: 2Gi
+ 35      ephemeral_storage: 4Gi
+ 36    gpu: 0
+ 37  healthcheck:
+ 38    liveness:
+ 39      path: /healthz
+ 40      interval_seconds: 10
+ 41      timeout_seconds: 2
+ 42      failure_threshold: 3
+ 43    readiness:
+ 44      path: /readyz
+ 45      interval_seconds: 5
+ 46      timeout_seconds: 2
+ 47      failure_threshold: 2
+ 48    startup:
+ 49      path: /startupz
+ 50      interval_seconds: 5
+ 51      timeout_seconds: 5
+ 52      failure_threshold: 30
+ 53  security:
+ 54    run_as_non_root: true
+ 55    read_only_root_fs: true
+ 56    allow_privilege_escalation: false
+ 57    drop_capabilities:
+ 58      - ALL
+ 59    seccomp_profile: RuntimeDefault
+ 60  logging:
+ 61    destination: stdout
+ 62    sampling_rate: 1.0
+ 63    level: debug
+ 64    format: text
+ 65    retention_days: 7
+ 66    include_request_body: false
+ 67  autoscale:
+ 68    enabled: false
+ 69    min_replicas: 1
+ 70    max_replicas: 5
+ 71    target_cpu_percent: 80
+ 72    target_memory_percent: 75
+ 73    scale_down_stabilization_seconds: 300
+ 74    behavior:
+ 75      scale_up_pods_per_minute: 4
+ 76      scale_down_pods_per_minute: 1
+ 77  networking:
+ 78    service_type: ClusterIP
+ 79    session_affinity: None
+ 80    ingress:
+ 81      enabled: true
+ 82      host: payments.staging.example.com
+ 83      tls_secret: payments-tls
+ 84      path_prefix: /v1
+ 85    egress:
+ 86      allow_external: true
+ 87      allowed_cidrs:
+ 88        - 10.0.0.0/8
+ 89        - 172.16.0.0/12
+ 90  dependencies:
+ 91    - name: ledger-api
+ 92      protocol: grpc
+ 93      timeout_ms: 2000
+ 94    - name: fraud-scoring
+ 95      protocol: http
+ 96      timeout_ms: 800
+ 97    - name: notification-bus
+ 98      protocol: amqp
+ 99      timeout_ms: 1500
+100  database:
+101    engine: postgres
+102    host: db-staging.internal
+103    port: 5432
+104    name: payments
+105    pool_size: 10
+106    max_overflow: 5
+107    pool_timeout_seconds: 30
+108    statement_timeout_ms: 15000
+109    read_replica_host: db-staging-ro.internal
+110    ssl: false
+111    ssl_mode: prefer
+112  cache:
+113    provider: redis
+114    host: cache-staging.internal
+115    port: 6379
+116    ttl_seconds: 300
+117  timeouts:
+118    request_seconds: 30
+119    idle_seconds: 75
+120    shutdown_grace_seconds: 45
+```
+
+## 변경 요청 (6곳)
+
+1. `replicas` 를 3에서 6으로 변경
+2. `env` 를 `staging` 에서 `production` 으로 변경
+3. `logging.level` 을 `debug` 에서 `info` 로 변경
+4. `logging.format` 을 `text` 에서 `json` 으로 변경
+5. `autoscale.enabled` 를 `false` 에서 `true` 로 변경
+6. `database.ssl` 을 `false` 에서 `true` 로 변경
+
+그 외의 줄은 변경하지 않는다.
+
+## 출력 형식
+
+수정된 `deploy.yaml` 전체를 아래 경로에 저장한다.
+120줄 전부 쓴다. 생략·축약·`...` 표기를 쓰지 않는다.
+
+저장 경로: `<RUNDIR>/out.yaml`
+
+도구 호출이 거부되면 다른 수단으로 우회하지 말고, 거부되었다는 사실을 보고하고 중단한다.

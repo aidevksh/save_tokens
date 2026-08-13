@@ -8,7 +8,7 @@
     ST_R1_ROOT=/path/to/st-r1 python experiments/scripts/score_r1.py
 
 시행 산출물 경로는 ST_R1_ROOT 로 지정한다. 생략하면 <임시디렉터리>/st-r1.
-라운드 1의 산출물 사본은 experiments/raw/r1-t*/ 에 보존되어 있다.
+라운드 1의 산출물 사본은 experiments/runs/r1/t*/ 에 보존되어 있다.
 """
 
 from __future__ import annotations

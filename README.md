@@ -42,8 +42,9 @@ Claude 모델의 **출력(completion) 토큰**을 줄이는 방법을 Claude 에
 | [research/](research/) | 축별 리서치 — 가설과 근거. 수치는 전부 출처 URL 첨부 |
 | [experiments/round1-plan.md](experiments/round1-plan.md) · [round2-plan.md](experiments/round2-plan.md) | 사전등록 (판정 기준 §6) |
 | [experiments/round1-results.md](experiments/round1-results.md) · [round2-results.md](experiments/round2-results.md) | 판정 보고서 |
-| [experiments/prompts/](experiments/prompts/) | 피험자 프롬프트. 조건 간 공통부가 바이트 동일함을 생성기가 해시로 보장 |
-| [experiments/raw/](experiments/raw/) | 시행 32건 원시 산출물, 측정값, 품질 채점, 사건 기록, 가설 인덱스 |
+| [experiments/prompts/](experiments/prompts/) | 피험자 프롬프트 전문. 조건 간 공통부가 바이트 동일함을 생성기가 해시로 보장 |
+| [experiments/runs/](experiments/runs/) | 시행 32건의 프롬프트와 산출물. 시행별 디렉터리 + 조건 대응표 + 파일 해시 목록 |
+| [experiments/raw/](experiments/raw/) | 측정값, 품질 채점, 사건 기록, 가설 인덱스 |
 | [explainers/](explainers/) | 실험마다 하나씩. 입력 프롬프트 → 실제 산출물 → 절감률을 그림으로 따라가는 해설. 명세 JSON에서 [tools/explainer.py](tools/explainer.py)가 생성하며 HTML은 손으로 고치지 않는다 |
 | [techniques/](techniques/) | 채택된 기법만. 기각·판정불가는 넣지 않는다 |
 | [tools/measure.py](tools/measure.py) | 길이 계측기 (조건 간 언어 구성이 어긋나면 비교를 무효 처리) |

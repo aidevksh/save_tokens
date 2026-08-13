@@ -130,7 +130,7 @@
 
 ### 2.1 실측 분해 — 511자는 어디서 왔나
 
-조건 B 산출물(`experiments/raw/r1-t04/out.diff`, 4시행 바이트 동일)의 구조:
+조건 B 산출물(`experiments/runs/r1/t04/out.diff`, 4시행 바이트 동일)의 구조:
 
 | 구성 | 줄 수 | `chars_nows` | 비중 |
 |---|---|---|---|
@@ -404,12 +404,12 @@ N*  ≈  2m + C + k + 2        (컨텍스트 3줄, YAML 류 짧은 줄 기준)
 
 | 조건 | 시행 | 길이 측정 | 산출물 | 산출물 해시(MD5) |
 |---|---|---|---|---|
-| H1-A | t01, t08, t13, t20 | `raw/r1-H1-A.json` | `raw/r1-t{01,08,13,20}/out.json` | `0a524198b8be177c6b99ef6822874921` (4/4 동일) |
-| H1-B | t02, t07, t14, t19 | `raw/r1-H1-B.json` | `raw/r1-t{02,07,14,19}/out.tsv` | `24eb35536a1db1982075d75a4cfa7ddf` (4/4 동일) |
-| H2-A | t03, t10, t15, t22 | `raw/r1-H2-A.json` | `raw/r1-t{03,10,15,22}/out.yaml` | `3c2e87dc54e93e158945cfe0f1fb234d` (4/4 동일) |
-| H2-B | t04, t09, t16, t21 | `raw/r1-H2-B.json` | `raw/r1-t{04,09,16,21}/out.diff` | `420324c325ca711636de50b058495a9d` (4/4 동일) |
-| H3-A | t05(무효), t12(제외), t17·t24(취소) | 없음 | `raw/r1-t05/`, `raw/r1-t12/` | — |
-| H3-B | t06, t11, t18·t23(취소) | 없음 | `raw/r1-t06/`, `raw/r1-t11/` | — |
+| H1-A | t01, t08, t13, t20 | `raw/r1-H1-A.json` | `runs/r1/t{01,08,13,20}/out.json` | `0a524198b8be177c6b99ef6822874921` (4/4 동일) |
+| H1-B | t02, t07, t14, t19 | `raw/r1-H1-B.json` | `runs/r1/t{02,07,14,19}/out.tsv` | `24eb35536a1db1982075d75a4cfa7ddf` (4/4 동일) |
+| H2-A | t03, t10, t15, t22 | `raw/r1-H2-A.json` | `runs/r1/t{03,10,15,22}/out.yaml` | `3c2e87dc54e93e158945cfe0f1fb234d` (4/4 동일) |
+| H2-B | t04, t09, t16, t21 | `raw/r1-H2-B.json` | `runs/r1/t{04,09,16,21}/out.diff` | `420324c325ca711636de50b058495a9d` (4/4 동일) |
+| H3-A | t05(무효), t12(제외), t17·t24(취소) | 없음 | `runs/r1/t05/`, `runs/r1/t12/` | — |
+| H3-B | t06, t11, t18·t23(취소) | 없음 | `runs/r1/t06/`, `runs/r1/t11/` | — |
 
 품질 채점: `raw/r1-quality.json` (H1 8/8 통과, H2 8/8 통과). 사건 기록: `raw/r1-incidents.md`. 메타데이터: `raw/r1-metadata.txt`.
 
