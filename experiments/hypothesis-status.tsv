@@ -1,0 +1,5 @@
+id	status	round	result	explainer
+A2-H1	채택	1	−64.5% (proxy), 셀 정확도 손실 0	r1-h1-tabular-json-vs-tsv
+A2-H7	조건부 채택	1 → 2	무조건은 거짓. N > N* 에서만 참	r1-h2-diff-vs-full-30line
+A4-H3	채택	2	N=30 +25.6% / N=120 −66.7% (proxy)	r2-breakeven-file-length
+A5-H7	판정 불가	1	하네스 차단에 의한 차등 탈락	r1-h3-suppression-bundle

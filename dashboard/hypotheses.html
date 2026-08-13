@@ -1,0 +1,166 @@
+<title>가설 지도</title>
+<style>
+:root{
+  --paper:#F1F2F5; --surface:#FFFFFF; --raise:#F7F8FB; --sunk:#EDEFF4;
+  --ink:#14171F; --muted:#5F6779; --faint:#8A92A2;
+  --line:#DCE0E8; --hair:#E9ECF2;
+  --accent:#2E5E86; --accent-soft:#E3EDF6;
+  --cut:#0F6B54; --cut-soft:#DCEFE8; --cut-line:#8FCBB8;
+  --bloat:#A34E26; --bloat-soft:#F8E6DA; --bloat-line:#E0A882;
+  --halt:#5D5F6B; --halt-soft:#E8E9ED; --halt-line:#B3B6BF;
+  --shadow:0 1px 2px rgba(20,23,31,.05),0 10px 30px -16px rgba(20,23,31,.18);
+  --mono:"Cascadia Mono","SF Mono",ui-monospace,Consolas,"Liberation Mono",monospace;
+  --sans:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+    --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+    --line:#282E3A; --hair:#222833;
+    --accent:#79ADD9; --accent-soft:#1A2938;
+    --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+    --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+    --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+  --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+  --line:#282E3A; --hair:#222833;
+  --accent:#79ADD9; --accent-soft:#1A2938;
+  --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+  --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+  --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px 100px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+code{font-family:var(--mono);font-size:.9em;background:var(--sunk);padding:1px 5px;
+  border-radius:3px;border:1px solid var(--hair)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+a{color:var(--accent)}
+
+header{padding:70px 0 0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:clamp(30px,5.4vw,48px);line-height:1.08;letter-spacing:-.024em;font-weight:680}
+.sub{margin:20px 0 0;font-size:18px;color:var(--muted);max-width:56ch}
+.sub b{color:var(--ink);font-weight:620}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface);
+  box-shadow:var(--shadow);margin-top:16px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;background:var(--raise);border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+  padding:2.5px 9px;border-radius:20px;white-space:nowrap;border:1px solid}
+.pill.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.pill.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.pill.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.pill.open{background:transparent;color:var(--faint);border-color:var(--line)}
+.pill.api{background:transparent;color:var(--accent);border-color:var(--accent)}
+
+footer{margin-top:80px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--faint);line-height:1.85}
+footer b{color:var(--muted)}
+
+.prog{margin-top:34px;background:var(--surface);border:1px solid var(--line);
+  border-radius:11px;padding:22px 24px 18px;box-shadow:var(--shadow)}
+.prog h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;margin-bottom:14px}
+.bar{display:flex;height:30px;border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.bar div{display:flex;align-items:center;justify-content:center;font-family:var(--mono);
+  font-size:11px;font-weight:600;min-width:2px}
+.bar .s-win{background:var(--cut-soft);color:var(--cut);box-shadow:inset 0 0 0 1px var(--cut)}
+.bar .s-halt{background:var(--halt-soft);color:var(--halt);box-shadow:inset 0 0 0 1px var(--halt)}
+.bar .s-api{background:var(--accent-soft);color:var(--accent)}
+.bar .s-open{background:var(--sunk);color:var(--faint)}
+.plegend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:12.5px;color:var(--muted)}
+.plegend span{display:flex;align-items:center;gap:7px}
+.plegend i{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid}
+.plegend i.win{background:var(--cut-soft);border-color:var(--cut)}
+.plegend i.halt{background:var(--halt-soft);border-color:var(--halt)}
+.plegend i.api{background:var(--accent-soft);border-color:var(--accent)}
+.plegend i.open{background:var(--sunk);border-color:var(--line)}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:44px 0 6px;align-items:center}
+.filters .glabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--faint);margin-right:2px}
+.chip{font-family:var(--mono);font-size:11.5px;padding:5px 11px;border-radius:20px;cursor:pointer;
+  background:var(--surface);color:var(--muted);border:1px solid var(--line);
+  transition:background .13s,color .13s,border-color .13s}
+.chip:hover{border-color:var(--accent);color:var(--ink)}
+/* 눌린 칩의 글자색은 surface 토큰이다 — 밝은 테마에선 흰색, 어두운 테마에선
+   짙은 색으로 자동으로 뒤집혀 테마 분기 없이 대비가 유지된다. */
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.cnt{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-left:auto}
+
+.axis{margin-top:40px}
+.axis>.ah{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);
+  padding-bottom:11px;margin-bottom:16px}
+.axis>.ah .an{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--accent)}
+.axis>.ah h2{font-size:19px;letter-spacing:-.014em;font-weight:640}
+.axis>.ah .sub2{font-size:13.5px;color:var(--faint)}
+.axis>.ah .k{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+
+.cards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  padding:14px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:7px}
+.card.tested{border-left:3px solid var(--cut)}
+.card.halted{border-left:3px solid var(--halt)}
+.card .r1{display:flex;align-items:center;gap:9px}
+.card .hid{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.card .ttl{font-size:14.5px;font-weight:620;line-height:1.3}
+.card .clm{font-size:13px;color:var(--muted);line-height:1.5}
+.card .res{font-family:var(--mono);font-size:12px;color:var(--cut);
+  background:var(--cut-soft);border:1px solid var(--cut-line);border-radius:6px;padding:6px 9px}
+.card.halted .res{color:var(--halt);background:var(--halt-soft);border-color:var(--halt-line)}
+.card .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:1px}
+.card .ev{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.card a{font-family:var(--mono);font-size:11px;text-decoration:none;border-bottom:1px solid currentColor}
+
+.note{margin-top:44px;padding:20px 22px;border-radius:11px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent)}
+.note h4{font-size:15px;margin-bottom:9px;font-weight:645}
+.note p{margin:0;color:var(--muted);font-size:14.5px}
+.note p+p{margin-top:10px}
+.note b{color:var(--ink)}
+</style>
+<div class="wrap">
+<header><p class="kicker">출력 토큰 절감 연구 · 가설 전수</p><h1>가설 지도</h1><p class="sub">축 5개에서 세운 가설 <b>37건</b>. 그중 <b>4건</b>을 실측했고 나머지는 아직 재보지 않았습니다. <b>기각과 판정 불가도 지우지 않고 남깁니다</b> — 채택된 것만 세면 성공률이 부풀어 보입니다.</p></header>
+<div class="prog"><h4>검증 진도 · 4 / 37</h4><div class="bar"><div class="s-win" style="width:8.1%">3</div><div class="s-halt" style="width:2.7%"></div><div class="s-api" style="width:29.7%">11</div><div class="s-open" style="width:59.5%">22</div></div><div class="plegend"><span><i class="win"></i> 채택 3</span><span><i class="halt"></i> 기각·판정 불가 1</span><span><i class="api"></i> API 대기 11</span><span><i class="open"></i> 미검증 22</span></div></div>
+<div class="filters" role="group" aria-label="상태 필터"><span class="glabel">상태</span><button class="chip" data-v="*" aria-pressed="true">전체</button><button class="chip" data-v="tested" aria-pressed="false">실측 완료</button><button class="chip" data-v="미검증" aria-pressed="false">미검증</button><button class="chip" data-v="API 대기" aria-pressed="false">API 대기</button><span class="cnt" id="cnt"></span></div>
+<div class="axis" data-axis="1"><div class="ah"><span class="an">축 1</span><h2>프롬프트 지시문</h2><span class="sub2">무엇을 어떻게 시키는가</span><span class="k">7건</span></div><div class="cards"><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A1-H1</span><span class="pill open">미검증</span></div><div class="ttl">긍정형 간결성 지시</div><div class="clm">간결성 지시가 출력을 줄이고, 긍정형이 부정형보다 감소 폭이 크다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A1-H2</span><span class="pill open">미검증</span></div><div class="ttl">말미 리마인더 배치</div><div class="clm">긴 프롬프트에서 앞부분만보다 앞+말미 리마인더가 더 줄인다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A1-H3</span><span class="pill open">미검증</span></div><div class="ttl">수치 상한 지시</div><div class="clm">수치 상한은 더 크게 줄이지만 요구사항 충족도가 하락한다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A1-H4</span><span class="pill open">미검증</span></div><div class="ttl">서론·자평 억제</div><div class="clm">서론·맺음말·자평·자기수정 서술 억제가 품질 유지하며 줄인다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A1-H5</span><span class="pill open">미검증</span></div><div class="ttl">예시 길이 앵커링</div><div class="clm">출력 길이가 프롬프트에 붙인 예시 답변의 길이를 따라간다</div><div class="meta"><span class="ev">근거 추정</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A1-H6</span><span class="pill open">미검증</span></div><div class="ttl">검증 지시 제거</div><div class="clm">과잉 검증 유발 지시를 제거하면 품질 손실 없이 출력이 준다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A1-H7</span><span class="pill open">미검증</span></div><div class="ttl">프롬프트 마크다운 제거</div><div class="clm">지시문을 평문 산문으로 주면 출력의 마크업 비율과 길이가 준다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div></div></div>
+<div class="axis" data-axis="2"><div class="ah"><span class="an">축 2</span><h2>출력 스키마</h2><span class="sub2">어떤 모양으로 내놓게 하는가</span><span class="k">9건</span></div><div class="cards"><div class="card tested" data-st="채택" data-done="1"><div class="r1"><span class="hid">A2-H1</span><span class="pill win">채택</span></div><div class="ttl">JSON→TSV 전환</div><div class="clm">전체 키 JSON 대신 헤더 TSV로 내면 정확도 유지하며 길이가 준다</div><div class="res">−64.5% (proxy), 셀 정확도 손실 0</div><div class="meta"><span class="ev">근거 문서확인</span><span class="ev">라운드 1</span><a href="../explainers/r1-h1-tabular-json-vs-tsv.html">해설 &rarr;</a></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A2-H2</span><span class="pill open">미검증</span></div><div class="ttl">키 축약</div><div class="clm">1글자 축약 키는 길이를 줄이지만 셀 정확도가 낮아진다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A2-H3</span><span class="pill open">미검증</span></div><div class="ttl">enum 코드화</div><div class="clm">enum 정수 코드화는 길이를 줄이고 정확도 손실은 키 축약보다 작다</div><div class="meta"><span class="ev">근거 측정필요</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A2-H4a</span><span class="pill api">API 대기</span></div><div class="ttl">SO 포장지 제거</div><div class="clm">산문 지시 JSON에는 페이로드 밖 문자가 있고 SO가 이를 0으로 만든다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A2-H4b</span><span class="pill api">API 대기</span></div><div class="ttl">필수 필드 역효과</div><div class="clm">전 필드 required 스키마는 생략됐을 필드를 강제해 페이로드를 늘린다</div><div class="meta"><span class="ev">근거 측정필요</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A2-H5</span><span class="pill open">미검증</span></div><div class="ttl">positional 출력</div><div class="clm">헤더 제거+코드화는 더 줄지만 레코드 정확도가 가장 크게 하락한다</div><div class="meta"><span class="ev">근거 측정필요</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A2-H6</span><span class="pill open">미검증</span></div><div class="ttl">마크다운 표 비용</div><div class="clm">마크다운 표는 같은 정보의 TSV보다 길고 증가분은 레코드 수에 비례</div><div class="meta"><span class="ev">근거 측정필요</span></div></div><div class="card tested" data-st="조건부 채택" data-done="1"><div class="r1"><span class="hid">A2-H7</span><span class="pill win">조건부 채택</span></div><div class="ttl">변경분만 반환</div><div class="clm">변경분 반환이 길이를 줄이나 최종 일치율은 전체 재출력이 가장 높다</div><div class="res">무조건은 거짓. N &gt; N* 에서만 참</div><div class="meta"><span class="ev">근거 측정필요</span><span class="ev">라운드 1 → 2</span><a href="../explainers/r1-h2-diff-vs-full-30line.html">해설 &rarr;</a></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A2-H8</span><span class="pill open">미검증</span></div><div class="ttl">레코드 수 종속성</div><div class="clm">포맷별 절감 폭은 레코드 수 N에 대해 대략 선형으로 커진다</div><div class="meta"><span class="ev">근거 추정</span></div></div></div></div>
+<div class="axis" data-axis="3"><div class="ah"><span class="an">축 3</span><h2>API 파라미터</h2><span class="sub2">요청 설정으로 조절할 수 있는가</span><span class="k">7건</span></div><div class="cards"><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A3-H3-1</span><span class="pill api">API 대기</span></div><div class="ttl">effort는 thinking 레버</div><div class="clm">effort 하향의 감소분은 대부분 thinking이고 응답문은 유의하게 안 준다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A3-H3-2</span><span class="pill api">API 대기</span></div><div class="ttl">thinking 끄기 부작용</div><div class="clm">disabled가 최대 절감이나 누출이 생기고 adaptive+low가 대안이다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A3-H3-3</span><span class="pill api">API 대기</span></div><div class="ttl">display는 비용 레버 아님</div><div class="clm">omitted와 summarized의 output_tokens는 구분되지 않는다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A3-H3-4</span><span class="pill api">API 대기</span></div><div class="ttl">max_tokens는 손실 기법</div><div class="clm">max_tokens 하향의 감소분 상당수가 잘림에서 오므로 절감이 아니다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A3-H3-5</span><span class="pill api">API 대기</span></div><div class="ttl">task_budget 완결률</div><div class="clm">같은 예산에서 task_budget이 max_tokens보다 완결률이 높다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A3-H3-6</span><span class="pill api">API 대기</span></div><div class="ttl">모델별 길이 성향</div><div class="clm">모델별 출력 길이비가 단가비와 방향이 달라 라우팅 손익이 달라진다</div><div class="meta"><span class="ev">근거 측정필요</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A3-H3-7</span><span class="pill api">API 대기</span></div><div class="ttl">프롬프트와 effort 가산</div><div class="clm">응답문 절감은 프롬프트가 우세하며 두 레버는 서로 가산적이다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div></div></div>
+<div class="axis" data-axis="4"><div class="ah"><span class="an">축 4</span><h2>아키텍처</h2><span class="sub2">일을 어떻게 쪼개고 넘기는가</span><span class="k">7건</span></div><div class="cards"><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A4-H1</span><span class="pill open">미검증</span></div><div class="ttl">결정적 라우터</div><div class="clm">라우터를 결정적 코드로 옮기면 O_r=0이 되어 손익분기가 완화된다</div><div class="meta"><span class="ev">근거 추정</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A4-H2</span><span class="pill open">미검증</span></div><div class="ttl">라우팅은 비용 이득뿐</div><div class="clm">라우팅은 토큰 총합 이득이 거의 없고 출력 단가비에서만 이득이다</div><div class="meta"><span class="ev">근거 측정필요</span></div></div><div class="card tested" data-st="채택" data-done="1"><div class="r1"><span class="hid">A4-H3</span><span class="pill win">채택</span></div><div class="ttl">부분 재생성 손익분기</div><div class="clm">손익은 부등식 하나로 결정되고 출력 형식이 H와 q를 함께 움직인다</div><div class="res">N=30 +25.6% / N=120 −66.7% (proxy)</div><div class="meta"><span class="ev">근거 추정</span><span class="ev">라운드 2</span><a href="../explainers/r2-breakeven-file-length.html">해설 &rarr;</a></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A4-H4</span><span class="pill open">미검증</span></div><div class="ttl">멀티에이전트 기본 손해</div><div class="clm">멀티에이전트는 총출력 증가가 기본이고 압축 루프에서만 역전된다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A4-H5</span><span class="pill open">미검증</span></div><div class="ttl">손익 부호는 k 무관</div><div class="clm">오버헤드와 이득이 둘 다 k에 선형이라 에이전트 증설로 만회 불가</div><div class="meta"><span class="ev">근거 추정</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A4-H6</span><span class="pill api">API 대기</span></div><div class="ttl">PTC 이득 분해</div><div class="clm">PTC 이득은 라운드 수 R의 계단 함수이고 서술 제거 기여가 더 크다</div><div class="meta"><span class="ev">근거 측정필요</span></div></div><div class="card" data-st="API 대기" data-done="0"><div class="r1"><span class="hid">A4-H7</span><span class="pill api">API 대기</span></div><div class="ttl">구조화 출력 절단 반전</div><div class="clm">구조화 출력은 단조 개선이나 max_tokens 절단이 나면 반전된다</div><div class="meta"><span class="ev">근거 추정</span></div></div></div></div>
+<div class="axis" data-axis="5"><div class="ah"><span class="an">축 5</span><h2>코딩 에이전트</h2><span class="sub2">코드 작업에 특화된 절감</span><span class="k">7건</span></div><div class="cards"><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A5-H1</span><span class="pill open">미검증</span></div><div class="ttl">나레이션 cadence 지시</div><div class="clm">S3 지시가 사용자 대면 텍스트 총량을 줄이고 완수도는 유지된다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A5-H2</span><span class="pill open">미검증</span></div><div class="ttl">검증 지시 삭제</div><div class="clm">검증 지시 제거가 도구 호출과 텍스트를 줄이고 통과율은 동일하다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A5-H3</span><span class="pill open">미검증</span></div><div class="ttl">마지막 요약 규칙</div><div class="clm">S1+S3 요약 규칙이 최종 응답 문자 수를 줄이고 완수도는 유지된다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A5-H4</span><span class="pill open">미검증</span></div><div class="ttl">범위 제한 지시</div><div class="clm">S5가 코드 줄 수와 미요청 산출물 개수를 줄이고 통과율은 유지된다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A5-H5</span><span class="pill open">미검증</span></div><div class="ttl">주석 밀도 규칙</div><div class="clm">S9가 생성 코드의 주석 밀도를 낮추고 테스트 통과율은 유지된다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card" data-st="미검증" data-done="0"><div class="r1"><span class="hid">A5-H6</span><span class="pill open">미검증</span></div><div class="ttl">서브에이전트 캡</div><div class="clm">S6가 소규모 과제의 서브에이전트 호출을 0으로 만들고 총출력이 준다</div><div class="meta"><span class="ev">근거 문서확인</span></div></div><div class="card halted" data-st="판정 불가" data-done="1"><div class="r1"><span class="hid">A5-H7</span><span class="pill halt">판정 불가</span></div><div class="ttl">억제 지시 하위가산성</div><div class="clm">억제 지시 묶음의 절감은 개별 효과의 산술합보다 작다</div><div class="res">하네스 차단에 의한 차등 탈락</div><div class="meta"><span class="ev">근거 추정</span><span class="ev">라운드 1</span><a href="../explainers/r1-h3-suppression-bundle.html">해설 &rarr;</a></div></div></div></div>
+<div class="note"><h4>이 표를 읽는 법</h4><p><b>미검증이 대부분입니다.</b> 실측한 가설은 전부 <b>출력 형식</b> 레버(축 2·4)이고, 프롬프트 레버(축 1·5)는 아직 하나도 재지 못했습니다. 공식 문서가 절감을 명시한 <b>자기검증 지시 제거</b>가 여기 묶여 있습니다.</p><p><b>API 대기 11건</b>은 이 환경에 <code>ANTHROPIC_API_KEY</code>가 없어 원리적으로 검증할 수 없는 것들입니다. <code>usage.output_tokens</code> 없이는 thinking 토큰과 응답문을 분리할 수 없습니다.</p><p><b>근거</b> 칸의 <code>추정</code>은 문서 근거 없이 세운 가설, <code>문서확인</code>은 공식 문서에 뒷받침이 있는 것, <code>측정필요</code>는 문서가 수치를 주지 않아 재봐야 하는 것입니다.</p></div>
+<footer><b>생성</b> — <code>python tools/hypomap.py</code>. 출처는 experiments/raw/hypothesis-index.tsv(인벤토리)와 experiments/hypothesis-status.tsv(판정). HTML을 손으로 고치지 않습니다.<br><b>수치</b> — 전부 문자 수 (proxy)이며 토큰이 아닙니다. 조건 간 상대 비율로만 읽으십시오.<br><b>해설</b> — 실측된 가설은 explainers/ 에 입력·출력·절감률을 따라가는 문서가 있습니다.</footer></div>
+<script>
+const cards=[...document.querySelectorAll('.card')],cnt=document.getElementById('cnt');
+function apply(v){
+  let n=0;
+  for(const c of cards){
+    const ok = v==='*' || (v==='tested' ? c.dataset.done==='1' : c.dataset.st===v);
+    c.style.display = ok?'':'none'; if(ok) n++;
+  }
+  for(const ax of document.querySelectorAll('.axis'))
+    ax.style.display = [...ax.querySelectorAll('.card')].some(c=>c.style.display!=='none')?'':'none';
+  cnt.textContent = n+' / '+cards.length;
+}
+document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+  apply(b.dataset.v);
+}));
+apply('*');
+</script>

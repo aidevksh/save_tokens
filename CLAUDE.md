@@ -117,6 +117,21 @@ python tools/preserve.py --import <작업루트> --round r3
 - 모든 수치에 `(proxy)` 성격을 명시하고, 토큰 절감률로 읽으면 안 되는 이유를 `trap` 블록에 넣는다
 - 문체는 비전문가 기준. 축약어·내부 용어를 풀어 쓴다
 
+### 가설 지도 (판정이 나올 때마다 갱신)
+
+`dashboard/hypotheses.html` — 가설 전수 현황. 실험 단위가 아니라 **연구 전체**를 보는 문서라 `explainers/` 가 아니라 `dashboard/` 에 둔다.
+
+```
+python tools/hypomap.py
+```
+
+- 출처 두 개: `experiments/raw/hypothesis-index.tsv`(인벤토리, 불변) + `experiments/hypothesis-status.tsv`(판정된 것만)
+- **판정이 나오면 `hypothesis-status.tsv` 에 한 줄 넣고 다시 생성한다.** HTML을 손대지 않는다
+- 인벤토리에 없는 id가 상태 파일에 있으면 생성기가 오류로 막는다 — 인벤토리에 없는 가설을 판정했다는 뜻이므로 조용히 넘기지 않는다
+- 새 가설을 세우면 인벤토리 TSV에 먼저 추가한다
+
+**공통 시각 토큰은 `tools/theme.py` 한 곳에만 있다.** 색·활자를 문서마다 복사하지 않는다 — 라운드가 쌓이면 어긋난다.
+
 ## 응답 규칙
 
 이 저장소의 주제가 토큰 절약이므로 응답 자체도 그 원칙을 따른다.
