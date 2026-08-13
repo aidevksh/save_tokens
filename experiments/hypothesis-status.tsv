@@ -3,3 +3,8 @@ A2-H1	채택	1	−64.5% (proxy), 셀 정확도 손실 0	r1-h1-tabular-json-vs-ts
 A2-H7	조건부 채택	1 → 2	무조건은 거짓. N > N* 에서만 참	r1-h2-diff-vs-full-30line
 A4-H3	채택	2	N=30 +25.6% / N=120 −66.7% (proxy)	r2-breakeven-file-length
 A5-H7	판정 불가	1	하네스 차단에 의한 차등 탈락	r1-h3-suppression-bundle
+A2-H6	채택	3	마크다운 표는 TSV 대비 +38.2%, JSON 대비 −50.9% (proxy)	r3-a2h6-markdown-table-cost
+A1-H1	채택	3	긍정형 −69.3% / 부정형 −62.3%, 긍정형 우위 −18.7% (proxy)	r3-a1h1-polarity-conciseness
+A1-H6	기각	3	제거한 쪽이 +6.7% 길었다. 총출력은 −0.4%로 동일	r3-a1h6-verification-removal
+A5-H2	기각	3	A1-H6과 동일 주장, 같은 실험으로 판정	r3-a1h6-verification-removal
+A1-H7	기각	3	길이 +39.3%, 구조 문자 보정 후 +1357% (둘 다 반대 방향)	r3-a1h7-prompt-markdown-transfer

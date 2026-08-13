@@ -1,0 +1,480 @@
+{
+  "trials": [
+    {
+      "trial": "t01",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 2509,
+      "chars_nows": 1849,
+      "lines": 93,
+      "hangul_ratio": 0.901,
+      "report_chars": 483,
+      "cov": 6,
+      "markup": 0.0271,
+      "markup_chars": 68,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t02",
+      "cond": "N",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 723,
+      "chars_nows": 528,
+      "lines": 21,
+      "hangul_ratio": 0.82,
+      "report_chars": 331,
+      "cov": 6,
+      "markup": 0.0028,
+      "markup_chars": 2,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t03",
+      "cond": "T",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_acc": true
+      },
+      "notes": [],
+      "chars": 744,
+      "chars_nows": 640,
+      "lines": 13,
+      "hangul_ratio": 0.0,
+      "report_chars": 264,
+      "acc": 1.0,
+      "cells": "96/96",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t04",
+      "cond": "P",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 656,
+      "chars_nows": 498,
+      "lines": 21,
+      "hangul_ratio": 0.846,
+      "report_chars": 299,
+      "cov": 6,
+      "markup": 0.0,
+      "markup_chars": 0,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t05",
+      "cond": "V",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 1566,
+      "chars_nows": 1072,
+      "lines": 45,
+      "hangul_ratio": 0.861,
+      "report_chars": 610,
+      "cov": 6,
+      "markup": 0.014,
+      "markup_chars": 22,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t06",
+      "cond": "F",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 3530,
+      "chars_nows": 2596,
+      "lines": 144,
+      "hangul_ratio": 0.892,
+      "report_chars": 668,
+      "cov": 6,
+      "markup": 0.0201,
+      "markup_chars": 71,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t07",
+      "cond": "M",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_acc": true
+      },
+      "notes": [],
+      "chars": 1028,
+      "chars_nows": 790,
+      "lines": 14,
+      "hangul_ratio": 0.0,
+      "report_chars": 90,
+      "acc": 1.0,
+      "cells": "96/96",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t08",
+      "cond": "N",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 1144,
+      "chars_nows": 851,
+      "lines": 46,
+      "hangul_ratio": 0.818,
+      "report_chars": 392,
+      "cov": 6,
+      "markup": 0.0245,
+      "markup_chars": 28,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t09",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 2753,
+      "chars_nows": 1966,
+      "lines": 102,
+      "hangul_ratio": 0.891,
+      "report_chars": 406,
+      "cov": 6,
+      "markup": 0.0145,
+      "markup_chars": 40,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t10",
+      "cond": "P",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 899,
+      "chars_nows": 676,
+      "lines": 21,
+      "hangul_ratio": 0.855,
+      "report_chars": 389,
+      "cov": 6,
+      "markup": 0.02,
+      "markup_chars": 18,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t11",
+      "cond": "F",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 3886,
+      "chars_nows": 3145,
+      "lines": 121,
+      "hangul_ratio": 0.883,
+      "report_chars": 494,
+      "cov": 6,
+      "markup": 0.0162,
+      "markup_chars": 63,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t12",
+      "cond": "V",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 2989,
+      "chars_nows": 2234,
+      "lines": 119,
+      "hangul_ratio": 0.902,
+      "report_chars": 598,
+      "cov": 6,
+      "markup": 0.0371,
+      "markup_chars": 111,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t13",
+      "cond": "T",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_acc": true
+      },
+      "notes": [],
+      "chars": 744,
+      "chars_nows": 640,
+      "lines": 13,
+      "hangul_ratio": 0.0,
+      "report_chars": 337,
+      "acc": 1.0,
+      "cells": "96/96",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t14",
+      "cond": "M",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_acc": true
+      },
+      "notes": [],
+      "chars": 1028,
+      "chars_nows": 790,
+      "lines": 14,
+      "hangul_ratio": 0.0,
+      "report_chars": 287,
+      "acc": 1.0,
+      "cells": "96/96",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t15",
+      "cond": "P",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 676,
+      "chars_nows": 506,
+      "lines": 13,
+      "hangul_ratio": 0.945,
+      "report_chars": 148,
+      "cov": 6,
+      "markup": 0.0,
+      "markup_chars": 0,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t16",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 2013,
+      "chars_nows": 1439,
+      "lines": 57,
+      "hangul_ratio": 0.867,
+      "report_chars": 395,
+      "cov": 6,
+      "markup": 0.0109,
+      "markup_chars": 22,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t17",
+      "cond": "V",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 2263,
+      "chars_nows": 1627,
+      "lines": 86,
+      "hangul_ratio": 0.877,
+      "report_chars": 495,
+      "cov": 6,
+      "markup": 0.0133,
+      "markup_chars": 30,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t18",
+      "cond": "N",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 876,
+      "chars_nows": 662,
+      "lines": 31,
+      "hangul_ratio": 0.846,
+      "report_chars": 315,
+      "cov": 6,
+      "markup": 0.0582,
+      "markup_chars": 51,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t19",
+      "cond": "F",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_lang": true,
+        "Q3_cov": true
+      },
+      "notes": [],
+      "chars": 2715,
+      "chars_nows": 2228,
+      "lines": 91,
+      "hangul_ratio": 0.853,
+      "report_chars": 496,
+      "cov": 6,
+      "markup": 0.0114,
+      "markup_chars": 31,
+      "verdict": "통과"
+    }
+  ],
+  "conditions": {
+    "B": {
+      "n_valid": 3,
+      "n_invalid": 0,
+      "n_blocked": 0,
+      "mean_chars": 2425.0,
+      "sd_chars": 307.9,
+      "zero_var": false,
+      "chars": [
+        2509,
+        2753,
+        2013
+      ],
+      "mean_cov": 6.0,
+      "mean_markup": 0.0175,
+      "mean_report": 428.0,
+      "mean_acc": null
+    },
+    "N": {
+      "n_valid": 3,
+      "n_invalid": 0,
+      "n_blocked": 0,
+      "mean_chars": 914.3,
+      "sd_chars": 174.0,
+      "zero_var": false,
+      "chars": [
+        723,
+        1144,
+        876
+      ],
+      "mean_cov": 6.0,
+      "mean_markup": 0.0285,
+      "mean_report": 346.0,
+      "mean_acc": null
+    },
+    "P": {
+      "n_valid": 3,
+      "n_invalid": 0,
+      "n_blocked": 0,
+      "mean_chars": 743.7,
+      "sd_chars": 110.1,
+      "zero_var": false,
+      "chars": [
+        656,
+        899,
+        676
+      ],
+      "mean_cov": 6.0,
+      "mean_markup": 0.0067,
+      "mean_report": 278.7,
+      "mean_acc": null
+    },
+    "V": {
+      "n_valid": 3,
+      "n_invalid": 0,
+      "n_blocked": 0,
+      "mean_chars": 2272.7,
+      "sd_chars": 581.0,
+      "zero_var": false,
+      "chars": [
+        1566,
+        2989,
+        2263
+      ],
+      "mean_cov": 6.0,
+      "mean_markup": 0.0215,
+      "mean_report": 567.7,
+      "mean_acc": null
+    },
+    "F": {
+      "n_valid": 3,
+      "n_invalid": 0,
+      "n_blocked": 0,
+      "mean_chars": 3377.0,
+      "sd_chars": 490.1,
+      "zero_var": false,
+      "chars": [
+        3530,
+        3886,
+        2715
+      ],
+      "mean_cov": 6.0,
+      "mean_markup": 0.0159,
+      "mean_report": 552.7,
+      "mean_acc": null
+    },
+    "T": {
+      "n_valid": 2,
+      "n_invalid": 0,
+      "n_blocked": 0,
+      "mean_chars": 744.0,
+      "sd_chars": 0.0,
+      "zero_var": true,
+      "chars": [
+        744,
+        744
+      ],
+      "mean_cov": null,
+      "mean_markup": null,
+      "mean_report": 300.5,
+      "mean_acc": 1.0
+    },
+    "M": {
+      "n_valid": 2,
+      "n_invalid": 0,
+      "n_blocked": 0,
+      "mean_chars": 1028.0,
+      "sd_chars": 0.0,
+      "zero_var": true,
+      "chars": [
+        1028,
+        1028
+      ],
+      "mean_cov": null,
+      "mean_markup": null,
+      "mean_report": 188.5,
+      "mean_acc": 1.0
+    }
+  }
+}

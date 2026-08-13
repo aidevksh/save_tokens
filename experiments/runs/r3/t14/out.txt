@@ -1,0 +1,14 @@
+| ticket_id | date | tier | product | category | priority | resolved | response_hours |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| TK-1001 | 2026-07-02 | enterprise | api | outage | urgent | true | 0.5 |
+| TK-1002 | 2026-07-02 | free | mobile_app | bug | low | false | 26 |
+| TK-1003 | 2026-07-03 | pro | billing | refund | high | true | 3.5 |
+| TK-1004 | 2026-07-04 | pro | web_console | question | low | true | 12 |
+| TK-1005 | 2026-07-05 | enterprise | web_console | bug | high | false | 1.5 |
+| TK-1006 | 2026-07-06 | free | api | question | medium | true | 48 |
+| TK-1007 | 2026-07-07 | enterprise | billing | bug | urgent | true | 0.25 |
+| TK-1008 | 2026-07-08 | pro | mobile_app | feature_request | low | false | 30 |
+| TK-1009 | 2026-07-09 | free | billing | refund | medium | false | 20 |
+| TK-1010 | 2026-07-10 | enterprise | mobile_app | outage | urgent | true | 0.75 |
+| TK-1011 | 2026-07-11 | pro | api | bug | medium | true | 6 |
+| TK-1012 | 2026-07-12 | free | web_console | question | low | true | 15 |
