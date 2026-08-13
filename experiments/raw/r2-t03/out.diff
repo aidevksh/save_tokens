@@ -1,0 +1,27 @@
+--- a/deploy.yaml
++++ b/deploy.yaml
+@@ -1,6 +1,6 @@
+ service: payments-api
+-replicas: 3
++replicas: 6
+ image: registry.example.com/payments-api:1.4.2
+ port: 8080
+-env: staging
++env: production
+ resources:
+@@ -15,7 +15,7 @@ healthcheck:
+ logging:
+-  level: debug
+-  format: text
++  level: info
++  format: json
+   retention_days: 7
+ autoscale:
+-  enabled: false
++  enabled: true
+   min_replicas: 1
+@@ -27,3 +27,3 @@ database:
+   pool_size: 10
+-  ssl: false
++  ssl: true
+ timeouts:

@@ -8,22 +8,42 @@ Claude 모델의 **출력(completion) 토큰**을 줄이는 방법을 Claude 에
 
 | 가설 | 판정 | 실측 (proxy) |
 |---|---|---|
-| 표 형태 페이로드를 JSON → 헤더 TSV | **채택** | 산출물 문자 수 **−65.9%**, 셀 정확도 손실 0 |
+| 표 형태 페이로드를 JSON → 헤더 TSV | **채택** | **−65.9%** (공백 제외 문자 기준 / 원시 문자 −64.5%), 셀 정확도 손실 0 |
 | 파일 수정을 전체 재출력 → unified diff | **기각** | **+22.3%** — diff가 더 길었다 |
 | 억제 프롬프트 묶음 (코딩 에이전트) | 판정 불가 | 하네스 차단에 의한 차등 탈락 |
 
-**"변경분만 출력"이 항상 이득은 아니다.** 30줄 YAML의 6줄 수정에서 unified diff는 원본보다 22% 길었다. 적용 실패는 0건이었으니 품질이 아니라 오버헤드에서 졌다 — 컨텍스트 3줄 × hunk 3개가 원본 대부분을 다시 실어 나른다. 컨텍스트 3줄 기준 손익분기는 약 40줄이다.
+**"변경분만 출력"이 항상 이득은 아니다.** 30줄 YAML의 6줄 수정에서 unified diff는 원본보다 22% 길었다. 적용 실패는 0건이었으니 품질이 아니라 오버헤드에서 졌다 — 컨텍스트 3줄 × hunk 3개가 원본 대부분을 다시 실어 나른다.
 
 자세한 판정 근거: [experiments/round1-results.md](experiments/round1-results.md)
+
+## 라운드 2 결과 — 손익분기는 실재한다
+
+변경 형상을 고정(6곳 수정, 3덩어리)하고 **파일 길이만** 바꿨다. 12시행 전부 품질 게이트 통과, 무효 0건, `git apply -p1` 성공 12/12.
+
+| 파일 길이 | 전체 재출력 | diff (컨텍스트 3줄) | diff (컨텍스트 1줄) |
+|---|---|---|---|
+| **30줄** | 510자 | 641자 **+25.6%** | 476자 **−6.8%** |
+| **120줄** | 2,469자 | 823자 **−66.7%** | 533자 **−78.4%** |
+
+| 가설 | 판정 |
+|---|---|
+| 파일 길이가 diff의 승패를 뒤집는다 | **채택** — 부호 역전 확인. 라운드 1 기각은 "diff가 나쁘다"가 아니라 "N=30에서 졌다"였다 |
+| 컨텍스트 축소가 손익분기를 아래로 옮긴다 | **채택** (근거 약함) — `N*`가 38~40줄에서 26~28줄로. 단 −6.8%는 2줄 마진의 칼날 위 |
+| 오버헤드를 줄이면 적용 실패가 오른다 (H/q 결합) | **판정 불가** — 사전등록 §6 P5의 채택·기각 조건이 이 데이터에서 동시에 참이었다. 기준 결함이므로 결과를 보고 읽기를 고르지 않았다 |
+
+라운드 2가 라운드 1을 두 곳 정정했다: H/q 결합은 연속 트레이드오프가 아니라 **컨텍스트 0줄에서만 나타나는 문턱**이고, 결정성은 과제 유형이 아니라 **출력 명세가 자유도를 남겼는가**의 속성이다.
+
+자세한 판정 근거: [experiments/round2-results.md](experiments/round2-results.md)
 
 ## 구조
 
 | 경로 | 내용 |
 |---|---|
 | [research/](research/) | 축별 리서치 — 가설과 근거. 수치는 전부 출처 URL 첨부 |
-| [experiments/round1-plan.md](experiments/round1-plan.md) | 라운드 1 사전등록 (판정 기준 §6) |
-| [experiments/round1-results.md](experiments/round1-results.md) | 판정 보고서 |
-| [experiments/raw/](experiments/raw/) | 시행 20건 원시 산출물, 측정값, 품질 채점, 사건 기록 |
+| [experiments/round1-plan.md](experiments/round1-plan.md) · [round2-plan.md](experiments/round2-plan.md) | 사전등록 (판정 기준 §6) |
+| [experiments/round1-results.md](experiments/round1-results.md) · [round2-results.md](experiments/round2-results.md) | 판정 보고서 |
+| [experiments/prompts/](experiments/prompts/) | 피험자 프롬프트. 조건 간 공통부가 바이트 동일함을 생성기가 해시로 보장 |
+| [experiments/raw/](experiments/raw/) | 시행 32건 원시 산출물, 측정값, 품질 채점, 사건 기록, 가설 인덱스 |
 | [techniques/](techniques/) | 채택된 기법만. 기각·판정불가는 넣지 않는다 |
 | [tools/measure.py](tools/measure.py) | 길이 계측기 (조건 간 언어 구성이 어긋나면 비교를 무효 처리) |
 | [CLAUDE.md](CLAUDE.md) | 에이전트 운영 규칙 + 확정된 사실 |

@@ -1,0 +1,302 @@
+{
+  "trials": [
+    {
+      "trial": "t01",
+      "cond": "A30",
+      "N": 30,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 510,
+      "bytes": 510,
+      "lines": 30,
+      "k_obs": null,
+      "ctx_obs": null,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t02",
+      "cond": "B30",
+      "N": 30,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 644,
+      "bytes": 644,
+      "lines": 36,
+      "k_obs": 3,
+      "ctx_obs": 3,
+      "apply_args": "-p1",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t03",
+      "cond": "C30",
+      "N": 30,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 478,
+      "bytes": 478,
+      "lines": 27,
+      "k_obs": 3,
+      "ctx_obs": 1,
+      "apply_args": "-p1",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t04",
+      "cond": "A120",
+      "N": 120,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 2469,
+      "bytes": 2469,
+      "lines": 120,
+      "k_obs": null,
+      "ctx_obs": null,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t05",
+      "cond": "B120",
+      "N": 120,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 823,
+      "bytes": 823,
+      "lines": 41,
+      "k_obs": 3,
+      "ctx_obs": 3,
+      "apply_args": "-p1",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t06",
+      "cond": "C120",
+      "N": 120,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 533,
+      "bytes": 533,
+      "lines": 29,
+      "k_obs": 5,
+      "ctx_obs": 1,
+      "apply_args": "-p1",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t07",
+      "cond": "C120",
+      "N": 120,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 533,
+      "bytes": 533,
+      "lines": 29,
+      "k_obs": 5,
+      "ctx_obs": 1,
+      "apply_args": "-p1",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t08",
+      "cond": "A30",
+      "N": 30,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 510,
+      "bytes": 510,
+      "lines": 30,
+      "k_obs": null,
+      "ctx_obs": null,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t09",
+      "cond": "B120",
+      "N": 120,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 823,
+      "bytes": 823,
+      "lines": 41,
+      "k_obs": 3,
+      "ctx_obs": 3,
+      "apply_args": "-p1",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t10",
+      "cond": "C30",
+      "N": 30,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 473,
+      "bytes": 473,
+      "lines": 28,
+      "k_obs": 4,
+      "ctx_obs": 1,
+      "apply_args": "-p1",
+      "verdict": "통과"
+    },
+    {
+      "trial": "t11",
+      "cond": "A120",
+      "N": 120,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 2469,
+      "bytes": 2469,
+      "lines": 120,
+      "k_obs": null,
+      "ctx_obs": null,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t12",
+      "cond": "B30",
+      "N": 30,
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "chars": 637,
+      "bytes": 637,
+      "lines": 36,
+      "k_obs": 2,
+      "ctx_obs": 3,
+      "apply_args": "-p1",
+      "verdict": "통과"
+    }
+  ],
+  "conditions": {
+    "A120": {
+      "n_valid": 2,
+      "mean_chars": 2469.0,
+      "baseline": 2469,
+      "H": 0.0,
+      "q_fail": 0,
+      "zero_var": true
+    },
+    "A30": {
+      "n_valid": 2,
+      "mean_chars": 510.0,
+      "baseline": 510,
+      "H": 0.0,
+      "q_fail": 0,
+      "zero_var": true
+    },
+    "B120": {
+      "n_valid": 2,
+      "mean_chars": 823.0,
+      "baseline": 853,
+      "H": -0.0352,
+      "q_fail": 0,
+      "zero_var": true
+    },
+    "B30": {
+      "n_valid": 2,
+      "mean_chars": 640.5,
+      "baseline": 667,
+      "H": -0.0397,
+      "q_fail": 0,
+      "zero_var": false
+    },
+    "C120": {
+      "n_valid": 2,
+      "mean_chars": 533.0,
+      "baseline": 585,
+      "H": -0.0889,
+      "q_fail": 0,
+      "zero_var": true
+    },
+    "C30": {
+      "n_valid": 2,
+      "mean_chars": 475.5,
+      "baseline": 478,
+      "H": -0.0052,
+      "q_fail": 0,
+      "zero_var": false
+    }
+  }
+}
