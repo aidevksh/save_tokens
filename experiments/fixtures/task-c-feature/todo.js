@@ -1,0 +1,41 @@
+'use strict';
+
+// Minimal in-memory todo store. Backing store is a plain array of items:
+//   { id: number, title: string, done: boolean, tags: string[] }
+
+function createStore() {
+  return { items: [], nextId: 1 };
+}
+
+function add(store, title, tags = []) {
+  if (typeof title !== 'string' || title.trim() === '') {
+    throw new Error('title is required');
+  }
+  const item = { id: store.nextId, title: title.trim(), done: false, tags };
+  store.items.push(item);
+  store.nextId += 1;
+  return item;
+}
+
+function get(store, id) {
+  return store.items.find((it) => it.id === id) || null;
+}
+
+function list(store) {
+  return store.items.slice();
+}
+
+function remove(store, id) {
+  const idx = store.items.findIndex((it) => it.id === id);
+  if (idx === -1) return false;
+  store.items.splice(idx, 1);
+  return true;
+}
+
+function render(item) {
+  const box = item.done ? '[x]' : '[ ]';
+  const tags = item.tags.length ? ' ' + item.tags.map((t) => '#' + t).join(' ') : '';
+  return `${box} ${item.id}. ${item.title}${tags}`;
+}
+
+module.exports = { createStore, add, get, list, remove, render };

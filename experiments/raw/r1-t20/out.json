@@ -1,0 +1,14 @@
+[
+  {"ticket_id": "TK-1001", "date": "2026-07-02", "tier": "enterprise", "product": "api", "category": "outage", "priority": "urgent", "resolved": true, "response_hours": 0.5},
+  {"ticket_id": "TK-1002", "date": "2026-07-02", "tier": "free", "product": "mobile_app", "category": "bug", "priority": "low", "resolved": false, "response_hours": 26},
+  {"ticket_id": "TK-1003", "date": "2026-07-03", "tier": "pro", "product": "billing", "category": "refund", "priority": "high", "resolved": true, "response_hours": 3.5},
+  {"ticket_id": "TK-1004", "date": "2026-07-04", "tier": "pro", "product": "web_console", "category": "question", "priority": "low", "resolved": true, "response_hours": 12},
+  {"ticket_id": "TK-1005", "date": "2026-07-05", "tier": "enterprise", "product": "web_console", "category": "bug", "priority": "high", "resolved": false, "response_hours": 1.5},
+  {"ticket_id": "TK-1006", "date": "2026-07-06", "tier": "free", "product": "api", "category": "question", "priority": "medium", "resolved": true, "response_hours": 48},
+  {"ticket_id": "TK-1007", "date": "2026-07-07", "tier": "enterprise", "product": "billing", "category": "bug", "priority": "urgent", "resolved": true, "response_hours": 0.25},
+  {"ticket_id": "TK-1008", "date": "2026-07-08", "tier": "pro", "product": "mobile_app", "category": "feature_request", "priority": "low", "resolved": false, "response_hours": 30},
+  {"ticket_id": "TK-1009", "date": "2026-07-09", "tier": "free", "product": "billing", "category": "refund", "priority": "medium", "resolved": false, "response_hours": 20},
+  {"ticket_id": "TK-1010", "date": "2026-07-10", "tier": "enterprise", "product": "mobile_app", "category": "outage", "priority": "urgent", "resolved": true, "response_hours": 0.75},
+  {"ticket_id": "TK-1011", "date": "2026-07-11", "tier": "pro", "product": "api", "category": "bug", "priority": "medium", "resolved": true, "response_hours": 6},
+  {"ticket_id": "TK-1012", "date": "2026-07-12", "tier": "free", "product": "web_console", "category": "question", "priority": "low", "resolved": true, "response_hours": 15}
+]

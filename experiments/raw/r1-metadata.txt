@@ -1,0 +1,5 @@
+model=opus (Agent tool model:"opus")
+subagent_type=general-purpose
+run_date=2026-08-13
+CLAUDE.md_sha256=cfaf94a02be69edd9b3fecddd6c110239564865ed2c375ee6e3ade61d9294165
+trials_run=t01-t16,t19-t22 (H3 t17/t18/t23/t24 cancelled)

@@ -1,0 +1,258 @@
+{
+  "H1-A": [
+    {
+      "trial": "t01",
+      "cond": "A",
+      "gates": {
+        "Q1_exists": true,
+        "Q4_fields": true,
+        "Q2_parse": true,
+        "Q3_count": true,
+        "Q5_cell>=0.99": true
+      },
+      "notes": [],
+      "cell_accuracy": 1.0,
+      "record_accuracy": 12,
+      "Q7_extra_text": false,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t08",
+      "cond": "A",
+      "gates": {
+        "Q1_exists": true,
+        "Q4_fields": true,
+        "Q2_parse": true,
+        "Q3_count": true,
+        "Q5_cell>=0.99": true
+      },
+      "notes": [],
+      "cell_accuracy": 1.0,
+      "record_accuracy": 12,
+      "Q7_extra_text": false,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t13",
+      "cond": "A",
+      "gates": {
+        "Q1_exists": true,
+        "Q4_fields": true,
+        "Q2_parse": true,
+        "Q3_count": true,
+        "Q5_cell>=0.99": true
+      },
+      "notes": [],
+      "cell_accuracy": 1.0,
+      "record_accuracy": 12,
+      "Q7_extra_text": false,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t20",
+      "cond": "A",
+      "gates": {
+        "Q1_exists": true,
+        "Q4_fields": true,
+        "Q2_parse": true,
+        "Q3_count": true,
+        "Q5_cell>=0.99": true
+      },
+      "notes": [],
+      "cell_accuracy": 1.0,
+      "record_accuracy": 12,
+      "Q7_extra_text": false,
+      "verdict": "통과"
+    }
+  ],
+  "H1-B": [
+    {
+      "trial": "t02",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q4_fields": true,
+        "Q2_parse": true,
+        "Q3_count": true,
+        "Q5_cell>=0.99": true
+      },
+      "notes": [],
+      "cell_accuracy": 1.0,
+      "record_accuracy": 12,
+      "Q7_extra_text": false,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t07",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q4_fields": true,
+        "Q2_parse": true,
+        "Q3_count": true,
+        "Q5_cell>=0.99": true
+      },
+      "notes": [],
+      "cell_accuracy": 1.0,
+      "record_accuracy": 12,
+      "Q7_extra_text": false,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t14",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q4_fields": true,
+        "Q2_parse": true,
+        "Q3_count": true,
+        "Q5_cell>=0.99": true
+      },
+      "notes": [],
+      "cell_accuracy": 1.0,
+      "record_accuracy": 12,
+      "Q7_extra_text": false,
+      "verdict": "통과"
+    },
+    {
+      "trial": "t19",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q4_fields": true,
+        "Q2_parse": true,
+        "Q3_count": true,
+        "Q5_cell>=0.99": true
+      },
+      "notes": [],
+      "cell_accuracy": 1.0,
+      "record_accuracy": 12,
+      "Q7_extra_text": false,
+      "verdict": "통과"
+    }
+  ],
+  "H2-A": [
+    {
+      "trial": "t03",
+      "cond": "A",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested_6of6": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "verdict": "통과"
+    },
+    {
+      "trial": "t10",
+      "cond": "A",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested_6of6": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "verdict": "통과"
+    },
+    {
+      "trial": "t15",
+      "cond": "A",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested_6of6": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "verdict": "통과"
+    },
+    {
+      "trial": "t22",
+      "cond": "A",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested_6of6": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [],
+      "verdict": "통과"
+    }
+  ],
+  "H2-B": [
+    {
+      "trial": "t04",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested_6of6": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [
+        "적용 성공: git apply -p1"
+      ],
+      "verdict": "통과"
+    },
+    {
+      "trial": "t09",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested_6of6": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [
+        "적용 성공: git apply -p1"
+      ],
+      "verdict": "통과"
+    },
+    {
+      "trial": "t16",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested_6of6": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [
+        "적용 성공: git apply -p1"
+      ],
+      "verdict": "통과"
+    },
+    {
+      "trial": "t21",
+      "cond": "B",
+      "gates": {
+        "Q1_exists": true,
+        "Q2_format": true,
+        "Q3_apply": true,
+        "Q4_exact": true,
+        "Q5_requested_6of6": true,
+        "Q6_no_collateral": true
+      },
+      "notes": [
+        "적용 성공: git apply -p1"
+      ],
+      "verdict": "통과"
+    }
+  ]
+}
