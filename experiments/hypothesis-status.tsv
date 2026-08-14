@@ -8,3 +8,7 @@ A1-H1	채택	3	긍정형 −69.3% / 부정형 −62.3%, 긍정형 우위 −18.7
 A1-H6	기각	3	제거한 쪽이 +6.7% 길었다. 총출력은 −0.4%로 동일	r3-a1h6-verification-removal
 A5-H2	기각	3	A1-H6과 동일 주장, 같은 실험으로 판정	r3-a1h6-verification-removal
 A1-H7	기각	3	길이 +39.3%, 구조 문자 보정 후 +1357% (둘 다 반대 방향)	r3-a1h7-prompt-markdown-transfer
+A6-H1	채택	4	지시 3단 누적 −88.2%, 한계 절감 1681→292→165자, 품질 만점 유지	r4-a6h1-instruction-ladder
+A6-H2	기각	4	보고문 −6.2%지만 총합 −2.0%로 동률. 재진술 지표도 안 움직임	r4-a6h2-input-restatement
+A6-H4	채택	4	고반복 −37.8%, 정확도 1.0. 예측한 저반복 역전은 없었다	r4-a6h4-row-repeat-folding
+A6-H6	채택	4	−60.5%, 정확도 1.0, R*=1 (총합 회계에서도 1회에 회수)	r4-a6h6-prompt-codebook

@@ -1,0 +1,1 @@
+out.txt에 헤더 1줄 + 자산 12줄, 탭 구분 TSV로 저장했습니다. 열 순서는 asset_id, region, env, role, os, tier, cpu, status이며 cpu는 숫자만 기록했습니다. 데이터 외 설명·주석은 없습니다.

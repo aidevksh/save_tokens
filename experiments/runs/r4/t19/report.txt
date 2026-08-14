@@ -1,0 +1,6 @@
+12건의 자산을 지정된 열 순서(asset_id, region, env, role, os, tier, cpu, status)로 TSV 저장 완료했습니다.
+
+- 파일: `<RUNDIR>/out.txt`
+- 구성: 헤더 1줄 + 데이터 12줄, 탭 1개 구분
+- cpu는 "vCPU N개"에서 숫자만 기록했습니다.
+- 도구 거부 없이 정상 처리되었습니다.

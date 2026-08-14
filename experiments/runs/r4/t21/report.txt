@@ -1,0 +1,7 @@
+out.txt 저장 완료. 헤더 1줄 + 데이터 12줄, 탭 구분.
+
+- asset_id 열은 매 줄 값이 달라 `^` 없음
+- 첫 데이터 줄(AS-2001)은 규칙대로 `^` 미사용
+- 변경 지점: region은 2002(apne2)·2007(usea1)·2010(euwe1), env는 2004(stage)·2012(dev), role은 2006(api)·2009(batch), os는 2003(ubuntu24)·2011(debian12), tier는 2005(medium)·2008(large), cpu는 2002(4)·2010(8), status는 2004(drained)·2007(halted)에서만 값을 씀
+
+도구 호출 거부 없음.

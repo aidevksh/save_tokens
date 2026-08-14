@@ -1,0 +1,6 @@
+TSV 파일을 생성했습니다.
+
+- 경로: `<RUNDIR>/out.txt`
+- 구성: 헤더 1줄 + 자산 12줄, 총 13줄
+- 열 순서: asset_id, region, env, role, os, tier, cpu, status (탭 1개 구분)
+- cpu는 숫자만 기재(예: `2`, `4`, `8`), 설명·주석 없음

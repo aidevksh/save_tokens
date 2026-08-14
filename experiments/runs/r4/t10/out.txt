@@ -1,0 +1,13 @@
+asset_id	region	env	role	os	tier	cpu	status
+AS-2001	apne1	prod	web	ubuntu22	small	2	active
+AS-2002	apne2	^	^	^	^	4	^
+AS-2003	^	^	^	ubuntu24	^	^	^
+AS-2004	^	stage	^	^	^	^	drained
+AS-2005	^	^	^	^	medium	^	^
+AS-2006	^	^	api	^	^	^	^
+AS-2007	usea1	^	^	^	^	^	halted
+AS-2008	^	^	^	^	large	^	^
+AS-2009	^	^	batch	^	^	^	^
+AS-2010	euwe1	^	^	^	^	8	^
+AS-2011	^	^	^	debian12	^	^	^
+AS-2012	^	dev	^	^	^	^	^

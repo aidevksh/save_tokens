@@ -1,0 +1,1 @@
+out.txt 생성 완료. 헤더 1줄 + 자산 12줄, 탭 구분, 지정된 8개 열 순서(asset_id, region, env, role, os, tier, cpu, status)로 저장했습니다. 데이터 외 설명이나 주석은 넣지 않았습니다.

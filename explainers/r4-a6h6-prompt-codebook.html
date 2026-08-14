@@ -1,0 +1,218 @@
+<title>329자 내고 378자 벌기</title>
+<style>
+:root{
+  --paper:#F1F2F5; --surface:#FFFFFF; --raise:#F7F8FB; --sunk:#EDEFF4;
+  --ink:#14171F; --muted:#5F6779; --faint:#8A92A2;
+  --line:#DCE0E8; --hair:#E9ECF2;
+  --accent:#2E5E86; --accent-soft:#E3EDF6;
+  --cut:#0F6B54; --cut-soft:#DCEFE8; --cut-line:#8FCBB8;
+  --bloat:#A34E26; --bloat-soft:#F8E6DA; --bloat-line:#E0A882;
+  --halt:#5D5F6B; --halt-soft:#E8E9ED; --halt-line:#B3B6BF;
+  --shadow:0 1px 2px rgba(20,23,31,.05),0 10px 30px -16px rgba(20,23,31,.18);
+  --mono:"Cascadia Mono","SF Mono",ui-monospace,Consolas,"Liberation Mono",monospace;
+  --sans:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+    --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+    --line:#282E3A; --hair:#222833;
+    --accent:#79ADD9; --accent-soft:#1A2938;
+    --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+    --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+    --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+  --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+  --line:#282E3A; --hair:#222833;
+  --accent:#79ADD9; --accent-soft:#1A2938;
+  --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+  --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+  --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px 100px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+code{font-family:var(--mono);font-size:.9em;background:var(--sunk);padding:1px 5px;
+  border-radius:3px;border:1px solid var(--hair)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+a{color:var(--accent)}
+
+header{padding:70px 0 0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:clamp(30px,5.4vw,48px);line-height:1.08;letter-spacing:-.024em;font-weight:680}
+.sub{margin:20px 0 0;font-size:18px;color:var(--muted);max-width:56ch}
+.sub b{color:var(--ink);font-weight:620}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface);
+  box-shadow:var(--shadow);margin-top:16px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;background:var(--raise);border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+  padding:2.5px 9px;border-radius:20px;white-space:nowrap;border:1px solid}
+.pill.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.pill.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.pill.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.pill.open{background:transparent;color:var(--faint);border-color:var(--line)}
+.pill.api{background:transparent;color:var(--accent);border-color:var(--accent)}
+
+footer{margin-top:80px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--faint);line-height:1.85}
+footer b{color:var(--muted)}
+
+.vb{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 10px;border-radius:20px;
+  border:1px solid;text-transform:none}
+.vb.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.vb.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.vb.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.task{margin:26px 0 0;padding:14px 18px;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;font-size:14.5px;color:var(--muted)}
+.task b{color:var(--ink)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0 0;padding:14px 18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;font-size:13.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;border:1px solid;display:inline-block}
+.sw.c{background:var(--cut-soft);border-color:var(--cut)}
+.sw.b{background:var(--bloat-soft);border-color:var(--bloat)}
+.sw.n{background:var(--accent-soft);border-color:var(--accent)}
+
+.step{margin-top:44px}
+.step>.lab{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.step>.lab .b{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 9px;
+  border-radius:5px;background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
+.step>.lab h3{font-size:16px;font-weight:620}
+.step>.note{margin:0 0 13px;color:var(--muted);font-size:14.5px}
+
+.box{background:var(--surface);border:1px solid var(--line);border-radius:11px;
+  box-shadow:var(--shadow);overflow:hidden}
+.cap{padding:10px 15px;background:var(--raise);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cap .sz{margin-left:auto;color:var(--ink);font-weight:600}
+pre{margin:0;padding:15px;font-family:var(--mono);font-size:12.3px;line-height:1.62;
+  overflow-x:auto;white-space:pre;color:var(--ink)}
+pre .g{color:var(--faint)}
+pre .del{color:var(--bloat)}
+pre .add{color:var(--cut)}
+pre .hh{color:var(--accent)}
+pre .tab{color:var(--faint);opacity:.55}
+.trunc{padding:9px 15px;border-top:1px dashed var(--line);background:var(--sunk);
+  font-size:12.5px;color:var(--faint)}
+.trunc b{color:var(--muted)}
+
+.fork{display:flex;flex-direction:column;align-items:center;margin:26px 0 6px}
+.fork .stem{width:2px;height:26px;background:var(--line)}
+.fork .txt{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--faint);
+  padding:5px 12px;border:1px dashed var(--line);border-radius:20px;background:var(--paper)}
+
+.pair{display:grid;gap:16px;grid-template-columns:repeat(var(--cols),1fr)}
+@media (max-width:820px){.pair{grid-template-columns:1fr}}
+.branch{border-radius:11px;border:1px solid var(--line);background:var(--surface);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.branch.win{border-color:var(--cut-line)}
+.branch.lose{border-color:var(--bloat-line)}
+.branch.halt{border-color:var(--halt-line)}
+.branch>.top{padding:12px 15px;border-bottom:1px solid var(--line)}
+.branch.win>.top{background:var(--cut-soft)}
+.branch.lose>.top{background:var(--bloat-soft)}
+.branch.halt>.top{background:var(--halt-soft)}
+.branch.base>.top{background:var(--accent-soft)}
+.branch>.top .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.branch>.top .what{font-size:14.5px;font-weight:620;margin-top:2px}
+.branch .ptxt{padding:13px 15px;font-size:13.5px;color:var(--muted);
+  border-bottom:1px dashed var(--hair);background:var(--raise)}
+.branch pre{flex:1}
+
+.result{margin-top:24px;background:var(--surface);border:1px solid var(--line);
+  border-radius:11px;padding:22px 22px 16px;box-shadow:var(--shadow)}
+.result>h4{font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;margin-bottom:18px}
+.rrow{display:grid;grid-template-columns:168px 1fr;gap:14px;align-items:center;margin-bottom:12px}
+.rrow .rl{font-size:13.5px;color:var(--muted);text-align:right}
+.rtrack{display:flex;align-items:center;min-height:32px}
+.rfill{height:28px;border-radius:3px;border:1px solid;min-width:3px;
+  animation:grow .75s cubic-bezier(.2,.75,.3,1) both;transform-origin:left}
+.rfill.n{background:var(--accent-soft);border-color:var(--accent)}
+.rfill.c{background:var(--cut-soft);border-color:var(--cut)}
+.rfill.b{background:var(--bloat-soft);border-color:var(--bloat)}
+@keyframes grow{from{transform:scaleX(.02)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.rfill{animation:none}}
+.rv{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;
+  margin-left:11px;white-space:nowrap;color:var(--muted)}
+.rv b{color:var(--ink)}
+.rv .d{font-weight:700;margin-left:9px;font-size:14px}
+.rv .d.c{color:var(--cut)} .rv .d.b{color:var(--bloat)}
+.foot{margin-top:12px;font-size:12.5px;color:var(--faint)}
+.foot b{color:var(--ink)}
+
+.blk{margin-top:26px;padding:20px 22px;border-radius:11px;border:1px solid var(--line);
+  border-left-width:3px;background:var(--surface)}
+.blk.why{border-left-color:var(--accent)}
+.blk.trap{background:var(--bloat-soft);border-color:var(--bloat);border-left-color:var(--bloat)}
+.blk.halt{background:var(--halt-soft);border-color:var(--halt-line);border-left-color:var(--halt)}
+.blk h4{font-size:15px;margin-bottom:9px;font-weight:650}
+.blk.trap h4{color:var(--bloat)}
+.blk.halt h4{color:var(--halt)}
+.blk p{margin:0;color:var(--muted);font-size:14.5px}
+.blk.trap p,.blk.halt p{color:var(--ink)}
+.blk p+p{margin-top:10px}
+.blk b{color:var(--ink)}
+
+.shead{border-bottom:2px solid var(--ink);padding-bottom:14px;margin:80px 0 0}
+.shead .n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--accent)}
+.shead h2{font-size:26px;letter-spacing:-.018em;margin-top:6px;font-weight:660}
+</style>
+<div class="wrap">
+<header><p class="kicker">라운드 4 · 축 6 정보이론<span class="vb win">판정 · 채택</span></p><h1>329자 내고 378자 벌기</h1><p class="sub">열 이름을 한 글자로, 값들을 정수로 바꾸는 <b>코드표를 프롬프트에 적어주고</b> 그 표기로 받았습니다. 산출물 <b>−60.5%</b>, 96칸 정확도 <b>1.0</b>. 코드표가 프롬프트를 329자 늘리는데 출력에서 378자를 아끼므로 <b>첫 요청에서 이미 본전</b>입니다.</p><p class="task"><b>시킨 일</b> — 서버 자산 12건에서 8개 항목을 뽑아 표로 저장하게 했습니다. 대조군은 같은 과제를 그냥 TSV로 받은 것이고, 프롬프트의 나머지 부분은 <b>바이트 단위로 같습니다.</b></p><div class="legend"><span><i class="sw n"></i> 기준 (비교 대상)</span><span><i class="sw c"></i> 짧아짐 = 이득</span><span><i class="sw b"></i> 길어짐 = 손해</span><span class="mono" style="margin-left:auto">모든 수치는 문자 수 (토큰 아님)</span></div></header>
+<div class="step"><div class="lab"><span class="b">1</span><h3>입력 — 모든 조건에 똑같이 준 것</h3></div><p class="note">자산 기록 12건과 할 일은 똑같이 줬습니다. 다른 것은 <b>출력 형식 문단</b>뿐입니다.</p><div class="box"><div class="cap">프롬프트 (공통 부분) — 두 조건이 글자 하나까지 같다</div><pre>아래는 서버 자산 대장 12건입니다. 각 자산에서 asset_id, region, env, role, os, tier, cpu, status 8개 항목을 표로 정리하세요.
+
+자산 기록:
+
+**AS-2001** — apne1 리전, prod 환경, web 역할, ubuntu22, small 등급, vCPU 2개, 상태 active.
+
+**AS-2002** — apne2 리전, stage 환경, api 역할, ubuntu24, medium 등급, vCPU 2개, 상태 drained.</pre><div class="trunc">↑ 지면상 2건만 실었습니다. 실제 프롬프트는 12건 전문입니다. <b>12건 × 8항목 = 96칸</b>이 채점 대상입니다.</div></div></div>
+<div class="fork"><div class="stem"></div><div class="txt">여기서만 갈린다 — 출력 형식 문단</div><div class="stem"></div></div>
+<div class="step"><div class="lab"><span class="b">2</span><h3>갈라지는 문장, 그리고 나온 답</h3></div><div class="pair" style="--cols:2"><div class="branch base"><div class="top"><div class="who">SLT</div><div class="what">그냥 TSV로</div></div><div class="ptxt">“열 구분자는 탭 문자 1개이며 열 순서는 다음과 같습니다.
+asset_id, region, env, role, os, tier, cpu, status”</div><div class="cap">나온 답<span class="sz">625자</span></div><pre>asset_id	region	env	role	os	tier	cpu	status
+AS-2001	apne1	prod	web	ubuntu22	small	2	active
+AS-2002	apne2	stage	api	ubuntu24	medium	2	drained
+AS-2003	usea1	dev	batch	ubuntu24	large	4	halted
+AS-2004	euwe1	dev	cache	debian12	small	8	halted</pre><div class="trunc">↑ <b>앞 5줄만 실었습니다.</b> 13줄 전문.</div></div><div class="branch cut"><div class="top"><div class="who">CB</div><div class="what">+ 코드표 329자</div></div><div class="ptxt">“열 이름: asset_id=a, region=r, env=e, role=o, os=s, tier=t, cpu=c, status=u
+a: <code>AS-</code> 접두사를 떼고 숫자만 (AS-2001 -&gt; 2001)
+r: apne1=1, apne2=2, usea1=3, euwe1=4
+e: prod=1, stage=2, dev=3
+o: web=1, api=2, batch=3, cache=4
+s: ubuntu22=1, ubuntu24=2, debian12=3, alpine3=4
+t: small=1, medium=2, large=3
+u: active=1, drained=2, halted=3
+c: 숫자를 그대로 씁니다”</div><div class="cap">나온 답<span class="sz">247자</span></div><pre>a	r	e	o	s	t	c	u
+2001	1	1	1	1	1	2	1
+2002	2	2	2	2	2	2	2
+2003	3	3	3	2	3	4	3
+2004	4	3	4	3	1	8	3</pre><div class="trunc">↑ <b>앞 5줄만 실었습니다.</b> 13줄 전문. 두 번 돌린 결과가 <b>바이트 단위로 같았습니다.</b></div></div></div></div>
+<div class="step"><div class="lab"><span class="b">3</span><h3>그래서 얼마나 아꼈나</h3></div><div class="result"><h4>산출물 문자 수 · 조건당 2회 시행(두 시행 바이트 동일) · 96칸 정확도 양쪽 1.0</h4><div class="rrow"><div class="rl">자연 표기 TSV</div><div class="rtrack"><div class="rfill b" style="width:100.0%"></div><span class="rv"><b>625</b>자</span></div></div><div class="rrow"><div class="rl">코드북 표기</div><div class="rtrack"><div class="rfill c" style="width:39.5%"></div><span class="rv"><b>247</b>자<span class="d c">−60.5%</span></span></div></div><div class="rrow"><div class="rl">코드표가 프롬프트에 더한 비용</div><div class="rtrack"><div class="rfill n" style="width:52.6%"></div><span class="rv"><b>329</b>자<span class="d b">입력 쪽 +329자</span></span></div></div><p class="foot">디코드해서 정답 키와 대조했고 96칸 전부 일치했습니다. <b>아낀 378자 &gt; 낸 329자</b> 이므로 총합 회계에서도 첫 요청에 회수됩니다(<code>R* = 1</code>).</p></div></div>
+<div class="blk why"><h4>SMILES가 하는 일과 같습니다</h4><p>화학에서 아스피린의 3차원 구조를 <code>CC(=O)OC1=CC=CC=C1C(=O)O</code> 한 줄로 적을 수 있는 이유는 <b>표기 규칙을 양쪽이 미리 공유하기 때문</b>입니다. 규칙을 공유하지 않으면 그 한 줄은 아무 의미가 없습니다.</p><p>여기서 공유 비용은 프롬프트에 적은 329자입니다. 이 비용은 <b>한 번만</b> 들고, 절감은 요청마다 반복됩니다. 그래서 &quot;몇 번 써야 본전인가&quot;라는 질문이 생기고, 답은 <code>R* = ceil(비용 ÷ 회당 절감)</code>입니다.</p><p>이번 경우 <code>ceil(329 ÷ 378) = 1</code>. 회당 절감이 비용보다 커서 <b>처음 한 번으로 이미 이득</b>입니다. 라운드 2에서 diff 컨텍스트 축소 지시가 프롬프트를 147자 늘리고도 순손실이었던 것과 갈리는 지점은 지시의 길이가 아니라 <b>지시가 벌어오는 양</b>입니다.</p></div>
+<div class="blk trap"><h4>&quot;1자 키가 안전하다&quot;는 결론이 아닙니다</h4><p>여기서 정확도가 1.0으로 유지된 것은 <b>코드표를 전부 적어줬기 때문</b>입니다. 모델은 대응을 추측하지 않고 베껴 썼습니다.</p><p>아무 설명 없이 짧은 키만 요구하는 것은 전혀 다른 조건이고, 그쪽(A2-H2)은 아직 재지 않았습니다. 이 결과를 그 근거로 쓰지 마세요.</p><p>그리고 이 표기는 <b>사람이 읽을 수 없습니다.</b> <code>2003 3 3 3 2 3 4 3</code> 이 무슨 뜻인지 알려면 코드표가 있어야 합니다. 받는 쪽이 디코드 코드를 가지고 있을 때만 씁니다.</p></div>
+<div class="blk trap"><h4>R*=1은 글자 수 회계입니다</h4><p>329자와 378자는 <b>글자 수</b>이고, 입력 토큰과 출력 토큰은 단가가 다릅니다. 실제 비용에서는 출력 쪽이 훨씬 비싸므로 <code>R*</code>는 1보다 더 유리해집니다 — 하지만 그 계산은 이 환경에서 확인할 수 없습니다.</p><p>이 저장소가 줄이려는 대상은 <b>출력 토큰</b>입니다. 그 회계에서는 <code>R*</code>가 아예 필요 없습니다. 코드북은 첫 요청부터 언제나 이득입니다.</p><p>두 회계를 하나의 절감률로 합쳐 보고하지 마세요. 섞으면 어느 쪽 주장인지 알 수 없어집니다.</p></div>
+<div class="shead"><div class="n">정리</div><h2>그래서 언제 이렇게 시키나</h2></div><div class="scroll"><table><thead><tr><th>이런 걸 뱉을 때</th><th>이렇게 시킨다</th><th>몇 % 아끼나</th></tr></thead><tbody><tr><td>같은 스키마의 표를 <b>반복해서</b> 뱉을 때</td><td>열 이름 1자 + 값 정수 코드표를 프롬프트에 박아둔다</td><td>TSV 대비 <b>−60.5%</b></td></tr><tr><td>한 번만 뱉는 표</td><td>회당 절감이 코드표 길이보다 크면 그때도 이득</td><td>이번 재료 기준 <code>R* = 1</code></td></tr><tr><td>읽는 쪽이 사람</td><td>쓰지 않는다. 디코드 없이는 읽히지 않는다</td><td>—</td></tr><tr><td>코드표를 적어줄 수 없을 때</td><td>짧은 키만 요구하면 정확도가 떨어질 수 있다</td><td>미측정 (A2-H2)</td></tr></tbody></table></div>
+<footer>사전등록 <code>experiments/round4-plan.md</code> §6 B1·B2q·B3 → 판정 <code>experiments/round4-results.md</code> §4 · 기법 <code>techniques/prompt-codebook.md</code><br>
+산출물 원문 <code>experiments/runs/r4/</code> (t03·t14 = 자연 표기, t11·t22 = 코드북) · 정답 키 <code>experiments/data/r4-assets-lo.tsv</code><br>
+조건당 2회 시행, <b>조건 내 분산 0(두 시행 바이트 동일)</b>. 대조군은 A6-H4 실험의 저반복 TSV 조건과 같은 시행입니다 — 프롬프트가 바이트 동일해 공유했습니다.<br>
+모든 수치는 <b>글자 수(proxy)</b> 이며 토큰이 아닙니다. 절대 토큰 절감률로 인용하지 마세요.<br>
+측정 <code>tools/measure.py</code> · 채점 <code>experiments/scripts/score_r4.py</code> · 판정식 <code>experiments/scripts/judge_r4.py</code> · 원시 결과 <code>experiments/raw/r4-scores.json</code></footer>
+</div>

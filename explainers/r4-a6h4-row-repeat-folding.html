@@ -1,0 +1,215 @@
+<title>윗줄과 같으면 ^</title>
+<style>
+:root{
+  --paper:#F1F2F5; --surface:#FFFFFF; --raise:#F7F8FB; --sunk:#EDEFF4;
+  --ink:#14171F; --muted:#5F6779; --faint:#8A92A2;
+  --line:#DCE0E8; --hair:#E9ECF2;
+  --accent:#2E5E86; --accent-soft:#E3EDF6;
+  --cut:#0F6B54; --cut-soft:#DCEFE8; --cut-line:#8FCBB8;
+  --bloat:#A34E26; --bloat-soft:#F8E6DA; --bloat-line:#E0A882;
+  --halt:#5D5F6B; --halt-soft:#E8E9ED; --halt-line:#B3B6BF;
+  --shadow:0 1px 2px rgba(20,23,31,.05),0 10px 30px -16px rgba(20,23,31,.18);
+  --mono:"Cascadia Mono","SF Mono",ui-monospace,Consolas,"Liberation Mono",monospace;
+  --sans:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+    --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+    --line:#282E3A; --hair:#222833;
+    --accent:#79ADD9; --accent-soft:#1A2938;
+    --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+    --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+    --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+  --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+  --line:#282E3A; --hair:#222833;
+  --accent:#79ADD9; --accent-soft:#1A2938;
+  --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+  --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+  --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px 100px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+code{font-family:var(--mono);font-size:.9em;background:var(--sunk);padding:1px 5px;
+  border-radius:3px;border:1px solid var(--hair)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+a{color:var(--accent)}
+
+header{padding:70px 0 0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:clamp(30px,5.4vw,48px);line-height:1.08;letter-spacing:-.024em;font-weight:680}
+.sub{margin:20px 0 0;font-size:18px;color:var(--muted);max-width:56ch}
+.sub b{color:var(--ink);font-weight:620}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface);
+  box-shadow:var(--shadow);margin-top:16px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;background:var(--raise);border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+  padding:2.5px 9px;border-radius:20px;white-space:nowrap;border:1px solid}
+.pill.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.pill.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.pill.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.pill.open{background:transparent;color:var(--faint);border-color:var(--line)}
+.pill.api{background:transparent;color:var(--accent);border-color:var(--accent)}
+
+footer{margin-top:80px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--faint);line-height:1.85}
+footer b{color:var(--muted)}
+
+.vb{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 10px;border-radius:20px;
+  border:1px solid;text-transform:none}
+.vb.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.vb.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.vb.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.task{margin:26px 0 0;padding:14px 18px;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;font-size:14.5px;color:var(--muted)}
+.task b{color:var(--ink)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0 0;padding:14px 18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;font-size:13.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;border:1px solid;display:inline-block}
+.sw.c{background:var(--cut-soft);border-color:var(--cut)}
+.sw.b{background:var(--bloat-soft);border-color:var(--bloat)}
+.sw.n{background:var(--accent-soft);border-color:var(--accent)}
+
+.step{margin-top:44px}
+.step>.lab{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.step>.lab .b{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 9px;
+  border-radius:5px;background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
+.step>.lab h3{font-size:16px;font-weight:620}
+.step>.note{margin:0 0 13px;color:var(--muted);font-size:14.5px}
+
+.box{background:var(--surface);border:1px solid var(--line);border-radius:11px;
+  box-shadow:var(--shadow);overflow:hidden}
+.cap{padding:10px 15px;background:var(--raise);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cap .sz{margin-left:auto;color:var(--ink);font-weight:600}
+pre{margin:0;padding:15px;font-family:var(--mono);font-size:12.3px;line-height:1.62;
+  overflow-x:auto;white-space:pre;color:var(--ink)}
+pre .g{color:var(--faint)}
+pre .del{color:var(--bloat)}
+pre .add{color:var(--cut)}
+pre .hh{color:var(--accent)}
+pre .tab{color:var(--faint);opacity:.55}
+.trunc{padding:9px 15px;border-top:1px dashed var(--line);background:var(--sunk);
+  font-size:12.5px;color:var(--faint)}
+.trunc b{color:var(--muted)}
+
+.fork{display:flex;flex-direction:column;align-items:center;margin:26px 0 6px}
+.fork .stem{width:2px;height:26px;background:var(--line)}
+.fork .txt{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--faint);
+  padding:5px 12px;border:1px dashed var(--line);border-radius:20px;background:var(--paper)}
+
+.pair{display:grid;gap:16px;grid-template-columns:repeat(var(--cols),1fr)}
+@media (max-width:820px){.pair{grid-template-columns:1fr}}
+.branch{border-radius:11px;border:1px solid var(--line);background:var(--surface);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.branch.win{border-color:var(--cut-line)}
+.branch.lose{border-color:var(--bloat-line)}
+.branch.halt{border-color:var(--halt-line)}
+.branch>.top{padding:12px 15px;border-bottom:1px solid var(--line)}
+.branch.win>.top{background:var(--cut-soft)}
+.branch.lose>.top{background:var(--bloat-soft)}
+.branch.halt>.top{background:var(--halt-soft)}
+.branch.base>.top{background:var(--accent-soft)}
+.branch>.top .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.branch>.top .what{font-size:14.5px;font-weight:620;margin-top:2px}
+.branch .ptxt{padding:13px 15px;font-size:13.5px;color:var(--muted);
+  border-bottom:1px dashed var(--hair);background:var(--raise)}
+.branch pre{flex:1}
+
+.result{margin-top:24px;background:var(--surface);border:1px solid var(--line);
+  border-radius:11px;padding:22px 22px 16px;box-shadow:var(--shadow)}
+.result>h4{font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;margin-bottom:18px}
+.rrow{display:grid;grid-template-columns:168px 1fr;gap:14px;align-items:center;margin-bottom:12px}
+.rrow .rl{font-size:13.5px;color:var(--muted);text-align:right}
+.rtrack{display:flex;align-items:center;min-height:32px}
+.rfill{height:28px;border-radius:3px;border:1px solid;min-width:3px;
+  animation:grow .75s cubic-bezier(.2,.75,.3,1) both;transform-origin:left}
+.rfill.n{background:var(--accent-soft);border-color:var(--accent)}
+.rfill.c{background:var(--cut-soft);border-color:var(--cut)}
+.rfill.b{background:var(--bloat-soft);border-color:var(--bloat)}
+@keyframes grow{from{transform:scaleX(.02)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.rfill{animation:none}}
+.rv{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;
+  margin-left:11px;white-space:nowrap;color:var(--muted)}
+.rv b{color:var(--ink)}
+.rv .d{font-weight:700;margin-left:9px;font-size:14px}
+.rv .d.c{color:var(--cut)} .rv .d.b{color:var(--bloat)}
+.foot{margin-top:12px;font-size:12.5px;color:var(--faint)}
+.foot b{color:var(--ink)}
+
+.blk{margin-top:26px;padding:20px 22px;border-radius:11px;border:1px solid var(--line);
+  border-left-width:3px;background:var(--surface)}
+.blk.why{border-left-color:var(--accent)}
+.blk.trap{background:var(--bloat-soft);border-color:var(--bloat);border-left-color:var(--bloat)}
+.blk.halt{background:var(--halt-soft);border-color:var(--halt-line);border-left-color:var(--halt)}
+.blk h4{font-size:15px;margin-bottom:9px;font-weight:650}
+.blk.trap h4{color:var(--bloat)}
+.blk.halt h4{color:var(--halt)}
+.blk p{margin:0;color:var(--muted);font-size:14.5px}
+.blk.trap p,.blk.halt p{color:var(--ink)}
+.blk p+p{margin-top:10px}
+.blk b{color:var(--ink)}
+
+.shead{border-bottom:2px solid var(--ink);padding-bottom:14px;margin:80px 0 0}
+.shead .n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--accent)}
+.shead h2{font-size:26px;letter-spacing:-.018em;margin-top:6px;font-weight:660}
+</style>
+<div class="wrap">
+<header><p class="kicker">라운드 4 · 축 6 정보이론<span class="vb win">판정 · 채택</span></p><h1>윗줄과 같으면 ^</h1><p class="sub">표를 낼 때 <b>바로 윗줄과 값이 같은 칸은 <code>^</code> 한 글자로</b> 접게 했습니다. 값이 잘 반복되는 표에서 <b>−37.8%</b>, 96칸 정확도는 <b>1.0</b>. 반복이 적은 표에서도 지지 않았습니다 — 예측했던 역전은 <b>일어나지 않았습니다.</b></p><p class="task"><b>시킨 일</b> — 서버 자산 12건을 한 건씩 문장으로 주고, 8개 항목(자산번호·리전·환경·역할·OS·등급·CPU·상태)을 표로 정리해 파일에 저장시켰습니다. 같은 과제를 <b>값이 잘 반복되는 대장</b>과 <b>잘 안 반복되는 대장</b> 두 벌로 만들어 각각 돌렸습니다.</p><div class="legend"><span><i class="sw n"></i> 기준 (비교 대상)</span><span><i class="sw c"></i> 짧아짐 = 이득</span><span><i class="sw b"></i> 길어짐 = 손해</span><span class="mono" style="margin-left:auto">모든 수치는 문자 수 (토큰 아님)</span></div></header>
+<div class="step"><div class="lab"><span class="b">1</span><h3>입력 — 모든 조건에 똑같이 준 것</h3></div><p class="note">재료는 생성기가 만듭니다. <b>윗줄과 같은 값의 비율</b>을 정확히 15/77칸(0.195)과 62/77칸(0.805)으로 맞췄습니다. 두 프롬프트의 길이 차이는 1,482자 대 1,486자로 4자입니다.</p><div class="box"><div class="cap">프롬프트 (공통 부분) — 반복률만 다르고 문장 틀은 같다</div><pre>아래는 서버 자산 대장 12건입니다. 각 자산에서 asset_id, region, env, role, os, tier, cpu, status 8개 항목을 표로 정리하세요.
+
+자산 기록:
+
+**AS-2001** — apne1 리전, prod 환경, web 역할, ubuntu22, small 등급, vCPU 2개, 상태 active.
+
+**AS-2002** — apne2 리전, prod 환경, web 역할, ubuntu22, small 등급, vCPU 4개, 상태 active.
+
+**AS-2003** — apne2 리전, prod 환경, web 역할, ubuntu24, small 등급, vCPU 4개, 상태 active.</pre><div class="trunc">↑ 지면상 3건만 실었습니다(반복이 많은 쪽). 실제 프롬프트는 12건 전문입니다. <b>12건 × 8항목 = 96칸</b>이 채점 대상입니다.</div></div></div>
+<div class="fork"><div class="stem"></div><div class="txt">여기서만 갈린다 — 출력 형식 지정 두 줄</div><div class="stem"></div></div>
+<div class="step"><div class="lab"><span class="b">2</span><h3>갈라지는 문장, 그리고 나온 답</h3></div><div class="pair" style="--cols:2"><div class="branch base"><div class="top"><div class="who">SHT</div><div class="what">그냥 TSV로 (반복 많은 대장)</div></div><div class="ptxt">“첫 줄은 헤더이고 그 아래 자산 1건당 1줄씩 총 12줄입니다. 열 구분자는 탭 문자 1개이며 열 순서는 다음과 같습니다.”</div><div class="cap">나온 답<span class="sz">629자</span></div><pre>asset_id	region	env	role	os	tier	cpu	status
+AS-2001	apne1	prod	web	ubuntu22	small	2	active
+AS-2002	apne2	prod	web	ubuntu22	small	4	active
+AS-2003	apne2	prod	web	ubuntu24	small	4	active
+AS-2004	apne2	stage	web	ubuntu24	small	4	drained
+AS-2005	apne2	stage	web	ubuntu24	medium	4	drained
+AS-2006	apne2	stage	api	ubuntu24	medium	4	drained</pre><div class="trunc">↑ <b>앞 6줄만 실었습니다.</b> 13줄 전문. <code>apne2</code>가 11번, <code>ubuntu24</code>가 8번 그대로 반복됩니다.</div></div><div class="branch cut"><div class="top"><div class="who">SHF</div><div class="what">+ 윗줄과 같으면 ^</div></div><div class="ptxt">“바로 윗줄과 값이 같은 칸은 값 대신 <code>^</code> 한 글자만 씁니다. 첫 데이터 줄에는 <code>^</code> 를 쓰지 않습니다. 값이 다른 칸에는 값을 그대로 씁니다.”</div><div class="cap">나온 답<span class="sz">391자</span></div><pre>asset_id	region	env	role	os	tier	cpu	status
+AS-2001	apne1	prod	web	ubuntu22	small	2	active
+AS-2002	apne2	^	^	^	^	4	^
+AS-2003	^	^	^	ubuntu24	^	^	^
+AS-2004	^	stage	^	^	^	^	drained
+AS-2005	^	^	^	^	medium	^	^
+AS-2006	^	^	api	^	^	^	^</pre><div class="trunc">↑ <b>앞 6줄만 실었습니다.</b> 13줄 전문. 두 번 돌린 결과가 <b>바이트 단위로 같았고</b>, 정답 키를 그대로 접은 최소 텍스트와도 <b>길이가 정확히 일치</b>했습니다(391 = 391).</div></div></div></div>
+<div class="step"><div class="lab"><span class="b">3</span><h3>그래서 얼마나 아꼈나</h3></div><div class="result"><h4>산출물 문자 수 · 조건당 2회 시행(두 시행 바이트 동일) · 96칸 정확도는 네 조건 모두 1.0</h4><div class="rrow"><div class="rl">반복 많음(0.805) · TSV</div><div class="rtrack"><div class="rfill b" style="width:100.0%"></div><span class="rv"><b>629</b>자</span></div></div><div class="rrow"><div class="rl">반복 많음(0.805) · <b>접기</b></div><div class="rtrack"><div class="rfill c" style="width:62.2%"></div><span class="rv"><b>391</b>자<span class="d c">−37.8%</span></span></div></div><div class="rrow"><div class="rl">반복 적음(0.195) · TSV</div><div class="rtrack"><div class="rfill b" style="width:99.4%"></div><span class="rv"><b>625</b>자</span></div></div><div class="rrow"><div class="rl">반복 적음(0.195) · <b>접기</b></div><div class="rtrack"><div class="rfill n" style="width:90.1%"></div><span class="rv"><b>567</b>자<span class="d c">−9.3%</span></span></div></div><p class="foot">네 조건 모두 <b>96칸 정확도 1.0</b> — <code>^</code>를 펼쳐서 정답 키와 대조했고 한 칸도 틀리지 않았습니다. 접기가 정확도를 사고 얻은 절감이 아닙니다.</p></div></div>
+<div class="blk why"><h4>예측한 역전이 왜 안 일어났나</h4><p>가설은 결정학에서 왔습니다. 결정 구조를 저장할 때 원자 위치를 다 적는 대신 &quot;단위 하나 + 대칭 규칙&quot;만 적으면 짧아지지만, <b>규칙을 적는 비용</b>이 있으니 반복이 적으면 손해라는 것입니다. 그래서 반복이 적은 표에서는 접기가 더 길어질 거라고 예측했습니다.</p><p>그 비용이 여기엔 없습니다. <b>규칙(<code>^</code>의 뜻)은 프롬프트에 있고 산출물에는 없습니다.</b> 산출물에서 <code>^</code> 한 글자는 원래 값보다 짧거나 같습니다. 값이 한 글자가 아닌 한 접기는 <b>구조적으로 질 수 없습니다.</b></p><p>숫자로도 맞습니다. 반복이 적은 쪽에서 접힌 칸은 15개, 아낀 글자는 625 − 567 = <b>58자</b>, 칸당 3.87자입니다. 반복이 0에 가까워지면 이득이 0으로 수렴할 뿐 음수가 되지 않습니다.</p></div>
+<div class="blk trap"><h4>손익분기는 출력이 아니라 프롬프트에 있습니다</h4><p>접기 지시는 프롬프트를 <b>+83자</b> 늘립니다. 반복이 적은 표에서 아끼는 것은 58자입니다. <b>출력만 세면 이득이지만 입력까지 합치면 손해</b>입니다.</p><p>반복이 많은 표에서는 238자를 아끼므로 83자를 내고도 남습니다. 즉 진짜 손익분기는 &quot;반복이 얼마나 되느냐&quot;이고, 그 경계는 이 두 점(0.195와 0.805) 사이 어딘가입니다 — 아직 재지 않았습니다.</p><p>이 저장소가 재는 대상은 <b>출력 토큰</b>입니다. 그 회계에서는 접기가 언제나 이득입니다. 총비용을 따질 때만 프롬프트 83자를 얹으십시오.</p></div>
+<div class="blk trap"><h4>읽는 쪽이 사람이면 쓰지 마세요</h4><p><code>^</code>가 깔린 표는 사람이 눈으로 훑기 어렵습니다. 어떤 칸의 실제 값을 알려면 위로 거슬러 올라가야 합니다.</p><p>받는 쪽이 코드이고 펼치는 절차가 확실할 때만 씁니다. 펼치는 쪽이 규칙을 모르면 <code>^</code>는 그냥 틀린 값입니다.</p><p>수치는 전부 <b>글자 수</b>입니다. 토큰이 아닙니다. 특히 <code>^</code>와 탭은 토크나이저가 이미 싸게 처리할 가능성이 있어, 실제 토큰 절감은 −37.8%보다 작을 수 있습니다.</p></div>
+<div class="shead"><div class="n">정리</div><h2>그래서 언제 이렇게 시키나</h2></div><div class="scroll"><table><thead><tr><th>이런 걸 뱉을 때</th><th>이렇게 시킨다</th><th>몇 % 아끼나</th></tr></thead><tbody><tr><td>표 · 값이 줄마다 잘 반복됨 · 읽는 쪽이 <b>코드</b></td><td>&quot;윗줄과 같은 칸은 <code>^</code> 한 글자&quot;를 형식 지시에 넣는다</td><td>TSV 대비 <b>−37.8%</b> (반복 0.8 기준)</td></tr><tr><td>표 · 반복이 적음</td><td>넣어도 손해는 아니지만 프롬프트 83자가 더 든다</td><td>출력 <b>−9.3%</b> / 총합은 순손실</td></tr><tr><td>표 · 읽는 쪽이 <b>사람</b></td><td>쓰지 않는다. 훑어보기가 무너진다</td><td>—</td></tr><tr><td>레코드가 아주 많을 때</td><td>이득이 반복 칸 수에 비례해 커진다</td><td>칸당 약 <b>3.9자</b> (이 어휘 기준)</td></tr></tbody></table></div>
+<footer>사전등록 <code>experiments/round4-plan.md</code> §6 Y1·Y2·Y3 → 판정 <code>experiments/round4-results.md</code> §3 · 기법 <code>techniques/row-repeat-folding.md</code><br>
+산출물 원문 <code>experiments/runs/r4/</code> (t03·t14 = 저반복 TSV, t06·t16 = 저반복 접기, t07·t19 = 고반복 TSV, t10·t21 = 고반복 접기) · 정답 키 <code>experiments/data/r4-assets-{lo,hi}.tsv</code><br>
+조건당 2회 시행, <b>조건 내 분산 0(두 시행 바이트 동일)</b> — 결정적 과제라 반복이 정보를 더하지 않습니다<br>
+모든 수치는 <b>글자 수(proxy)</b> 이며 토큰이 아닙니다. 절대 토큰 절감률로 인용하지 마세요.<br>
+측정 <code>tools/measure.py</code> · 채점 <code>experiments/scripts/score_r4.py</code> · 판정식 <code>experiments/scripts/judge_r4.py</code> · 원시 결과 <code>experiments/raw/r4-scores.json</code></footer>
+</div>

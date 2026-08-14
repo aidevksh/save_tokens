@@ -35,20 +35,49 @@ Claude 모델의 **출력(completion) 토큰**을 줄이는 방법을 Claude 에
 
 자세한 판정 근거: [experiments/round2-results.md](experiments/round2-results.md)
 
+## 라운드 3 결과 — 프롬프트 지시문 요인 분해
+
+| 가설 | 판정 | 실측 (proxy) |
+|---|---|---|
+| 긍정형 간결성 지시 한 줄(48자) | **채택** | **−69.3%**, 요구 항목 커버리지 만점. 부정형은 −62.3% |
+| 마크다운 표 비용 | **채택** | TSV 대비 **+38.2%**, JSON 대비 **−50.9%**, 정확도 3형식 모두 1.0 |
+| 자기검증 지시 제거 | **기각** | 파일 −6.7% / 대화 +32.6% → 합계 −0.4%. **총량이 아니라 재배분** |
+| 프롬프트 마크다운 제거 | **기각** | 산출물 **+39.3%** — 마크다운이 더 비싼 ASCII 괘선으로 바뀌었다 |
+
+자세한 판정 근거: [experiments/round3-results.md](experiments/round3-results.md)
+
+## 라운드 4 결과 — 정보이론 가설 4건
+
+축 6(정보이론)의 첫 실험. 신규 23시행 + 라운드 3 재사용 6시행, **무효 0건, 하네스 차단 0건.**
+
+| 가설 | 판정 | 실측 (proxy) |
+|---|---|---|
+| **엔트로피 바닥** — 지시를 누적해도 하한으로 점근한다 | **채택** | 48자 지시 3단 누적 **−88.2%**, 커버리지 만점 유지. 한계 절감 1,681 → 292 → 165자 |
+| **상호정보량 제거** — 입력 재진술을 금지하면 준다 | **기각** | 보고문 −6.2%지만 파일 +1.0%, **합계 −2.0%(동률)** |
+| **대칭성 접기** — 반복 칸을 `^`로 접는다 | **채택** | 반복률 0.805에서 **−37.8%**, 96칸 정확도 1.0 |
+| **코드북 상각** — 코드표를 프롬프트에 선언한다 | **채택** | **−60.5%**, 정확도 1.0, 손익분기 `R* = 1` |
+
+**"입력에 있는 건 다시 쓰지 마세요"는 총량을 바꾸지 않았다.** 라운드 3에서 같은 결말이 나왔을 때 "산문 과제라 사정거리 밖"이라고 유보했는데, 도구를 굴리는 코딩 루프에서도 합계가 움직이지 않았다. 지금까지 이 저장소에서 총량을 실제로 줄인 것은 전부 **형식을 바꾼 지시**이거나 **분량을 직접 지시한 것**이다.
+
+라운드 4는 자기 판정 기준의 결함도 하나 남겼다 — 엔트로피 바닥의 채택 조건이 **기하급수적 감소만으로도 충족되는** 형태였다. 판정은 사전등록대로 두고 결함을 §1에 고지했다.
+
+자세한 판정 근거: [experiments/round4-results.md](experiments/round4-results.md)
+
 ## 구조
 
 | 경로 | 내용 |
 |---|---|
 | [research/](research/) | 축별 리서치 — 가설과 근거. 수치는 전부 출처 URL 첨부 |
-| [experiments/round1-plan.md](experiments/round1-plan.md) · [round2-plan.md](experiments/round2-plan.md) | 사전등록 (판정 기준 §6) |
-| [experiments/round1-results.md](experiments/round1-results.md) · [round2-results.md](experiments/round2-results.md) | 판정 보고서 |
+| `experiments/round<N>-plan.md` | 사전등록 (판정 기준 §6). 데이터를 보기 전에 쓰고 이후 고치지 않는다 |
+| `experiments/round<N>-results.md` | 판정 보고서 |
 | [experiments/prompts/](experiments/prompts/) | 피험자 프롬프트 전문. 조건 간 공통부가 바이트 동일함을 생성기가 해시로 보장 |
-| [experiments/runs/](experiments/runs/) | 시행 32건의 프롬프트와 산출물. 시행별 디렉터리 + 조건 대응표 + 파일 해시 목록 |
+| [experiments/runs/](experiments/runs/) | 시행 74건의 산출물. 시행별 디렉터리 + 조건 대응표 + 파일 해시 목록 |
 | [experiments/raw/](experiments/raw/) | 측정값, 품질 채점, 사건 기록, 가설 인덱스 |
-| [dashboard/hypotheses.html](dashboard/hypotheses.html) | **가설 지도** — 37건 전수 현황. 축별로 묶고 판정·실측치·해설 링크를 붙였다. [tools/hypomap.py](tools/hypomap.py)가 TSV 두 개에서 생성 |
+| [experiments/proposals/](experiments/proposals/) | 아직 실행하지 않은 실험 설계. 사전등록이 **아니며** 실행 직전에 `round<N>-plan.md`로 옮겨 확정한다 |
+| [dashboard/hypotheses.html](dashboard/hypotheses.html) | **가설 지도** — 45건 전수 현황. 축별로 묶고 판정·실측치·해설 링크를 붙였다. [tools/hypomap.py](tools/hypomap.py)가 TSV 두 개에서 생성 |
 | [explainers/](explainers/) | 실험마다 하나씩. 입력 프롬프트 → 실제 산출물 → 절감률을 그림으로 따라가는 해설. 명세 JSON에서 [tools/explainer.py](tools/explainer.py)가 생성하며 HTML은 손으로 고치지 않는다 |
 | [techniques/](techniques/) | 채택된 기법만. 기각·판정불가는 넣지 않는다 |
-| [tools/measure.py](tools/measure.py) | 길이 계측기 (조건 간 언어 구성이 어긋나면 비교를 무효 처리) |
+| [tools/measure.py](tools/measure.py) | 길이 계측기 (조건 간 언어 구성이 어긋나면 비교를 무효 처리). 압축 후 크기 `bytes_gz`와 겹침 측정 `--ncd` 포함 — 문자 수만으로는 "서식이 부풀었다"와 "내용이 늘었다"를 못 가른다 |
 | [CLAUDE.md](CLAUDE.md) | 에이전트 운영 규칙 + 확정된 사실 |
 
 ## 측정에 관한 경고

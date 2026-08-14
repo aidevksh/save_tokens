@@ -1,0 +1,13 @@
+asset_id	region	env	role	os	tier	cpu	status
+AS-2001	apne1	prod	web	ubuntu22	small	2	active
+AS-2002	apne2	stage	api	ubuntu24	medium	^	drained
+AS-2003	usea1	dev	batch	^	large	4	halted
+AS-2004	euwe1	^	cache	debian12	small	8	^
+AS-2005	apne1	prod	web	alpine3	^	16	active
+AS-2006	apne2	stage	^	ubuntu22	medium	2	drained
+AS-2007	^	dev	api	ubuntu24	large	4	^
+AS-2008	usea1	prod	batch	debian12	^	8	halted
+AS-2009	euwe1	stage	^	alpine3	small	16	active
+AS-2010	^	dev	cache	ubuntu22	medium	^	drained
+AS-2011	apne1	prod	web	^	large	2	halted
+AS-2012	apne2	^	api	ubuntu24	small	4	^

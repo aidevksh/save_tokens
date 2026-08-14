@@ -1,0 +1,93 @@
+{
+  "slug": "r4-a6h6-prompt-codebook",
+  "title": "329자 내고 378자 벌기",
+  "kicker": "라운드 4 · 축 6 정보이론",
+  "verdict": "채택",
+  "headline": "329자 내고 378자 벌기",
+  "sub": "열 이름을 한 글자로, 값들을 정수로 바꾸는 **코드표를 프롬프트에 적어주고** 그 표기로 받았습니다. 산출물 **−60.5%**, 96칸 정확도 **1.0**. 코드표가 프롬프트를 329자 늘리는데 출력에서 378자를 아끼므로 **첫 요청에서 이미 본전**입니다.",
+  "task": "서버 자산 12건에서 8개 항목을 뽑아 표로 저장하게 했습니다. 대조군은 같은 과제를 그냥 TSV로 받은 것이고, 프롬프트의 나머지 부분은 **바이트 단위로 같습니다.**",
+  "common": {
+    "cap": "프롬프트 (공통 부분) — 두 조건이 글자 하나까지 같다",
+    "note_before": "자산 기록 12건과 할 일은 똑같이 줬습니다. 다른 것은 **출력 형식 문단**뿐입니다.",
+    "lang": "text",
+    "code": "아래는 서버 자산 대장 12건입니다. 각 자산에서 asset_id, region, env, role, os, tier, cpu, status 8개 항목을 표로 정리하세요.\n\n자산 기록:\n\n**AS-2001** — apne1 리전, prod 환경, web 역할, ubuntu22, small 등급, vCPU 2개, 상태 active.\n\n**AS-2002** — apne2 리전, stage 환경, api 역할, ubuntu24, medium 등급, vCPU 2개, 상태 drained.",
+    "note": "↑ 지면상 2건만 실었습니다. 실제 프롬프트는 12건 전문입니다. **12건 × 8항목 = 96칸**이 채점 대상입니다."
+  },
+  "fork": "여기서만 갈린다 — 출력 형식 문단",
+  "branches": [
+    {
+      "kind": "base",
+      "who": "SLT",
+      "what": "그냥 TSV로",
+      "prompt": "“열 구분자는 탭 문자 1개이며 열 순서는 다음과 같습니다.\nasset_id, region, env, role, os, tier, cpu, status”",
+      "size": "625자",
+      "lang": "text",
+      "code": "asset_id\tregion\tenv\trole\tos\ttier\tcpu\tstatus\nAS-2001\tapne1\tprod\tweb\tubuntu22\tsmall\t2\tactive\nAS-2002\tapne2\tstage\tapi\tubuntu24\tmedium\t2\tdrained\nAS-2003\tusea1\tdev\tbatch\tubuntu24\tlarge\t4\thalted\nAS-2004\teuwe1\tdev\tcache\tdebian12\tsmall\t8\thalted",
+      "note": "↑ **앞 5줄만 실었습니다.** 13줄 전문."
+    },
+    {
+      "kind": "cut",
+      "who": "CB",
+      "what": "+ 코드표 329자",
+      "prompt": "“열 이름: asset_id=a, region=r, env=e, role=o, os=s, tier=t, cpu=c, status=u\na: `AS-` 접두사를 떼고 숫자만 (AS-2001 -> 2001)\nr: apne1=1, apne2=2, usea1=3, euwe1=4\ne: prod=1, stage=2, dev=3\no: web=1, api=2, batch=3, cache=4\ns: ubuntu22=1, ubuntu24=2, debian12=3, alpine3=4\nt: small=1, medium=2, large=3\nu: active=1, drained=2, halted=3\nc: 숫자를 그대로 씁니다”",
+      "size": "247자",
+      "lang": "text",
+      "code": "a\tr\te\to\ts\tt\tc\tu\n2001\t1\t1\t1\t1\t1\t2\t1\n2002\t2\t2\t2\t2\t2\t2\t2\n2003\t3\t3\t3\t2\t3\t4\t3\n2004\t4\t3\t4\t3\t1\t8\t3",
+      "note": "↑ **앞 5줄만 실었습니다.** 13줄 전문. 두 번 돌린 결과가 **바이트 단위로 같았습니다.**"
+    }
+  ],
+  "result": {
+    "unit": "산출물 문자 수 · 조건당 2회 시행(두 시행 바이트 동일) · 96칸 정확도 양쪽 1.0",
+    "rows": [
+      {"label": "자연 표기 TSV", "chars": 625, "kind": "b"},
+      {"label": "코드북 표기", "chars": 247, "kind": "c", "delta": "−60.5%"},
+      {"label": "코드표가 프롬프트에 더한 비용", "chars": 329, "kind": "n", "delta": "입력 쪽 +329자"}
+    ],
+    "foot": "디코드해서 정답 키와 대조했고 96칸 전부 일치했습니다. **아낀 378자 > 낸 329자** 이므로 총합 회계에서도 첫 요청에 회수됩니다(`R* = 1`)."
+  },
+  "blocks": [
+    {
+      "type": "why",
+      "title": "SMILES가 하는 일과 같습니다",
+      "paras": [
+        "화학에서 아스피린의 3차원 구조를 `CC(=O)OC1=CC=CC=C1C(=O)O` 한 줄로 적을 수 있는 이유는 **표기 규칙을 양쪽이 미리 공유하기 때문**입니다. 규칙을 공유하지 않으면 그 한 줄은 아무 의미가 없습니다.",
+        "여기서 공유 비용은 프롬프트에 적은 329자입니다. 이 비용은 **한 번만** 들고, 절감은 요청마다 반복됩니다. 그래서 \"몇 번 써야 본전인가\"라는 질문이 생기고, 답은 `R* = ceil(비용 ÷ 회당 절감)`입니다.",
+        "이번 경우 `ceil(329 ÷ 378) = 1`. 회당 절감이 비용보다 커서 **처음 한 번으로 이미 이득**입니다. 라운드 2에서 diff 컨텍스트 축소 지시가 프롬프트를 147자 늘리고도 순손실이었던 것과 갈리는 지점은 지시의 길이가 아니라 **지시가 벌어오는 양**입니다."
+      ]
+    },
+    {
+      "type": "trap",
+      "title": "\"1자 키가 안전하다\"는 결론이 아닙니다",
+      "paras": [
+        "여기서 정확도가 1.0으로 유지된 것은 **코드표를 전부 적어줬기 때문**입니다. 모델은 대응을 추측하지 않고 베껴 썼습니다.",
+        "아무 설명 없이 짧은 키만 요구하는 것은 전혀 다른 조건이고, 그쪽(A2-H2)은 아직 재지 않았습니다. 이 결과를 그 근거로 쓰지 마세요.",
+        "그리고 이 표기는 **사람이 읽을 수 없습니다.** `2003 3 3 3 2 3 4 3` 이 무슨 뜻인지 알려면 코드표가 있어야 합니다. 받는 쪽이 디코드 코드를 가지고 있을 때만 씁니다."
+      ]
+    },
+    {
+      "type": "trap",
+      "title": "R*=1은 글자 수 회계입니다",
+      "paras": [
+        "329자와 378자는 **글자 수**이고, 입력 토큰과 출력 토큰은 단가가 다릅니다. 실제 비용에서는 출력 쪽이 훨씬 비싸므로 `R*`는 1보다 더 유리해집니다 — 하지만 그 계산은 이 환경에서 확인할 수 없습니다.",
+        "이 저장소가 줄이려는 대상은 **출력 토큰**입니다. 그 회계에서는 `R*`가 아예 필요 없습니다. 코드북은 첫 요청부터 언제나 이득입니다.",
+        "두 회계를 하나의 절감률로 합쳐 보고하지 마세요. 섞으면 어느 쪽 주장인지 알 수 없어집니다."
+      ]
+    }
+  ],
+  "summary": {
+    "cols": ["이런 걸 뱉을 때", "이렇게 시킨다", "몇 % 아끼나"],
+    "rows": [
+      ["같은 스키마의 표를 **반복해서** 뱉을 때", "열 이름 1자 + 값 정수 코드표를 프롬프트에 박아둔다", "TSV 대비 **−60.5%**"],
+      ["한 번만 뱉는 표", "회당 절감이 코드표 길이보다 크면 그때도 이득", "이번 재료 기준 `R* = 1`"],
+      ["읽는 쪽이 사람", "쓰지 않는다. 디코드 없이는 읽히지 않는다", "—"],
+      ["코드표를 적어줄 수 없을 때", "짧은 키만 요구하면 정확도가 떨어질 수 있다", "미측정 (A2-H2)"]
+    ]
+  },
+  "footer": [
+    "사전등록 `experiments/round4-plan.md` §6 B1·B2q·B3 → 판정 `experiments/round4-results.md` §4 · 기법 `techniques/prompt-codebook.md`",
+    "산출물 원문 `experiments/runs/r4/` (t03·t14 = 자연 표기, t11·t22 = 코드북) · 정답 키 `experiments/data/r4-assets-lo.tsv`",
+    "조건당 2회 시행, **조건 내 분산 0(두 시행 바이트 동일)**. 대조군은 A6-H4 실험의 저반복 TSV 조건과 같은 시행입니다 — 프롬프트가 바이트 동일해 공유했습니다.",
+    "모든 수치는 **글자 수(proxy)** 이며 토큰이 아닙니다. 절대 토큰 절감률로 인용하지 마세요.",
+    "측정 `tools/measure.py` · 채점 `experiments/scripts/score_r4.py` · 판정식 `experiments/scripts/judge_r4.py` · 원시 결과 `experiments/raw/r4-scores.json`"
+  ]
+}

@@ -1,0 +1,5 @@
+out.txt 저장 완료. 헤더 1줄 + 데이터 12줄, 탭 구분, 윗줄과 같은 값은 `^` 로 대체(첫 데이터 줄 제외).
+
+- asset_id는 매 줄 고유하므로 항상 실값
+- 실값이 다시 등장하는 칸: region(apne2/usea1/euwe1), env(stage/dev), role(api/batch), os(ubuntu24/debian12), tier(medium/large), cpu(4/8), status(drained/halted)
+- 도구 호출 거부 없음
