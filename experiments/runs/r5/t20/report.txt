@@ -1,0 +1,14 @@
+수정 6건을 요청 형식으로 저장했다.
+
+경로: `<RUNDIR>/out.diff`
+
+| 줄 | 변경 |
+|---|---|
+| 13 | `replicas: 3` → `6` |
+| 17 | `env: staging` → `production` |
+| 63 | `level: debug` → `info` |
+| 64 | `format: text` → `json` |
+| 68 | `enabled: false` → `true` (autoscale) |
+| 110 | `ssl: false` → `true` (database) |
+
+원본 들여쓰기를 원래 줄·바뀐 줄 양쪽에 그대로 보존했다. 헤더·컨텍스트 줄은 없다. 도구 호출 거부는 없었다.

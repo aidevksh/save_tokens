@@ -1,0 +1,14 @@
+수정 6건을 지정 경로에 저장했다.
+
+```
+13:   replicas: 3 ->   replicas: 6
+17: env: staging -> env: production
+63:   level: debug ->   level: info
+64:   format: text ->   format: json
+68:   enabled: false ->   enabled: true
+110:   ssl: false ->   ssl: true
+```
+
+- 저장 경로: `<RUNDIR>/out.diff`
+- 원본 들여쓰기를 그대로 보존했다(13·63·64·68·110행은 2칸 들여쓰기, 17행은 최상위 키라 들여쓰기 없음).
+- diff/hunk 헤더와 컨텍스트 줄은 넣지 않았고, 요청한 6곳 외에는 손대지 않았다.

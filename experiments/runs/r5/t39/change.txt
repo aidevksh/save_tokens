@@ -1,0 +1,6 @@
+13:   replicas: 3 ->   replicas: 6
+17: env: staging -> env: production
+63:   level: debug ->   level: info
+64:   format: text ->   format: json
+68:   enabled: false ->   enabled: true
+110:   ssl: false ->   ssl: true

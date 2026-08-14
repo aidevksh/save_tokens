@@ -1,0 +1,19 @@
+--- a/deploy.yaml
++++ b/deploy.yaml
+@@ -13 +13 @@
+-  replicas: 3
++  replicas: 6
+@@ -17 +17 @@
+-env: staging
++env: production
+@@ -63,2 +63,2 @@
+-  level: debug
+-  format: text
++  level: info
++  format: json
+@@ -68 +68 @@
+-  enabled: false
++  enabled: true
+@@ -110 +110 @@
+-  ssl: false
++  ssl: true

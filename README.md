@@ -63,6 +63,24 @@ Claude 모델의 **출력(completion) 토큰**을 줄이는 방법을 Claude 에
 
 자세한 판정 근거: [experiments/round4-results.md](experiments/round4-results.md)
 
+## 라운드 5 결과 — 미검증 가설 5건
+
+신규 39시행 + 이전 라운드 재사용 11시행, **무효 0건, 차단 0건.** 드리프트 확인 시행이 라운드 2와 **823자로 정확히 일치**했다.
+
+| 가설 | 판정 | 실측 (proxy) |
+|---|---|---|
+| **율-왜곡 문턱** — 압축하면 어느 지점에서 품질이 급락한다 | **기각** | 압축률 **91.2%까지 왜곡 0**. 이 범위에 문턱이 없다 |
+| **재요청 왕복 비용** — 과압축이 되묻기를 유발한다 | **기각** | 되묻기 지표가 전 조건 **포화**. 단 왕복 합계 역전은 관측 |
+| **레코드 수 종속성** — 절감 폭이 N에 선형 | **조건부 채택** | `D ≈ 79.0N + 122`, **R² = 0.9997**. 단 절감**률**은 65.0 → 62.4%로 감소 |
+| **생성 프로그램 출력** — 데이터 대신 코드를 낸다 | **채택** | 규칙적 데이터에서 **−95.3%**, 실행 대조 4/4 통과 |
+| **예시 길이 앵커링** — 출력이 예시 길이를 따라간다 | **채택** | 148자 예시 하나가 **−82.7%**, 커버리지 만점 |
+
+**라운드 2가 찾은 "압축 문턱"은 정보가 아니라 도구의 성질이었다.** `git apply`가 컨텍스트 0줄 diff를 거부하는 것은 맞지만, 같은 파일을 에이전트 소비자가 받으면 10/10 정확히 적용한다. 받는 쪽이 에이전트라면 `git apply`용 컨텍스트 줄은 낼 필요 없는 잉여다 — 823자 대신 **217자**로 같은 일을 한다.
+
+**예시 하나가 지시문보다 셌다.** 48자짜리 간결성 지시가 −69.3%였는데 148자짜리 예시가 −82.7%를 냈다. 분량은 말로 지시하는 것보다 **보여주는** 편이 세다 — 다만 잘 쓴 긴 예시를 붙이면 산출물도 그만큼 길어진다.
+
+자세한 판정 근거: [experiments/round5-results.md](experiments/round5-results.md)
+
 ## 구조
 
 | 경로 | 내용 |
@@ -71,10 +89,10 @@ Claude 모델의 **출력(completion) 토큰**을 줄이는 방법을 Claude 에
 | `experiments/round<N>-plan.md` | 사전등록 (판정 기준 §6). 데이터를 보기 전에 쓰고 이후 고치지 않는다 |
 | `experiments/round<N>-results.md` | 판정 보고서 |
 | [experiments/prompts/](experiments/prompts/) | 피험자 프롬프트 전문. 조건 간 공통부가 바이트 동일함을 생성기가 해시로 보장 |
-| [experiments/runs/](experiments/runs/) | 시행 74건의 산출물. 시행별 디렉터리 + 조건 대응표 + 파일 해시 목록 |
+| [experiments/runs/](experiments/runs/) | 시행 113건의 산출물. 시행별 디렉터리 + 조건 대응표 + 파일 해시 목록 |
 | [experiments/raw/](experiments/raw/) | 측정값, 품질 채점, 사건 기록, 가설 인덱스 |
 | [experiments/proposals/](experiments/proposals/) | 아직 실행하지 않은 실험 설계. 사전등록이 **아니며** 실행 직전에 `round<N>-plan.md`로 옮겨 확정한다 |
-| [dashboard/hypotheses.html](dashboard/hypotheses.html) | **가설 지도** — 45건 전수 현황. 축별로 묶고 판정·실측치·해설 링크를 붙였다. [tools/hypomap.py](tools/hypomap.py)가 TSV 두 개에서 생성 |
+| [dashboard/hypotheses.html](dashboard/hypotheses.html) | **가설 지도** — 45건 전수 현황(18건 실측). 축별로 묶고 판정·실측치·해설 링크를 붙였다. [tools/hypomap.py](tools/hypomap.py)가 TSV 두 개에서 생성 |
 | [explainers/](explainers/) | 실험마다 하나씩. 입력 프롬프트 → 실제 산출물 → 절감률을 그림으로 따라가는 해설. 명세 JSON에서 [tools/explainer.py](tools/explainer.py)가 생성하며 HTML은 손으로 고치지 않는다 |
 | [techniques/](techniques/) | 채택된 기법만. 기각·판정불가는 넣지 않는다 |
 | [tools/measure.py](tools/measure.py) | 길이 계측기 (조건 간 언어 구성이 어긋나면 비교를 무효 처리). 압축 후 크기 `bytes_gz`와 겹침 측정 `--ncd` 포함 — 문자 수만으로는 "서식이 부풀었다"와 "내용이 늘었다"를 못 가른다 |

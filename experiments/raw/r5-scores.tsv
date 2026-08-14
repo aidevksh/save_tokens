@@ -1,0 +1,51 @@
+trial	condition	task	valid	L_file	G_file	L_report	acc	cov	d	ask	exec	ctx_lines	source
+r5:t01	W3	T4	True	298	176	1084						0	
+r5:t02	J3	T6	True	537	189	164	1.0						
+r5:t03	J12	T6	True	1712	309	85	1.0						
+r5:t04	GhiD	T7	True	2160	331	132					True		
+r5:t05	W4	T4	True	217	135	529							
+r5:t06	T3	T6	True	188	133	355	1.0						
+r5:t07	J24	T6	True	3019	400	133	1.0						
+r5:t08	GhiP	T7	True	98	98	197					True		
+r5:t09	X1	T8	True	378	505	387		6					
+r5:t10	T24	T6	True	1212	328	290	1.0						
+r5:t11	GloD	T7	True	2105	463	96					True		
+r5:t12	X2	T8	True	1630	1721	610		6					
+r5:t13	GloP	T7	True	1373	450	607					True		
+r5:t14	W3	T4	True	298	176	1130						0	
+r5:t15	X2	T8	True	1899	1911	617		6					
+r5:t16	J3	T6	True	537	189	83	1.0						
+r5:t17	J12	T6	True	1712	309	124	1.0						
+r5:t18	GhiD	T7	True	2160	331	314					True		
+r5:t19	X1	T8	True	531	663	452		6					
+r5:t20	W4	T4	True	217	135	488							
+r5:t21	T3	T6	True	188	133	508	1.0						
+r5:t22	J24	T6	True	3427	411	291	1.0						
+r5:t23	GhiP	T7	True	106	102	461					True		
+r5:t24	X2	T8	True	1900	1978	632		6					
+r5:t25	T24	T6	True	1212	328	322	1.0						
+r5:t26	GloD	T7	True	2105	463	122					True		
+r5:t27	W1R	T4	True	823	450	563						24	
+r5:t28	GloP	T7	True	2118	481	395					True		
+r5:t29	X1	T8	True	347	484	398		6					
+r5:t30	RW0	T5	True	2469	1105	1022			0	1			W0
+r5:t31	RW1	T5	True	2469	1105	805			0	1			W1
+r5:t32	RW2	T5	True	2469	1105	620			0	1			W2
+r5:t33	RW3	T5	True	2469	1105	1004			0	1			W3
+r5:t34	RW4	T5	True	2469	1105	1011			0	1			W4
+r5:t35	RW0	T5	True	2469	1105	1131			0	1			W0
+r5:t36	RW1	T5	True	2469	1105	905			0	1			W1
+r5:t37	RW2	T5	True	2469	1105	710			0	1			W2
+r5:t38	RW3	T5	True	2469	1105	857			0	1			W3
+r5:t39	RW4	T5	True	2469	1105	758			0	1			W4
+r2:t04	W0	T4	True	2469	1105	0							
+r2:t05	W1	T4	True	823	450	0						24	
+r2:t06	W2	T4	True	533	298	0						10	
+r2:t07	W2	T4	True	533	298	0						10	
+r2:t09	W1	T4	True	823	450	0						24	
+r2:t11	W0	T4	True	2469	1105	0							
+r3:t01	X0	T8	True	2509	2390	350		6					
+r3:t09	X0	T8	True	2753	2666	273		6					
+r3:t16	X0	T8	True	2013	1999	262		6					
+r4:t03	T12	T6	True	625	240	137	1.0						
+r4:t14	T12	T6	True	625	240	134	1.0						

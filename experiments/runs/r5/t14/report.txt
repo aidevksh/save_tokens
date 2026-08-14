@@ -1,0 +1,41 @@
+작업 완료. 저장 경로: `<RUNDIR>/out.diff`
+
+## 산출 diff (18줄, 5 hunk)
+
+```
+--- a/deploy.yaml
++++ b/deploy.yaml
+@@ -13 +13 @@
+-  replicas: 3
++  replicas: 6
+@@ -17 +17 @@
+-env: staging
++env: production
+@@ -63,2 +63,2 @@
+-  level: debug
+-  format: text
++  level: info
++  format: json
+@@ -68 +68 @@
+-  enabled: false
++  enabled: true
+@@ -110 +110 @@
+-  ssl: false
++  ssl: true
+```
+
+63/64번 줄이 인접해 하나의 hunk로 합쳐져 6개 변경이 5 hunk가 됐다.
+
+## 검증 결과 — 요구사항 충돌 발견
+
+원본 120줄을 재구성해 실제로 적용 시험을 했다.
+
+| 명령 | 결과 |
+|---|---|
+| `git apply -p1 --check` | **실패** — `error: patch failed: deploy.yaml:13` / `patch does not apply` |
+| `git apply -p1 --unidiff-zero --check` | 성공 (exit 0) |
+| `git apply -p1 --unidiff-zero` 적용 후 원본 대비 | 요청한 6곳만 정확히 변경, 그 외 0줄 변경 |
+
+"컨텍스트 줄을 넣지 않는다"와 "`git apply -p1` 로 적용 가능해야 한다"는 **동시에 만족할 수 없는 요구**다. git은 컨텍스트 0줄 hunk를 기본적으로 거부하며 `--unidiff-zero` 플래그를 명시해야 받는다(문맥이 없어 위치를 검증할 수 없기 때문에 안전장치로 막는 것). 지시대로 컨텍스트 0을 우선했고, 그 결과 `-p1` 단독으로는 적용되지 않는다. `-p1` 적용을 필수로 해야 한다면 컨텍스트를 최소 1줄 넣어야 한다.
+
+도구 호출 거부는 없었다.

@@ -1,0 +1,120 @@
+service: payments-api
+namespace: payments
+owner: platform-team
+contact: platform@example.com
+description: Handles card and wallet payment authorization.
+metadata:
+  tier: critical
+  cost_center: CC-4417
+  revision: 42
+deployment:
+  strategy: RollingUpdate
+  max_surge: 1
+  replicas: 6
+  max_unavailable: 0
+  min_ready_seconds: 15
+  progress_deadline_seconds: 600
+env: production
+image:
+  registry: registry.example.com
+  repository: payments-api
+  tag: 1.4.2
+  pull_policy: IfNotPresent
+  digest_pinning: false
+port: 8080
+admin_port: 9090
+metrics_port: 9091
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+    ephemeral_storage: 1Gi
+  limits:
+    cpu: 2000m
+    memory: 2Gi
+    ephemeral_storage: 4Gi
+  gpu: 0
+healthcheck:
+  liveness:
+    path: /healthz
+    interval_seconds: 10
+    timeout_seconds: 2
+    failure_threshold: 3
+  readiness:
+    path: /readyz
+    interval_seconds: 5
+    timeout_seconds: 2
+    failure_threshold: 2
+  startup:
+    path: /startupz
+    interval_seconds: 5
+    timeout_seconds: 5
+    failure_threshold: 30
+security:
+  run_as_non_root: true
+  read_only_root_fs: true
+  allow_privilege_escalation: false
+  drop_capabilities:
+    - ALL
+  seccomp_profile: RuntimeDefault
+logging:
+  destination: stdout
+  sampling_rate: 1.0
+  level: info
+  format: json
+  retention_days: 7
+  include_request_body: false
+autoscale:
+  enabled: true
+  min_replicas: 1
+  max_replicas: 5
+  target_cpu_percent: 80
+  target_memory_percent: 75
+  scale_down_stabilization_seconds: 300
+  behavior:
+    scale_up_pods_per_minute: 4
+    scale_down_pods_per_minute: 1
+networking:
+  service_type: ClusterIP
+  session_affinity: None
+  ingress:
+    enabled: true
+    host: payments.staging.example.com
+    tls_secret: payments-tls
+    path_prefix: /v1
+  egress:
+    allow_external: true
+    allowed_cidrs:
+      - 10.0.0.0/8
+      - 172.16.0.0/12
+dependencies:
+  - name: ledger-api
+    protocol: grpc
+    timeout_ms: 2000
+  - name: fraud-scoring
+    protocol: http
+    timeout_ms: 800
+  - name: notification-bus
+    protocol: amqp
+    timeout_ms: 1500
+database:
+  engine: postgres
+  host: db-staging.internal
+  port: 5432
+  name: payments
+  pool_size: 10
+  max_overflow: 5
+  pool_timeout_seconds: 30
+  statement_timeout_ms: 15000
+  read_replica_host: db-staging-ro.internal
+  ssl: true
+  ssl_mode: prefer
+cache:
+  provider: redis
+  host: cache-staging.internal
+  port: 6379
+  ttl_seconds: 300
+timeouts:
+  request_seconds: 30
+  idle_seconds: 75
+  shutdown_grace_seconds: 45

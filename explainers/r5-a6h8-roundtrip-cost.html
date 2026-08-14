@@ -1,0 +1,206 @@
+<title>지표가 포화됐다</title>
+<style>
+:root{
+  --paper:#F1F2F5; --surface:#FFFFFF; --raise:#F7F8FB; --sunk:#EDEFF4;
+  --ink:#14171F; --muted:#5F6779; --faint:#8A92A2;
+  --line:#DCE0E8; --hair:#E9ECF2;
+  --accent:#2E5E86; --accent-soft:#E3EDF6;
+  --cut:#0F6B54; --cut-soft:#DCEFE8; --cut-line:#8FCBB8;
+  --bloat:#A34E26; --bloat-soft:#F8E6DA; --bloat-line:#E0A882;
+  --halt:#5D5F6B; --halt-soft:#E8E9ED; --halt-line:#B3B6BF;
+  --shadow:0 1px 2px rgba(20,23,31,.05),0 10px 30px -16px rgba(20,23,31,.18);
+  --mono:"Cascadia Mono","SF Mono",ui-monospace,Consolas,"Liberation Mono",monospace;
+  --sans:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+    --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+    --line:#282E3A; --hair:#222833;
+    --accent:#79ADD9; --accent-soft:#1A2938;
+    --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+    --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+    --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+  --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+  --line:#282E3A; --hair:#222833;
+  --accent:#79ADD9; --accent-soft:#1A2938;
+  --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+  --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+  --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px 100px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+code{font-family:var(--mono);font-size:.9em;background:var(--sunk);padding:1px 5px;
+  border-radius:3px;border:1px solid var(--hair)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+a{color:var(--accent)}
+
+header{padding:70px 0 0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:clamp(30px,5.4vw,48px);line-height:1.08;letter-spacing:-.024em;font-weight:680}
+.sub{margin:20px 0 0;font-size:18px;color:var(--muted);max-width:56ch}
+.sub b{color:var(--ink);font-weight:620}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface);
+  box-shadow:var(--shadow);margin-top:16px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;background:var(--raise);border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+  padding:2.5px 9px;border-radius:20px;white-space:nowrap;border:1px solid}
+.pill.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.pill.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.pill.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.pill.open{background:transparent;color:var(--faint);border-color:var(--line)}
+.pill.api{background:transparent;color:var(--accent);border-color:var(--accent)}
+
+footer{margin-top:80px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--faint);line-height:1.85}
+footer b{color:var(--muted)}
+
+.vb{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 10px;border-radius:20px;
+  border:1px solid;text-transform:none}
+.vb.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.vb.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.vb.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.task{margin:26px 0 0;padding:14px 18px;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;font-size:14.5px;color:var(--muted)}
+.task b{color:var(--ink)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0 0;padding:14px 18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;font-size:13.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;border:1px solid;display:inline-block}
+.sw.c{background:var(--cut-soft);border-color:var(--cut)}
+.sw.b{background:var(--bloat-soft);border-color:var(--bloat)}
+.sw.n{background:var(--accent-soft);border-color:var(--accent)}
+
+.step{margin-top:44px}
+.step>.lab{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.step>.lab .b{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 9px;
+  border-radius:5px;background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
+.step>.lab h3{font-size:16px;font-weight:620}
+.step>.note{margin:0 0 13px;color:var(--muted);font-size:14.5px}
+
+.box{background:var(--surface);border:1px solid var(--line);border-radius:11px;
+  box-shadow:var(--shadow);overflow:hidden}
+.cap{padding:10px 15px;background:var(--raise);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cap .sz{margin-left:auto;color:var(--ink);font-weight:600}
+pre{margin:0;padding:15px;font-family:var(--mono);font-size:12.3px;line-height:1.62;
+  overflow-x:auto;white-space:pre;color:var(--ink)}
+pre .g{color:var(--faint)}
+pre .del{color:var(--bloat)}
+pre .add{color:var(--cut)}
+pre .hh{color:var(--accent)}
+pre .tab{color:var(--faint);opacity:.55}
+.trunc{padding:9px 15px;border-top:1px dashed var(--line);background:var(--sunk);
+  font-size:12.5px;color:var(--faint)}
+.trunc b{color:var(--muted)}
+
+.fork{display:flex;flex-direction:column;align-items:center;margin:26px 0 6px}
+.fork .stem{width:2px;height:26px;background:var(--line)}
+.fork .txt{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--faint);
+  padding:5px 12px;border:1px dashed var(--line);border-radius:20px;background:var(--paper)}
+
+.pair{display:grid;gap:16px;grid-template-columns:repeat(var(--cols),1fr)}
+@media (max-width:820px){.pair{grid-template-columns:1fr}}
+.branch{border-radius:11px;border:1px solid var(--line);background:var(--surface);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.branch.win{border-color:var(--cut-line)}
+.branch.lose{border-color:var(--bloat-line)}
+.branch.halt{border-color:var(--halt-line)}
+.branch>.top{padding:12px 15px;border-bottom:1px solid var(--line)}
+.branch.win>.top{background:var(--cut-soft)}
+.branch.lose>.top{background:var(--bloat-soft)}
+.branch.halt>.top{background:var(--halt-soft)}
+.branch.base>.top{background:var(--accent-soft)}
+.branch>.top .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.branch>.top .what{font-size:14.5px;font-weight:620;margin-top:2px}
+.branch .ptxt{padding:13px 15px;font-size:13.5px;color:var(--muted);
+  border-bottom:1px dashed var(--hair);background:var(--raise)}
+.branch pre{flex:1}
+
+.result{margin-top:24px;background:var(--surface);border:1px solid var(--line);
+  border-radius:11px;padding:22px 22px 16px;box-shadow:var(--shadow)}
+.result>h4{font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;margin-bottom:18px}
+.rrow{display:grid;grid-template-columns:168px 1fr;gap:14px;align-items:center;margin-bottom:12px}
+.rrow .rl{font-size:13.5px;color:var(--muted);text-align:right}
+.rtrack{display:flex;align-items:center;min-height:32px}
+.rfill{height:28px;border-radius:3px;border:1px solid;min-width:3px;
+  animation:grow .75s cubic-bezier(.2,.75,.3,1) both;transform-origin:left}
+.rfill.n{background:var(--accent-soft);border-color:var(--accent)}
+.rfill.c{background:var(--cut-soft);border-color:var(--cut)}
+.rfill.b{background:var(--bloat-soft);border-color:var(--bloat)}
+@keyframes grow{from{transform:scaleX(.02)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.rfill{animation:none}}
+.rv{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;
+  margin-left:11px;white-space:nowrap;color:var(--muted)}
+.rv b{color:var(--ink)}
+.rv .d{font-weight:700;margin-left:9px;font-size:14px}
+.rv .d.c{color:var(--cut)} .rv .d.b{color:var(--bloat)}
+.foot{margin-top:12px;font-size:12.5px;color:var(--faint)}
+.foot b{color:var(--ink)}
+
+.blk{margin-top:26px;padding:20px 22px;border-radius:11px;border:1px solid var(--line);
+  border-left-width:3px;background:var(--surface)}
+.blk.why{border-left-color:var(--accent)}
+.blk.trap{background:var(--bloat-soft);border-color:var(--bloat);border-left-color:var(--bloat)}
+.blk.halt{background:var(--halt-soft);border-color:var(--halt-line);border-left-color:var(--halt)}
+.blk h4{font-size:15px;margin-bottom:9px;font-weight:650}
+.blk.trap h4{color:var(--bloat)}
+.blk.halt h4{color:var(--halt)}
+.blk p{margin:0;color:var(--muted);font-size:14.5px}
+.blk.trap p,.blk.halt p{color:var(--ink)}
+.blk p+p{margin-top:10px}
+.blk b{color:var(--ink)}
+
+.shead{border-bottom:2px solid var(--ink);padding-bottom:14px;margin:80px 0 0}
+.shead .n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--accent)}
+.shead h2{font-size:26px;letter-spacing:-.018em;margin-top:6px;font-weight:660}
+</style>
+<div class="wrap">
+<header><p class="kicker">라운드 5 · 축 6 정보이론<span class="vb lose">판정 · 기각</span></p><h1>지표가 포화됐다</h1><p class="sub">&quot;너무 압축하면 받는 쪽이 되물어서 결국 총량이 늘어난다&quot;를 재려 했습니다. 그런데 되묻는 정도를 세는 지표가 <b>열 번 다 1</b>로 나와 아무것도 구분하지 못했습니다. 다만 왕복 총량은 실제로 한 지점에서 <b>역전</b>했습니다.</p><p class="task"><b>시킨 일</b> — 120줄 설정 파일의 6곳 수정을 다섯 단계로 압축해 낸 뒤, 각 결과를 다른 에이전트에게 원본과 함께 넘겨 적용시켰습니다. 2차 에이전트의 보고문에 &quot;추측·알 수 없음·확인 필요&quot; 같은 표현이 있으면 되물은 것으로 셌습니다.</p><div class="legend"><span><i class="sw n"></i> 기준 (비교 대상)</span><span><i class="sw c"></i> 짧아짐 = 이득</span><span><i class="sw b"></i> 길어짐 = 손해</span><span class="mono" style="margin-left:auto">모든 수치는 문자 수 (토큰 아님)</span></div></header>
+<div class="step"><div class="lab"><span class="b">1</span><h3>입력 — 모든 조건에 똑같이 준 것</h3></div><p class="note">마지막 문장이 되묻기를 유도하는 장치입니다. 이것이 조건별로 다르게 반응해야 가설이 성립합니다.</p><div class="box"><div class="cap">2차 소비자 프롬프트 — 다섯 조건이 완전히 동일하다</div><pre>`deploy.yaml` 은 현재 배포 설정 파일이고, `change.txt` 는 다른 팀이
+보낸 변경 지시서입니다.
+
+**할 일**: `change.txt` 의 내용대로 `deploy.yaml` 을 수정하세요.
+
+지시서만으로 알 수 없는 부분이 있으면 추측해서 채우지 말고, 무엇을 알 수 없는지 보고하세요.</pre><div class="trunc">↑ 전문입니다. 받는 산출물만 다르고 프롬프트는 같습니다.</div></div></div>
+<div class="fork"><div class="stem"></div><div class="txt">여기서만 갈린다 — 받은 산출물의 압축 수준</div><div class="stem"></div></div>
+<div class="step"><div class="lab"><span class="b">2</span><h3>갈라지는 문장, 그리고 나온 답</h3></div><div class="pair" style="--cols:3"><div class="branch base"><div class="top"><div class="who">W0 → RW0</div><div class="what">전체 파일 2,469자를 받음</div></div><div class="ptxt">(전체 재출력)</div><div class="cap">나온 답<span class="sz">2차 보고문 1,077자</span></div><pre>특이사항: `change.txt` 는 변경 지시문이 아니라 **수정 완료 상태의 전체 파일**이었습니다. 그래서 지시 해석 없이 원본과 대조해 차이 6곳만 반영했습니다.
+
+불명확해서 채우지 않은 부분:
+
+- `env` 를 production 으로 바꿨는데 관련 값들이 staging 그대로입니다 — `networking.ingress.host: payments.staging.example.com` …</pre><div class="trunc">↑ <b>잘랐습니다.</b> 압축이 전혀 안 된 조건인데도 &quot;불명확&quot; 문단이 나옵니다.</div></div><div class="branch cut"><div class="top"><div class="who">W2 → RW2</div><div class="what">컨텍스트 1줄 diff 533자를 받음</div></div><div class="ptxt">(diff C=1)</div><div class="cap">나온 답<span class="sz">2차 보고문 665자 — 최저</span></div><pre>`change.txt`의 5개 훅을 모두 `deploy.yaml`에 적용했습니다. 지시서의 컨텍스트 줄이 원본과 전부 일치해 모호한 부분은 없었고, 추측으로 채운 값도 없습니다.
+
+… 지시서에 없어 손대지 않은 항목 중 참고용으로 알릴 점: `env`가 production으로 바뀌었지만 … 여전히 staging 값입니다.</pre><div class="trunc">↑ <b>잘랐습니다.</b> &quot;모호한 부분은 없었다&quot;고 말하면서도 같은 staging 지적을 합니다.</div></div><div class="branch lose"><div class="top"><div class="who">W3 → RW3</div><div class="what">컨텍스트 0줄 diff 298자를 받음</div></div><div class="ptxt">(diff C=0)</div><div class="cap">나온 답<span class="sz">2차 보고문 931자 — 최저 대비 +39.9%</span></div><pre>변경 지시서는 컨텍스트 0줄 unified diff 형식이었고, 명시된 줄 번호와 원본 줄 내용이 전부 일치해 모호한 지점이 없었습니다. 동일 문자열이 여러 곳에 나올 수 있는 두 건(`enabled: false`, `ssl: false`)은 상위 키(`autoscale:`, `database:` 블록)로 대상을 확정했습니다.</pre><div class="trunc">↑ <b>잘랐습니다.</b> 되묻지는 않았지만 <b>어떻게 해석했는지 설명하느라</b> 길어졌습니다. 이것이 왕복 역전의 원인입니다.</div></div></div></div>
+<div class="step"><div class="lab"><span class="b">3</span><h3>그래서 얼마나 아꼈나</h3></div><div class="result"><h4>1차 산출물 + 2차 보고문 문자 수 · 조건당 2회 시행 · 복원 성공률은 다섯 조건 모두 2/2</h4><div class="rrow"><div class="rl">W0 전체 재출력 (2,469 + 1,077)</div><div class="rtrack"><div class="rfill b" style="width:100.0%"></div><span class="rv"><b>3,546</b>자</span></div></div><div class="rrow"><div class="rl">W1 diff C=3 (823 + 855)</div><div class="rtrack"><div class="rfill n" style="width:47.3%"></div><span class="rv"><b>1,678</b>자<span class="d c">−52.7%</span></span></div></div><div class="rrow"><div class="rl">W2 diff C=1 (533 + 665)</div><div class="rtrack"><div class="rfill c" style="width:33.8%"></div><span class="rv"><b>1,198</b>자<span class="d c">−66.2%</span></span></div></div><div class="rrow"><div class="rl">W3 diff C=0 (298 + 931)</div><div class="rtrack"><div class="rfill n" style="width:34.7%"></div><span class="rv"><b>1,229</b>자<span class="d c">−65.3% ↑역전</span></span></div></div><div class="rrow"><div class="rl">W4 줄번호+치환쌍 (217 + 885)</div><div class="rtrack"><div class="rfill c" style="width:31.1%"></div><span class="rv"><b>1,102</b>자<span class="d c">−68.9%</span></span></div></div><p class="foot">왕복 합계가 W2에서 최저(1,198)였다가 W3에서 1,229로 <b>올라갑니다.</b> 1차에서 235자를 아꼈는데 2차가 266자를 더 썼습니다. 다만 W4에서 다시 내려가므로 <b>압축률과 하류 비용은 단조 관계가 아닙니다.</b></p></div></div>
+<div class="blk halt"><h4>되묻기 지표가 처치가 아니라 재료를 쟀습니다</h4><p>열 번의 2차 시행이 전부 &quot;확인이 필요하다&quot;는 문단을 냈고, 내용이 압축 수준과 <b>무관하게 같았습니다</b> — <code>env</code> 를 production 으로 바꿨는데 <code>database.host</code>·<code>cache.host</code>·<code>ingress.host</code> 가 여전히 staging 을 가리킨다는 지적입니다.</p><p>이것은 <b>재료 자체의 정합성 문제</b>이지 압축 때문에 생긴 모호함이 아닙니다. 압축을 전혀 하지 않은 조건(전체 파일을 통째로 받은 쪽)에서도 똑같이 나왔습니다.</p><p>즉 지표가 바닥과 천장에 동시에 붙어 아무것도 구분하지 못했습니다. 라운드 3에서 마크다운 구조 문자 계측기가 실패했던 것과 같은 종류입니다. 다음에는 재료의 정합성 결함을 없애고, 되묻기를 <b>&quot;지시서 해석에 관한 질문&quot;</b> 으로 좁혀 세야 합니다.</p></div>
+<div class="blk why"><h4>그래도 마찰은 있었습니다 — 되묻기가 아니라 &#x27;설명하기&#x27;로</h4><p>2차 보고문 길이가 W2에서 665자로 최저였다가 W3에서 931자로 뜁니다. 되묻지는 않았지만 <b>어떻게 해석했는지를 설명하느라</b> 길어졌습니다 — &quot;컨텍스트 0줄 diff였고, 여러 곳에 나올 수 있는 줄은 상위 키로 대상을 확정했다&quot;.</p><p>그런데 더 압축한 W4(줄 번호 + 치환쌍)에서는 885자로 다시 내려갑니다. 줄 번호가 박혀 있어 <b>해석의 여지가 없기 때문</b>으로 보입니다.</p><p>결론: 가장 비싼 것은 가장 압축된 형식이 아니라 <b>가장 모호한 형식</b>입니다. 압축률만 보고 하류 비용을 예측할 수 없습니다.</p></div>
+<div class="blk trap"><h4>이 실험은 진짜 왕복을 재지 못했습니다</h4><p>2차 에이전트는 대화 상대가 없어 실제로 되물을 수 없습니다. &quot;확인이 필요하다&quot;고 적을 뿐 답을 받지 못합니다. 실제 왕복에서는 질문 → 답변 → 재작업이 이어지므로 <b>비용이 여기 측정치보다 큽니다.</b></p><p>즉 이 실험은 <b>한 번의 왕복 안에서 보이는 마찰</b>만 봤습니다. &quot;과압축이 왕복 총출력을 늘린다&quot;는 주장은 여전히 미검증입니다.</p><p>수치는 전부 <b>글자 수</b>이며 토큰이 아닙니다.</p></div>
+<div class="shead"><div class="n">정리</div><h2>그래서 언제 이렇게 시키나</h2></div><div class="scroll"><table><thead><tr><th>이런 걸 뱉을 때</th><th>이렇게 시킨다</th><th>몇 % 아끼나</th></tr></thead><tbody><tr><td>파일 수정 지시 · 왕복까지 따질 때</td><td>줄 번호 + 치환쌍이 왕복 합계도 최저였다</td><td>전체 재출력 대비 <b>−68.9%</b></td></tr><tr><td>컨텍스트 0줄 diff</td><td>쓰지 않는다. 1차에서 아낀 것보다 2차가 더 쓴다</td><td>왕복 합계가 C=1보다 <b>+2.5%</b></td></tr><tr><td>형식을 고를 때 보는 것</td><td>압축률이 아니라 <b>모호함</b>을 본다</td><td>가장 짧은 형식이 가장 비싸지는 않았다</td></tr><tr><td>되묻기를 재고 싶을 때</td><td>재료의 정합성 결함부터 없앤다</td><td>안 그러면 지표가 포화된다</td></tr></tbody></table></div>
+<footer>사전등록 <code>experiments/round5-plan.md</code> §6 T1&#x27;·T2&#x27; → 판정 <code>experiments/round5-results.md</code> §2<br>
+산출물 원문 <code>experiments/runs/r5/</code> (t30·t35 = RW0, t31·t36 = RW1, t32·t37 = RW2, t33·t38 = RW3, t34·t39 = RW4)<br>
+조건당 2회 시행. 다섯 조건 모두 최종 파일이 기대 결과와 <b>바이트 단위로 일치</b>했습니다 — 복원 실패는 0건입니다.<br>
+판정은 <b>기각</b> 입니다 — 되묻기 증가(T1&#x27;)가 계측 실패로 기각됐고, 왕복 역전(T2&#x27;)만 확인됐습니다.<br>
+모든 수치는 <b>글자 수(proxy)</b> 이며 토큰이 아닙니다. 측정 <code>tools/measure.py</code> · 채점 <code>experiments/scripts/score_r5.py</code> · 원시 결과 <code>experiments/raw/r5-scores.json</code></footer>
+</div>

@@ -1,0 +1,32 @@
+[
+  {
+    "asset_id": "AS-2001",
+    "region": "apne1",
+    "env": "prod",
+    "role": "web",
+    "os": "ubuntu22",
+    "tier": "small",
+    "cpu": 2,
+    "status": "active"
+  },
+  {
+    "asset_id": "AS-2002",
+    "region": "apne2",
+    "env": "stage",
+    "role": "api",
+    "os": "ubuntu24",
+    "tier": "small",
+    "cpu": 4,
+    "status": "drained"
+  },
+  {
+    "asset_id": "AS-2003",
+    "region": "usea1",
+    "env": "dev",
+    "role": "api",
+    "os": "debian12",
+    "tier": "medium",
+    "cpu": 8,
+    "status": "drained"
+  }
+]

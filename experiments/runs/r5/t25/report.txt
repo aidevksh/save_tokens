@@ -1,0 +1,5 @@
+24건 전부 TSV로 저장했습니다.
+
+- 파일: `<RUNDIR>/out.txt`
+- 구성: 헤더 1줄 + 데이터 24줄, 탭 구분 8열 (asset_id, region, env, role, os, tier, cpu, status)
+- cpu는 "vCPU N개"에서 숫자만 추출했고, 그 외 값은 원문 그대로 옮겼습니다. 설명·주석 없음.

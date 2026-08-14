@@ -1,0 +1,22 @@
+수정 완료. `deploy.yaml` 이 `change.txt` 와 바이트 단위로 일치합니다.
+
+적용한 변경 6건:
+
+| 줄 | 키 | 이전 | 이후 |
+|---|---|---|---|
+| 13 | `deployment.replicas` | 3 | 6 |
+| 17 | `env` | staging | production |
+| 63 | `logging.level` | debug | info |
+| 64 | `logging.format` | text | json |
+| 68 | `autoscale.enabled` | false | true |
+| 110 | `database.ssl` | false | true |
+
+특이사항: `change.txt` 는 변경 지시문이 아니라 **수정 완료 상태의 전체 파일**이었습니다. 그래서 지시 해석 없이 원본과 대조해 차이 6곳만 반영했습니다.
+
+불명확해서 채우지 않은 부분:
+
+- `env` 를 production 으로 바꿨는데 관련 값들이 staging 그대로입니다 — `networking.ingress.host: payments.staging.example.com`, `database.host: db-staging.internal`, `database.read_replica_host: db-staging-ro.internal`, `cache.host: cache-staging.internal`. `change.txt` 가 이들을 바꾸지 않았으므로 그대로 뒀으나, 의도된 것인지 누락인지 확인이 필요합니다.
+- `database.ssl: true` 인데 `ssl_mode` 는 `prefer` 로 남아 있습니다. production 에서 `require`/`verify-full` 이 필요한지 여부는 지시서에 없습니다.
+- `autoscale.enabled: true` 이면서 `deployment.replicas: 6` 이 `autoscale.max_replicas: 5` 를 초과합니다. 어느 쪽이 맞는지 지시서만으로는 알 수 없습니다.
+
+도구 호출 거부는 없었습니다.

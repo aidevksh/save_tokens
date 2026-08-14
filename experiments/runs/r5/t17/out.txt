@@ -1,0 +1,14 @@
+[
+  {"asset_id": "AS-2001", "region": "apne1", "env": "prod", "role": "web", "os": "ubuntu22", "tier": "small", "cpu": 2, "status": "active"},
+  {"asset_id": "AS-2002", "region": "apne2", "env": "stage", "role": "api", "os": "ubuntu24", "tier": "medium", "cpu": 2, "status": "drained"},
+  {"asset_id": "AS-2003", "region": "usea1", "env": "dev", "role": "batch", "os": "ubuntu24", "tier": "large", "cpu": 4, "status": "halted"},
+  {"asset_id": "AS-2004", "region": "euwe1", "env": "dev", "role": "cache", "os": "debian12", "tier": "small", "cpu": 8, "status": "halted"},
+  {"asset_id": "AS-2005", "region": "apne1", "env": "prod", "role": "web", "os": "alpine3", "tier": "small", "cpu": 16, "status": "active"},
+  {"asset_id": "AS-2006", "region": "apne2", "env": "stage", "role": "web", "os": "ubuntu22", "tier": "medium", "cpu": 2, "status": "drained"},
+  {"asset_id": "AS-2007", "region": "apne2", "env": "dev", "role": "api", "os": "ubuntu24", "tier": "large", "cpu": 4, "status": "drained"},
+  {"asset_id": "AS-2008", "region": "usea1", "env": "prod", "role": "batch", "os": "debian12", "tier": "large", "cpu": 8, "status": "halted"},
+  {"asset_id": "AS-2009", "region": "euwe1", "env": "stage", "role": "batch", "os": "alpine3", "tier": "small", "cpu": 16, "status": "active"},
+  {"asset_id": "AS-2010", "region": "euwe1", "env": "dev", "role": "cache", "os": "ubuntu22", "tier": "medium", "cpu": 16, "status": "drained"},
+  {"asset_id": "AS-2011", "region": "apne1", "env": "prod", "role": "web", "os": "ubuntu22", "tier": "large", "cpu": 2, "status": "halted"},
+  {"asset_id": "AS-2012", "region": "apne2", "env": "prod", "role": "api", "os": "ubuntu24", "tier": "small", "cpu": 4, "status": "halted"}
+]

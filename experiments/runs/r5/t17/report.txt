@@ -1,0 +1,1 @@
+12건 전부 JSON 배열로 `out.txt`에 저장했습니다. 각 원소는 asset_id, region, env, role, os, tier, cpu(숫자), status 8개 키를 갖고, 파일에는 데이터만 들어 있습니다.

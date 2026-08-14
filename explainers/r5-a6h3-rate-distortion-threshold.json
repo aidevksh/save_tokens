@@ -1,0 +1,115 @@
+{
+  "slug": "r5-a6h3-rate-distortion-threshold",
+  "title": "217자로도 통했다",
+  "kicker": "라운드 5 · 축 6 정보이론",
+  "verdict": "기각",
+  "headline": "217자로도 통했다",
+  "sub": "120줄 설정 파일의 6곳 수정을 **다섯 단계로 압축**해서 내고, 각 결과를 다른 에이전트에게 넘겨 적용시켰습니다. 2,469자에서 217자까지 **91.2% 압축**했는데 열 번 다 정확히 적용됐습니다. 예상한 **품질 급락 지점이 없었습니다.**",
+  "task": "배포 설정 파일 `deploy.yaml` 120줄에서 6곳(복제본 수, 환경, 로그 레벨·형식, 오토스케일, DB SSL)을 바꾸게 했습니다. 압축 수준만 다섯 가지로 바꿔 냈고, 그 결과물을 **아무 설명 없이** 다른 에이전트에게 원본 파일과 함께 넘겼습니다.",
+  "common": {
+    "cap": "2차 소비자에게 준 프롬프트 — 다섯 조건이 **완전히 동일하다**",
+    "note_before": "받는 쪽 프롬프트가 조건별로 다르면 무엇이 원인인지 알 수 없습니다. 그래서 프롬프트를 글자 하나까지 똑같이 두고, **파일 하나의 내용만** 바꿨습니다.",
+    "lang": "text",
+    "code": "`deploy.yaml` 은 현재 배포 설정 파일이고, `change.txt` 는 다른 팀이\n보낸 변경 지시서입니다.\n\n**할 일**: `change.txt` 의 내용대로 `deploy.yaml` 을 수정하세요. 수정한 결과는\n`deploy.yaml` 에 그대로 저장합니다.\n\n지시서만으로 알 수 없는 부분이 있으면 추측해서 채우지 말고, 무엇을 알 수 없는지 보고하세요.",
+    "note": "↑ 전문입니다. 원래 변경 요청(무엇을 왜 바꾸는지)은 **주지 않았습니다.** 받은 파일만 보고 복원해야 합니다."
+  },
+  "fork": "여기서만 갈린다 — change.txt 에 무엇이 들어 있나",
+  "branches": [
+    {
+      "kind": "base",
+      "who": "W0",
+      "what": "수정된 파일 전체",
+      "prompt": "“수정된 `deploy.yaml` 전체를 저장한다. 120줄 전부 쓴다.”",
+      "size": "2,469자",
+      "lang": "text",
+      "code": "service: payments-api\nnamespace: payments\nowner: platform-team\ncontact: platform@example.com\ndescription: Handles card and wallet payment authorization.\nmetadata:\n  tier: critical\n…(120줄 전체)",
+      "note": "↑ **잘랐습니다.** 120줄 전문. 소비자는 그냥 통째로 덮어쓰면 됩니다."
+    },
+    {
+      "kind": "cut",
+      "who": "W2",
+      "what": "컨텍스트 1줄 diff",
+      "prompt": "“각 hunk 의 컨텍스트 줄은 변경 줄 위아래 **1줄씩**으로 한다.”",
+      "size": "533자 (−78.4%)",
+      "lang": "text",
+      "code": "--- a/deploy.yaml\n+++ b/deploy.yaml\n@@ -12,3 +12,3 @@\n   max_surge: 1\n-  replicas: 3\n+  replicas: 6\n   max_unavailable: 0\n@@ -16,3 +16,3 @@\n   progress_deadline_seconds: 600\n-env: staging\n+env: production\n image:\n…",
+      "note": "↑ **잘랐습니다.** 5개 hunk. 여기까지는 `git apply` 로도 적용됩니다."
+    },
+    {
+      "kind": "cut",
+      "who": "W3",
+      "what": "컨텍스트 0줄 diff",
+      "prompt": "“각 hunk 에 컨텍스트 줄을 **넣지 않는다**. 변경 줄만 쓴다.”",
+      "size": "298자 (−87.9%)",
+      "lang": "text",
+      "code": "--- a/deploy.yaml\n+++ b/deploy.yaml\n@@ -13 +13 @@\n-  replicas: 3\n+  replicas: 6\n@@ -17 +17 @@\n-env: staging\n+env: production\n@@ -63,2 +63,2 @@\n-  level: debug\n-  format: text\n+  level: info\n+  format: json\n@@ -68 +68 @@\n-  enabled: false\n+  enabled: true\n@@ -110 +110 @@\n-  ssl: false\n+  ssl: true",
+      "note": "↑ **전문입니다.** 두 번 돌린 결과가 바이트 동일. 표준 `git apply -p1` 은 이 형식을 **거부합니다**(`--unidiff-zero` 필요)."
+    },
+    {
+      "kind": "cut",
+      "who": "W4",
+      "what": "줄 번호 + 치환쌍",
+      "prompt": "“변경 1건당 한 줄이며 형식은 `<줄번호>: <원래 줄> -> <바뀐 줄>` 이다. diff 헤더, hunk 헤더, 컨텍스트 줄은 쓰지 않는다.”",
+      "size": "217자 (−91.2%)",
+      "lang": "text",
+      "code": "13:   replicas: 3 ->   replicas: 6\n17: env: staging -> env: production\n63:   level: debug ->   level: info\n64:   format: text ->   format: json\n68:   enabled: false ->   enabled: true\n110:   ssl: false ->   ssl: true",
+      "note": "↑ **전문입니다.** diff 도구로는 아예 처리할 수 없는 형식인데, 에이전트 소비자는 2/2 정확히 적용했습니다."
+    }
+  ],
+  "result": {
+    "unit": "1차 산출물 문자 수 · 2차 소비자가 파일을 정확히 복원한 비율은 다섯 조건 모두 2/2",
+    "rows": [
+      {"label": "W0 전체 재출력 · 복원 2/2", "chars": 2469, "kind": "b"},
+      {"label": "W1 diff C=3 · 복원 2/2", "chars": 823, "kind": "n", "delta": "−66.7%"},
+      {"label": "W2 diff C=1 · 복원 2/2", "chars": 533, "kind": "n", "delta": "−78.4%"},
+      {"label": "W3 diff C=0 · 복원 2/2", "chars": 298, "kind": "c", "delta": "−87.9%"},
+      {"label": "W4 줄번호+치환쌍 · 복원 2/2", "chars": 217, "kind": "c", "delta": "−91.2%"}
+    ],
+    "foot": "열 번의 2차 시행 전부 최종 파일이 기대 결과와 **바이트 단위로 일치**했습니다. 압축을 91.2%까지 밀어도 정보가 소실되지 않았다는 뜻입니다."
+  },
+  "blocks": [
+    {
+      "type": "why",
+      "title": "라운드 2가 찾은 '문턱'은 정보가 아니라 도구의 성질이었습니다",
+      "paras": [
+        "이 저장소는 앞서 \"컨텍스트를 0줄로 줄이면 `git apply` 가 100% 거부한다\"를 관측했고, 그걸 **압축의 한계**로 기록해 뒀습니다. 이번 1차 에이전트 두 곳도 직접 시험해 같은 결과를 보고했습니다 — `--unidiff-zero` 플래그 없이는 적용되지 않습니다.",
+        "그런데 **똑같은 파일을 사람이나 에이전트가 받으면 문제없이 적용합니다.** `git apply` 가 거부하는 이유는 정보가 없어서가 아니라, 위치를 검증할 근거가 없을 때 오적용을 막으려는 **안전장치**이기 때문입니다.",
+        "즉 왜곡은 압축률의 함수가 아니라 **받는 쪽이 누구인가**의 함수입니다. 받는 쪽이 에이전트라면 `git apply` 가 요구하는 컨텍스트 줄은 낼 필요 없는 잉여입니다 — 823자 대신 217자로 같은 일을 합니다."
+      ]
+    },
+    {
+      "type": "halt",
+      "title": "가설이 예측한 급락 지점을 못 찾았습니다",
+      "paras": [
+        "세운 가설은 \"압축을 올리면 어느 지점까지 품질이 평평하다가 문턱에서 급락한다\"였습니다. 급락 지점을 찾으려면 **깨지는 데까지 밀어야** 하는데, 준비한 다섯 단계가 전부 안 깨졌습니다.",
+        "사전에 정해둔 기각 조건이 \"전 구간 왜곡 0이면 이 범위에서 문턱 미관측\"이었으므로 기각으로 판정합니다. \"문턱이 없다\"가 아니라 **\"여기까지는 없더라\"** 입니다.",
+        "다음에는 압축을 더 밀어야 합니다 — 예를 들어 줄 번호도 빼고 \"복제본 수를 6으로, 환경을 production 으로…\"라고만 쓰면 어디선가 반드시 깨집니다."
+      ]
+    },
+    {
+      "type": "trap",
+      "title": "이 결과로 `git apply` 파이프라인을 바꾸지 마세요",
+      "paras": [
+        "받는 쪽이 **스크립트나 CI** 라면 라운드 2 결론이 그대로 유효합니다. 컨텍스트 0줄 diff는 표준 옵션으로 거부됩니다.",
+        "이 실험이 말하는 것은 **소비자가 에이전트일 때** 컨텍스트 줄이 낭비라는 것뿐입니다. 두 경우를 섞지 마세요.",
+        "수치는 전부 **글자 수**이며 토큰이 아닙니다. 그리고 이 결과는 변경 6곳·파일 120줄이라는 형상 하나에서 나왔습니다."
+      ]
+    }
+  ],
+  "summary": {
+    "cols": ["이런 걸 뱉을 때", "이렇게 시킨다", "몇 % 아끼나"],
+    "rows": [
+      ["파일 수정 지시 · 받는 쪽이 **에이전트**", "줄 번호 + 치환쌍만 쓴다", "전체 재출력 대비 **−91.2%** · diff(C=3) 대비 **−73.6%**"],
+      ["파일 수정 지시 · 받는 쪽이 **`git apply`**", "컨텍스트 1줄 diff까지만 줄인다", "**−78.4%** (0줄로 가면 거부됨)"],
+      ["파일이 짧을 때 (약 40줄 미만)", "전체 재출력이 더 짧다", "라운드 1·2 참조"],
+      ["더 압축하고 싶을 때", "어디서 깨지는지 먼저 재고 쓴다", "미측정 — 91.2%까지만 확인"]
+    ]
+  },
+  "footer": [
+    "사전등록 `experiments/round5-plan.md` §6 R1·R2·R3 → 판정 `experiments/round5-results.md` §1",
+    "산출물 원문 `experiments/runs/r5/` (t01·t14 = W3, t05·t20 = W4, t30–t39 = 2차 소비자) · W0·W1·W2는 `experiments/runs/r2/`",
+    "1차 조건당 2회 시행, **조건 내 분산 0**. 드리프트 확인용 시행이 라운드 2 결과와 **823자로 정확히 일치**했습니다.",
+    "모든 수치는 **글자 수(proxy)** 이며 토큰이 아닙니다. 절대 토큰 절감률로 인용하지 마세요.",
+    "측정 `tools/measure.py` · 채점 `experiments/scripts/score_r5.py` · 판정식 `experiments/scripts/judge_r5.py` · 원시 결과 `experiments/raw/r5-scores.json`"
+  ]
+}

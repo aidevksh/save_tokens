@@ -1,0 +1,12 @@
+`change.txt`의 5개 훅을 모두 `deploy.yaml`에 적용했습니다. 지시서의 컨텍스트 줄이 원본과 전부 일치해 모호한 부분은 없었고, 추측으로 채운 값도 없습니다.
+
+| 위치 | 변경 전 → 후 |
+|---|---|
+| `deployment.replicas` | 3 → 6 |
+| `env` | staging → production |
+| `logging.level` | debug → info |
+| `logging.format` | text → json |
+| `autoscale.enabled` | false → true |
+| `database.ssl` | false → true |
+
+지시서에 없어 손대지 않은 항목 중 참고용으로 알릴 점: `env`가 production으로 바뀌었지만 `image.tag: 1.4.2`, `networking.ingress.host: payments.staging.example.com`, `database.host: db-staging.internal`, `cache.host: cache-staging.internal`, `database.ssl_mode: prefer`는 여전히 staging 값입니다. 지시서에 언급이 없어 그대로 두었습니다.

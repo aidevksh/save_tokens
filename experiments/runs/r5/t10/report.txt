@@ -1,0 +1,5 @@
+24건을 TSV로 저장 완료했습니다.
+
+- 파일: `<RUNDIR>/out.txt`
+- 헤더 1줄 + 데이터 24줄, 총 25줄. 탭 1개 구분, 열 순서는 지정대로 asset_id/region/env/role/os/tier/cpu/status.
+- 설명·주석 없이 데이터만 포함.

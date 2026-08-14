@@ -1,0 +1,4 @@
+asset_id	region	env	role	os	tier	cpu	status
+AS-2001	apne1	prod	web	ubuntu22	small	2	active
+AS-2002	apne2	stage	api	ubuntu24	small	4	drained
+AS-2003	usea1	dev	api	debian12	medium	8	drained

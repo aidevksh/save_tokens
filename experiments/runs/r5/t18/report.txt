@@ -1,0 +1,7 @@
+out.txt 에 60행을 저장했습니다.
+
+- 경로: `<RUNDIR>/out.txt`
+- 헤더 없이 데이터 60줄, 줄바꿈 LF
+- 첫 줄 `shard-000,node-0.example.com,7000,1` / 마지막 줄 `shard-059,node-5.example.com,7059,4`
+
+거부된 도구 호출은 없었습니다.

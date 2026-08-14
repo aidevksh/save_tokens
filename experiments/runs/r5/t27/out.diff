@@ -1,0 +1,41 @@
+--- a/deploy.yaml
++++ b/deploy.yaml
+@@ -10,11 +10,11 @@
+ deployment:
+   strategy: RollingUpdate
+   max_surge: 1
+-  replicas: 3
++  replicas: 6
+   max_unavailable: 0
+   min_ready_seconds: 15
+   progress_deadline_seconds: 600
+-env: staging
++env: production
+ image:
+   registry: registry.example.com
+   repository: payments-api
+@@ -60,12 +60,12 @@
+ logging:
+   destination: stdout
+   sampling_rate: 1.0
+-  level: debug
+-  format: text
++  level: info
++  format: json
+   retention_days: 7
+   include_request_body: false
+ autoscale:
+-  enabled: false
++  enabled: true
+   min_replicas: 1
+   max_replicas: 5
+   target_cpu_percent: 80
+@@ -107,7 +107,7 @@
+   pool_timeout_seconds: 30
+   statement_timeout_ms: 15000
+   read_replica_host: db-staging-ro.internal
+-  ssl: false
++  ssl: true
+   ssl_mode: prefer
+ cache:
+   provider: redis

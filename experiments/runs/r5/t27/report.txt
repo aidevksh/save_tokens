@@ -1,0 +1,7 @@
+완료. diff를 저장했다.
+
+저장 경로: `<RUNDIR>/out.diff`
+
+- 3개 hunk (`@@ -10,11 +10,11 @@`, `@@ -60,12 +60,12 @@`, `@@ -107,7 +107,7 @@`), 컨텍스트 3줄. 요청 1·2는 인접해 한 hunk로, 3·4·5도 한 hunk로 병합됐다.
+- 검증: 원본을 재구성해 `git apply -p1 --check` 통과 후 실제 적용, 6곳 모두 의도대로 반영(13:`replicas: 6`, 17:`env: production`, 63:`level: info`, 64:`format: json`, 68:`enabled: true`, 110:`ssl: true`). `networking.ingress.enabled`(81줄)는 원래부터 true이며 변경되지 않았다.
+- 도구 호출 거부는 없었다.

@@ -12,3 +12,8 @@ A6-H1	채택	4	지시 3단 누적 −88.2%, 한계 절감 1681→292→165자, �
 A6-H2	기각	4	보고문 −6.2%지만 총합 −2.0%로 동률. 재진술 지표도 안 움직임	r4-a6h2-input-restatement
 A6-H4	채택	4	고반복 −37.8%, 정확도 1.0. 예측한 저반복 역전은 없었다	r4-a6h4-row-repeat-folding
 A6-H6	채택	4	−60.5%, 정확도 1.0, R*=1 (총합 회계에서도 1회에 회수)	r4-a6h6-prompt-codebook
+A6-H3	기각	5	압축률 91.2%까지 왜곡 0. 문턱은 정보가 아니라 복호기(git apply)의 성질	r5-a6h3-rate-distortion-threshold
+A6-H8	기각	5	재질의 지표가 전 조건 포화. 단 왕복 합계는 C=1→C=0에서 역전	r5-a6h8-roundtrip-cost
+A2-H8	조건부 채택	5	절감량 D≈79.0N+122, R²=0.9997. 단 절감률은 65.0→62.4%로 감소	r5-a2h8-record-count-scaling
+A6-H5	채택	5	규칙적 데이터에서 −95.3%, 실행 대조 4/4 통과	r5-a6h5-generator-not-data
+A1-H5	채택	5	148자 예시가 −82.7%, 커버리지 만점. 예시 길이에 산출물이 비례	r5-a1h5-example-length-anchor

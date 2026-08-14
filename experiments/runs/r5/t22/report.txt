@@ -1,0 +1,6 @@
+24건 전부 JSON 배열로 저장했습니다.
+
+- 파일: `<RUNDIR>/out.txt`
+- 원소 24개, 각 원소에 asset_id·region·env·role·os·tier·cpu·status 8개 키
+- cpu는 숫자, 나머지는 문자열. 설명·주석 없음
+- 도구 호출 거부 없음

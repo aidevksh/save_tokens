@@ -1,0 +1,1 @@
+out.txt에 자산 3건을 JSON 배열로 저장했습니다. 각 원소는 asset_id, region, env, role, os, tier, cpu, status 8개 키를 가지며 cpu만 숫자(2, 4, 8)입니다. 파일에는 데이터 외 설명이나 주석을 넣지 않았습니다. 도구 거부는 없었습니다.

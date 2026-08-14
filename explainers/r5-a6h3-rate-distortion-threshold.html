@@ -1,0 +1,243 @@
+<title>217자로도 통했다</title>
+<style>
+:root{
+  --paper:#F1F2F5; --surface:#FFFFFF; --raise:#F7F8FB; --sunk:#EDEFF4;
+  --ink:#14171F; --muted:#5F6779; --faint:#8A92A2;
+  --line:#DCE0E8; --hair:#E9ECF2;
+  --accent:#2E5E86; --accent-soft:#E3EDF6;
+  --cut:#0F6B54; --cut-soft:#DCEFE8; --cut-line:#8FCBB8;
+  --bloat:#A34E26; --bloat-soft:#F8E6DA; --bloat-line:#E0A882;
+  --halt:#5D5F6B; --halt-soft:#E8E9ED; --halt-line:#B3B6BF;
+  --shadow:0 1px 2px rgba(20,23,31,.05),0 10px 30px -16px rgba(20,23,31,.18);
+  --mono:"Cascadia Mono","SF Mono",ui-monospace,Consolas,"Liberation Mono",monospace;
+  --sans:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+    --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+    --line:#282E3A; --hair:#222833;
+    --accent:#79ADD9; --accent-soft:#1A2938;
+    --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+    --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+    --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+  --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+  --line:#282E3A; --hair:#222833;
+  --accent:#79ADD9; --accent-soft:#1A2938;
+  --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+  --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+  --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px 100px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+code{font-family:var(--mono);font-size:.9em;background:var(--sunk);padding:1px 5px;
+  border-radius:3px;border:1px solid var(--hair)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+a{color:var(--accent)}
+
+header{padding:70px 0 0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:clamp(30px,5.4vw,48px);line-height:1.08;letter-spacing:-.024em;font-weight:680}
+.sub{margin:20px 0 0;font-size:18px;color:var(--muted);max-width:56ch}
+.sub b{color:var(--ink);font-weight:620}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface);
+  box-shadow:var(--shadow);margin-top:16px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;background:var(--raise);border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+  padding:2.5px 9px;border-radius:20px;white-space:nowrap;border:1px solid}
+.pill.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.pill.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.pill.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.pill.open{background:transparent;color:var(--faint);border-color:var(--line)}
+.pill.api{background:transparent;color:var(--accent);border-color:var(--accent)}
+
+footer{margin-top:80px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--faint);line-height:1.85}
+footer b{color:var(--muted)}
+
+.vb{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 10px;border-radius:20px;
+  border:1px solid;text-transform:none}
+.vb.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.vb.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.vb.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.task{margin:26px 0 0;padding:14px 18px;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;font-size:14.5px;color:var(--muted)}
+.task b{color:var(--ink)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0 0;padding:14px 18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;font-size:13.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;border:1px solid;display:inline-block}
+.sw.c{background:var(--cut-soft);border-color:var(--cut)}
+.sw.b{background:var(--bloat-soft);border-color:var(--bloat)}
+.sw.n{background:var(--accent-soft);border-color:var(--accent)}
+
+.step{margin-top:44px}
+.step>.lab{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.step>.lab .b{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 9px;
+  border-radius:5px;background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
+.step>.lab h3{font-size:16px;font-weight:620}
+.step>.note{margin:0 0 13px;color:var(--muted);font-size:14.5px}
+
+.box{background:var(--surface);border:1px solid var(--line);border-radius:11px;
+  box-shadow:var(--shadow);overflow:hidden}
+.cap{padding:10px 15px;background:var(--raise);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cap .sz{margin-left:auto;color:var(--ink);font-weight:600}
+pre{margin:0;padding:15px;font-family:var(--mono);font-size:12.3px;line-height:1.62;
+  overflow-x:auto;white-space:pre;color:var(--ink)}
+pre .g{color:var(--faint)}
+pre .del{color:var(--bloat)}
+pre .add{color:var(--cut)}
+pre .hh{color:var(--accent)}
+pre .tab{color:var(--faint);opacity:.55}
+.trunc{padding:9px 15px;border-top:1px dashed var(--line);background:var(--sunk);
+  font-size:12.5px;color:var(--faint)}
+.trunc b{color:var(--muted)}
+
+.fork{display:flex;flex-direction:column;align-items:center;margin:26px 0 6px}
+.fork .stem{width:2px;height:26px;background:var(--line)}
+.fork .txt{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--faint);
+  padding:5px 12px;border:1px dashed var(--line);border-radius:20px;background:var(--paper)}
+
+.pair{display:grid;gap:16px;grid-template-columns:repeat(var(--cols),1fr)}
+@media (max-width:820px){.pair{grid-template-columns:1fr}}
+.branch{border-radius:11px;border:1px solid var(--line);background:var(--surface);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.branch.win{border-color:var(--cut-line)}
+.branch.lose{border-color:var(--bloat-line)}
+.branch.halt{border-color:var(--halt-line)}
+.branch>.top{padding:12px 15px;border-bottom:1px solid var(--line)}
+.branch.win>.top{background:var(--cut-soft)}
+.branch.lose>.top{background:var(--bloat-soft)}
+.branch.halt>.top{background:var(--halt-soft)}
+.branch.base>.top{background:var(--accent-soft)}
+.branch>.top .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.branch>.top .what{font-size:14.5px;font-weight:620;margin-top:2px}
+.branch .ptxt{padding:13px 15px;font-size:13.5px;color:var(--muted);
+  border-bottom:1px dashed var(--hair);background:var(--raise)}
+.branch pre{flex:1}
+
+.result{margin-top:24px;background:var(--surface);border:1px solid var(--line);
+  border-radius:11px;padding:22px 22px 16px;box-shadow:var(--shadow)}
+.result>h4{font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;margin-bottom:18px}
+.rrow{display:grid;grid-template-columns:168px 1fr;gap:14px;align-items:center;margin-bottom:12px}
+.rrow .rl{font-size:13.5px;color:var(--muted);text-align:right}
+.rtrack{display:flex;align-items:center;min-height:32px}
+.rfill{height:28px;border-radius:3px;border:1px solid;min-width:3px;
+  animation:grow .75s cubic-bezier(.2,.75,.3,1) both;transform-origin:left}
+.rfill.n{background:var(--accent-soft);border-color:var(--accent)}
+.rfill.c{background:var(--cut-soft);border-color:var(--cut)}
+.rfill.b{background:var(--bloat-soft);border-color:var(--bloat)}
+@keyframes grow{from{transform:scaleX(.02)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.rfill{animation:none}}
+.rv{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;
+  margin-left:11px;white-space:nowrap;color:var(--muted)}
+.rv b{color:var(--ink)}
+.rv .d{font-weight:700;margin-left:9px;font-size:14px}
+.rv .d.c{color:var(--cut)} .rv .d.b{color:var(--bloat)}
+.foot{margin-top:12px;font-size:12.5px;color:var(--faint)}
+.foot b{color:var(--ink)}
+
+.blk{margin-top:26px;padding:20px 22px;border-radius:11px;border:1px solid var(--line);
+  border-left-width:3px;background:var(--surface)}
+.blk.why{border-left-color:var(--accent)}
+.blk.trap{background:var(--bloat-soft);border-color:var(--bloat);border-left-color:var(--bloat)}
+.blk.halt{background:var(--halt-soft);border-color:var(--halt-line);border-left-color:var(--halt)}
+.blk h4{font-size:15px;margin-bottom:9px;font-weight:650}
+.blk.trap h4{color:var(--bloat)}
+.blk.halt h4{color:var(--halt)}
+.blk p{margin:0;color:var(--muted);font-size:14.5px}
+.blk.trap p,.blk.halt p{color:var(--ink)}
+.blk p+p{margin-top:10px}
+.blk b{color:var(--ink)}
+
+.shead{border-bottom:2px solid var(--ink);padding-bottom:14px;margin:80px 0 0}
+.shead .n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--accent)}
+.shead h2{font-size:26px;letter-spacing:-.018em;margin-top:6px;font-weight:660}
+</style>
+<div class="wrap">
+<header><p class="kicker">라운드 5 · 축 6 정보이론<span class="vb lose">판정 · 기각</span></p><h1>217자로도 통했다</h1><p class="sub">120줄 설정 파일의 6곳 수정을 <b>다섯 단계로 압축</b>해서 내고, 각 결과를 다른 에이전트에게 넘겨 적용시켰습니다. 2,469자에서 217자까지 <b>91.2% 압축</b>했는데 열 번 다 정확히 적용됐습니다. 예상한 <b>품질 급락 지점이 없었습니다.</b></p><p class="task"><b>시킨 일</b> — 배포 설정 파일 <code>deploy.yaml</code> 120줄에서 6곳(복제본 수, 환경, 로그 레벨·형식, 오토스케일, DB SSL)을 바꾸게 했습니다. 압축 수준만 다섯 가지로 바꿔 냈고, 그 결과물을 <b>아무 설명 없이</b> 다른 에이전트에게 원본 파일과 함께 넘겼습니다.</p><div class="legend"><span><i class="sw n"></i> 기준 (비교 대상)</span><span><i class="sw c"></i> 짧아짐 = 이득</span><span><i class="sw b"></i> 길어짐 = 손해</span><span class="mono" style="margin-left:auto">모든 수치는 문자 수 (토큰 아님)</span></div></header>
+<div class="step"><div class="lab"><span class="b">1</span><h3>입력 — 모든 조건에 똑같이 준 것</h3></div><p class="note">받는 쪽 프롬프트가 조건별로 다르면 무엇이 원인인지 알 수 없습니다. 그래서 프롬프트를 글자 하나까지 똑같이 두고, <b>파일 하나의 내용만</b> 바꿨습니다.</p><div class="box"><div class="cap">2차 소비자에게 준 프롬프트 — 다섯 조건이 **완전히 동일하다**</div><pre>`deploy.yaml` 은 현재 배포 설정 파일이고, `change.txt` 는 다른 팀이
+보낸 변경 지시서입니다.
+
+**할 일**: `change.txt` 의 내용대로 `deploy.yaml` 을 수정하세요. 수정한 결과는
+`deploy.yaml` 에 그대로 저장합니다.
+
+지시서만으로 알 수 없는 부분이 있으면 추측해서 채우지 말고, 무엇을 알 수 없는지 보고하세요.</pre><div class="trunc">↑ 전문입니다. 원래 변경 요청(무엇을 왜 바꾸는지)은 <b>주지 않았습니다.</b> 받은 파일만 보고 복원해야 합니다.</div></div></div>
+<div class="fork"><div class="stem"></div><div class="txt">여기서만 갈린다 — change.txt 에 무엇이 들어 있나</div><div class="stem"></div></div>
+<div class="step"><div class="lab"><span class="b">2</span><h3>갈라지는 문장, 그리고 나온 답</h3></div><div class="pair" style="--cols:4"><div class="branch base"><div class="top"><div class="who">W0</div><div class="what">수정된 파일 전체</div></div><div class="ptxt">“수정된 <code>deploy.yaml</code> 전체를 저장한다. 120줄 전부 쓴다.”</div><div class="cap">나온 답<span class="sz">2,469자</span></div><pre>service: payments-api
+namespace: payments
+owner: platform-team
+contact: platform@example.com
+description: Handles card and wallet payment authorization.
+metadata:
+  tier: critical
+…(120줄 전체)</pre><div class="trunc">↑ <b>잘랐습니다.</b> 120줄 전문. 소비자는 그냥 통째로 덮어쓰면 됩니다.</div></div><div class="branch cut"><div class="top"><div class="who">W2</div><div class="what">컨텍스트 1줄 diff</div></div><div class="ptxt">“각 hunk 의 컨텍스트 줄은 변경 줄 위아래 <b>1줄씩</b>으로 한다.”</div><div class="cap">나온 답<span class="sz">533자 (−78.4%)</span></div><pre>--- a/deploy.yaml
++++ b/deploy.yaml
+@@ -12,3 +12,3 @@
+   max_surge: 1
+-  replicas: 3
++  replicas: 6
+   max_unavailable: 0
+@@ -16,3 +16,3 @@
+   progress_deadline_seconds: 600
+-env: staging
++env: production
+ image:
+…</pre><div class="trunc">↑ <b>잘랐습니다.</b> 5개 hunk. 여기까지는 <code>git apply</code> 로도 적용됩니다.</div></div><div class="branch cut"><div class="top"><div class="who">W3</div><div class="what">컨텍스트 0줄 diff</div></div><div class="ptxt">“각 hunk 에 컨텍스트 줄을 <b>넣지 않는다</b>. 변경 줄만 쓴다.”</div><div class="cap">나온 답<span class="sz">298자 (−87.9%)</span></div><pre>--- a/deploy.yaml
++++ b/deploy.yaml
+@@ -13 +13 @@
+-  replicas: 3
++  replicas: 6
+@@ -17 +17 @@
+-env: staging
++env: production
+@@ -63,2 +63,2 @@
+-  level: debug
+-  format: text
++  level: info
++  format: json
+@@ -68 +68 @@
+-  enabled: false
++  enabled: true
+@@ -110 +110 @@
+-  ssl: false
++  ssl: true</pre><div class="trunc">↑ <b>전문입니다.</b> 두 번 돌린 결과가 바이트 동일. 표준 <code>git apply -p1</code> 은 이 형식을 <b>거부합니다</b>(<code>--unidiff-zero</code> 필요).</div></div><div class="branch cut"><div class="top"><div class="who">W4</div><div class="what">줄 번호 + 치환쌍</div></div><div class="ptxt">“변경 1건당 한 줄이며 형식은 <code>&lt;줄번호&gt;: &lt;원래 줄&gt; -&gt; &lt;바뀐 줄&gt;</code> 이다. diff 헤더, hunk 헤더, 컨텍스트 줄은 쓰지 않는다.”</div><div class="cap">나온 답<span class="sz">217자 (−91.2%)</span></div><pre>13:   replicas: 3 -&gt;   replicas: 6
+17: env: staging -&gt; env: production
+63:   level: debug -&gt;   level: info
+64:   format: text -&gt;   format: json
+68:   enabled: false -&gt;   enabled: true
+110:   ssl: false -&gt;   ssl: true</pre><div class="trunc">↑ <b>전문입니다.</b> diff 도구로는 아예 처리할 수 없는 형식인데, 에이전트 소비자는 2/2 정확히 적용했습니다.</div></div></div></div>
+<div class="step"><div class="lab"><span class="b">3</span><h3>그래서 얼마나 아꼈나</h3></div><div class="result"><h4>1차 산출물 문자 수 · 2차 소비자가 파일을 정확히 복원한 비율은 다섯 조건 모두 2/2</h4><div class="rrow"><div class="rl">W0 전체 재출력 · 복원 2/2</div><div class="rtrack"><div class="rfill b" style="width:100.0%"></div><span class="rv"><b>2,469</b>자</span></div></div><div class="rrow"><div class="rl">W1 diff C=3 · 복원 2/2</div><div class="rtrack"><div class="rfill n" style="width:33.3%"></div><span class="rv"><b>823</b>자<span class="d c">−66.7%</span></span></div></div><div class="rrow"><div class="rl">W2 diff C=1 · 복원 2/2</div><div class="rtrack"><div class="rfill n" style="width:21.6%"></div><span class="rv"><b>533</b>자<span class="d c">−78.4%</span></span></div></div><div class="rrow"><div class="rl">W3 diff C=0 · 복원 2/2</div><div class="rtrack"><div class="rfill c" style="width:12.1%"></div><span class="rv"><b>298</b>자<span class="d c">−87.9%</span></span></div></div><div class="rrow"><div class="rl">W4 줄번호+치환쌍 · 복원 2/2</div><div class="rtrack"><div class="rfill c" style="width:8.8%"></div><span class="rv"><b>217</b>자<span class="d c">−91.2%</span></span></div></div><p class="foot">열 번의 2차 시행 전부 최종 파일이 기대 결과와 <b>바이트 단위로 일치</b>했습니다. 압축을 91.2%까지 밀어도 정보가 소실되지 않았다는 뜻입니다.</p></div></div>
+<div class="blk why"><h4>라운드 2가 찾은 &#x27;문턱&#x27;은 정보가 아니라 도구의 성질이었습니다</h4><p>이 저장소는 앞서 &quot;컨텍스트를 0줄로 줄이면 <code>git apply</code> 가 100% 거부한다&quot;를 관측했고, 그걸 <b>압축의 한계</b>로 기록해 뒀습니다. 이번 1차 에이전트 두 곳도 직접 시험해 같은 결과를 보고했습니다 — <code>--unidiff-zero</code> 플래그 없이는 적용되지 않습니다.</p><p>그런데 <b>똑같은 파일을 사람이나 에이전트가 받으면 문제없이 적용합니다.</b> <code>git apply</code> 가 거부하는 이유는 정보가 없어서가 아니라, 위치를 검증할 근거가 없을 때 오적용을 막으려는 <b>안전장치</b>이기 때문입니다.</p><p>즉 왜곡은 압축률의 함수가 아니라 <b>받는 쪽이 누구인가</b>의 함수입니다. 받는 쪽이 에이전트라면 <code>git apply</code> 가 요구하는 컨텍스트 줄은 낼 필요 없는 잉여입니다 — 823자 대신 217자로 같은 일을 합니다.</p></div>
+<div class="blk halt"><h4>가설이 예측한 급락 지점을 못 찾았습니다</h4><p>세운 가설은 &quot;압축을 올리면 어느 지점까지 품질이 평평하다가 문턱에서 급락한다&quot;였습니다. 급락 지점을 찾으려면 <b>깨지는 데까지 밀어야</b> 하는데, 준비한 다섯 단계가 전부 안 깨졌습니다.</p><p>사전에 정해둔 기각 조건이 &quot;전 구간 왜곡 0이면 이 범위에서 문턱 미관측&quot;이었으므로 기각으로 판정합니다. &quot;문턱이 없다&quot;가 아니라 <b>&quot;여기까지는 없더라&quot;</b> 입니다.</p><p>다음에는 압축을 더 밀어야 합니다 — 예를 들어 줄 번호도 빼고 &quot;복제본 수를 6으로, 환경을 production 으로…&quot;라고만 쓰면 어디선가 반드시 깨집니다.</p></div>
+<div class="blk trap"><h4>이 결과로 <code>git apply</code> 파이프라인을 바꾸지 마세요</h4><p>받는 쪽이 <b>스크립트나 CI</b> 라면 라운드 2 결론이 그대로 유효합니다. 컨텍스트 0줄 diff는 표준 옵션으로 거부됩니다.</p><p>이 실험이 말하는 것은 <b>소비자가 에이전트일 때</b> 컨텍스트 줄이 낭비라는 것뿐입니다. 두 경우를 섞지 마세요.</p><p>수치는 전부 <b>글자 수</b>이며 토큰이 아닙니다. 그리고 이 결과는 변경 6곳·파일 120줄이라는 형상 하나에서 나왔습니다.</p></div>
+<div class="shead"><div class="n">정리</div><h2>그래서 언제 이렇게 시키나</h2></div><div class="scroll"><table><thead><tr><th>이런 걸 뱉을 때</th><th>이렇게 시킨다</th><th>몇 % 아끼나</th></tr></thead><tbody><tr><td>파일 수정 지시 · 받는 쪽이 <b>에이전트</b></td><td>줄 번호 + 치환쌍만 쓴다</td><td>전체 재출력 대비 <b>−91.2%</b> · diff(C=3) 대비 <b>−73.6%</b></td></tr><tr><td>파일 수정 지시 · 받는 쪽이 <b><code>git apply</code></b></td><td>컨텍스트 1줄 diff까지만 줄인다</td><td><b>−78.4%</b> (0줄로 가면 거부됨)</td></tr><tr><td>파일이 짧을 때 (약 40줄 미만)</td><td>전체 재출력이 더 짧다</td><td>라운드 1·2 참조</td></tr><tr><td>더 압축하고 싶을 때</td><td>어디서 깨지는지 먼저 재고 쓴다</td><td>미측정 — 91.2%까지만 확인</td></tr></tbody></table></div>
+<footer>사전등록 <code>experiments/round5-plan.md</code> §6 R1·R2·R3 → 판정 <code>experiments/round5-results.md</code> §1<br>
+산출물 원문 <code>experiments/runs/r5/</code> (t01·t14 = W3, t05·t20 = W4, t30–t39 = 2차 소비자) · W0·W1·W2는 <code>experiments/runs/r2/</code><br>
+1차 조건당 2회 시행, <b>조건 내 분산 0</b>. 드리프트 확인용 시행이 라운드 2 결과와 <b>823자로 정확히 일치</b>했습니다.<br>
+모든 수치는 <b>글자 수(proxy)</b> 이며 토큰이 아닙니다. 절대 토큰 절감률로 인용하지 마세요.<br>
+측정 <code>tools/measure.py</code> · 채점 <code>experiments/scripts/score_r5.py</code> · 판정식 <code>experiments/scripts/judge_r5.py</code> · 원시 결과 <code>experiments/raw/r5-scores.json</code></footer>
+</div>

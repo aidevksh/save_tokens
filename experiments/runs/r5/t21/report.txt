@@ -1,0 +1,11 @@
+TSV 파일 저장 완료. 헤더 1줄 + 자산 3줄, 탭 구분자 사용.
+
+경로: `<RUNDIR>/out.txt`
+
+| asset_id | region | env | role | os | tier | cpu | status |
+|---|---|---|---|---|---|---|---|
+| AS-2001 | apne1 | prod | web | ubuntu22 | small | 2 | active |
+| AS-2002 | apne2 | stage | api | ubuntu24 | small | 4 | drained |
+| AS-2003 | usea1 | dev | api | debian12 | medium | 8 | drained |
+
+도구 호출 거부는 없었습니다.

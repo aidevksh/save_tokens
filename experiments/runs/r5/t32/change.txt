@@ -1,0 +1,29 @@
+--- a/deploy.yaml
++++ b/deploy.yaml
+@@ -12,3 +12,3 @@
+   max_surge: 1
+-  replicas: 3
++  replicas: 6
+   max_unavailable: 0
+@@ -16,3 +16,3 @@
+   progress_deadline_seconds: 600
+-env: staging
++env: production
+ image:
+@@ -62,4 +62,4 @@
+   sampling_rate: 1.0
+-  level: debug
+-  format: text
++  level: info
++  format: json
+   retention_days: 7
+@@ -67,3 +67,3 @@
+ autoscale:
+-  enabled: false
++  enabled: true
+   min_replicas: 1
+@@ -109,3 +109,3 @@
+   read_replica_host: db-staging-ro.internal
+-  ssl: false
++  ssl: true
+   ssl_mode: prefer

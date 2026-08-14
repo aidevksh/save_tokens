@@ -1,0 +1,1 @@
+`out.py` 저장 완료. `python out.py` 실행 시 60줄 출력 확인(헤더 없음, 첫 줄 `shard-000,node-0.example.com,7000,1`, 끝 줄 `shard-059,node-5.example.com,7059,4`). 파일에는 f-string print 루프만 있고 주석·설명은 없습니다. 도구 호출 거부는 없었습니다.

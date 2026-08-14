@@ -1,0 +1,6 @@
+`out.py` 저장 완료. 실행 결과 60줄, 규칙대로 출력됨.
+
+- 경로: `<RUNDIR>/out.py`
+- 내용: 2줄짜리 for 루프 + `print("shard-%03d,node-%d.example.com,%d,%d" % (i, i // 10, 7000 + i, i % 4 + 1))`, 주석 없음
+- 검증: 총 60줄, 첫 줄 `shard-000,node-0.example.com,7000,1`, 11번째 `shard-010,node-1.example.com,7010,3`, 마지막 `shard-059,node-5.example.com,7059,4`
+- 도구 호출 거부 없음

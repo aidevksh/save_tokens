@@ -1,0 +1,12 @@
+`change.txt` 의 5개 hunk를 모두 `deploy.yaml` 에 적용했습니다. 모든 hunk의 컨텍스트 줄과 줄 번호가 원본과 정확히 일치해 모호한 곳은 없었습니다.
+
+| 줄 | 항목 | 변경 전 → 후 |
+|---|---|---|
+| 13 | `deployment.replicas` | 3 → 6 |
+| 17 | `env` | staging → production |
+| 63 | `logging.level` | debug → info |
+| 64 | `logging.format` | text → json |
+| 68 | `autoscale.enabled` | false → true |
+| 110 | `database.ssl` | false → true |
+
+알 수 없어 보류한 항목은 없습니다. 다만 지시서 범위 밖이라 손대지 않은 관찰 사항 하나: `env` 가 production으로 바뀌었지만 `database.host`(db-staging.internal), `read_replica_host`(db-staging-ro.internal), `cache.host`(cache-staging.internal), `networking.ingress.host`(payments.staging.example.com)는 여전히 staging을 가리킵니다. 지시서에 해당 변경이 없어 그대로 두었으니, 의도된 것인지 보낸 팀에 확인이 필요할 수 있습니다.

@@ -1,0 +1,17 @@
+`deploy.yaml` 수정 완료. 지시서 6건 모두 해당 줄의 원문이 정확히 일치했고, 그대로 적용했습니다.
+
+| 줄 | 변경 |
+|---|---|
+| 13 | `replicas: 3` → `6` |
+| 17 | `env: staging` → `production` |
+| 63 | `level: debug` → `info` |
+| 64 | `format: text` → `json` |
+| 68 | `autoscale.enabled: false` → `true` |
+| 110 | `database.ssl: false` → `true` |
+
+줄 수(121줄)와 다른 줄 내용은 변동 없습니다.
+
+지시서 범위 밖이라 **손대지 않은** 항목 (판단이 필요하면 알려주세요):
+
+- `env`를 production으로 바꿨지만 staging을 가리키는 값들이 그대로 남아 있습니다 — `networking.ingress.host: payments.staging.example.com`, `database.host: db-staging.internal`, `database.read_replica_host: db-staging-ro.internal`, `cache.host: cache-staging.internal`. 의도된 것인지 지시서만으로는 알 수 없습니다.
+- `database.ssl: true`로 바꿨으나 `ssl_mode: prefer`는 유지했습니다. `require`/`verify-full` 등으로 함께 올릴지 여부가 지시서에 없습니다.
