@@ -1,0 +1,9 @@
+테스트 9개 전부 통과합니다 (pass 9 / fail 0).
+
+`todo.js` 변경 내용 (테스트 파일은 수정하지 않음):
+
+- `complete(store, id)` 추가 — 기존 `get()` 으로 항목을 찾아 없으면 `null`, 있으면 `done = true` 로 설정 후 항목 반환. 이미 done이어도 같은 결과라 멱등.
+- `list(store, options = {})` 확장 — `status` 미지정 시 `'all'`. `'all' | 'done' | 'pending'` 외 값은 `Error` throw. `'all'` 은 기존처럼 복사본 반환, 나머지는 `done` 값으로 필터.
+- `module.exports` 에 `complete` 추가.
+
+기존 함수(`add`/`get`/`remove`/`render`)는 손대지 않았고, 새 파일도 만들지 않았습니다.

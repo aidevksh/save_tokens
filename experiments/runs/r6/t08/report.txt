@@ -1,0 +1,8 @@
+9/9 통과. `todo.js` 만 수정했고 테스트 파일은 그대로입니다.
+
+변경 내용:
+- `complete(store, id)` 추가 — `get()` 재사용, 없으면 `null`, 있으면 `done = true` 후 아이템 반환. 이미 done이어도 같은 결과라 멱등.
+- `list(store, { status = 'all' } = {})` — 인자 없으면 기존처럼 전체 복사본. `'all' | 'done' | 'pending'` 외 값은 `Error` throw.
+- `module.exports` 에 `complete` 등록.
+
+주의점 하나: `complete()` 는 저장된 객체를 그대로 반환하므로 호출자가 반환값을 변형하면 스토어에 반영됩니다. 기존 `get()`/`add()` 도 동일한 규약이라 맞춰 두었습니다.

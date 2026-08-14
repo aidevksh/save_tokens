@@ -2,7 +2,6 @@ id	status	round	result	explainer
 A2-H1	채택	1	−64.5% (proxy), 셀 정확도 손실 0	r1-h1-tabular-json-vs-tsv
 A2-H7	조건부 채택	1 → 2	무조건은 거짓. N > N* 에서만 참	r1-h2-diff-vs-full-30line
 A4-H3	채택	2	N=30 +25.6% / N=120 −66.7% (proxy)	r2-breakeven-file-length
-A5-H7	판정 불가	1	하네스 차단에 의한 차등 탈락	r1-h3-suppression-bundle
 A2-H6	채택	3	마크다운 표는 TSV 대비 +38.2%, JSON 대비 −50.9% (proxy)	r3-a2h6-markdown-table-cost
 A1-H1	채택	3	긍정형 −69.3% / 부정형 −62.3%, 긍정형 우위 −18.7% (proxy)	r3-a1h1-polarity-conciseness
 A1-H6	기각	3	제거한 쪽이 +6.7% 길었다. 총출력은 −0.4%로 동일	r3-a1h6-verification-removal
@@ -17,3 +16,8 @@ A6-H8	기각	5	재질의 지표가 전 조건 포화. 단 왕복 합계는 C=1�
 A2-H8	조건부 채택	5	절감량 D≈79.0N+122, R²=0.9997. 단 절감률은 65.0→62.4%로 감소	r5-a2h8-record-count-scaling
 A6-H5	채택	5	규칙적 데이터에서 −95.3%, 실행 대조 4/4 통과	r5-a6h5-generator-not-data
 A1-H5	채택	5	148자 예시가 −82.7%, 커버리지 만점. 예시 길이에 산출물이 비례	r5-a1h5-example-length-anchor
+A5-H3	채택	6	보고문 −48.6%, 총출력 −17.4%, 통과율 9/9 유지. 총량을 실제로 줄인 첫 억제 지시	r6-a5h3-final-summary-cap
+A5-H4	조건부 채택	6	코드량 −6.2%지만 분포 겹침. 미요청 산출물은 바닥 효과로 판정 불가	r6-a5h4h5-scope-and-comments
+A5-H5	기각	6	바닥 효과 — 15시행 전부 주석을 한 글자도 더하지 않았다	r6-a5h4h5-scope-and-comments
+A5-H7	채택	1 → 6	라운드1은 하네스 차단으로 판정 불가. 재시험 결과 묶음이 개별 절감 합의 64.6%	r6-a5h4h5-scope-and-comments
+A1-H3	조건부 채택	6	300자 상한이 간결성 지시보다 −66.7%. 품질 손실은 정규식 거짓 음성이라 미확인	r6-a1h3-numeric-cap

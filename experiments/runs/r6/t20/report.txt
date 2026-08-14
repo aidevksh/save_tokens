@@ -1,0 +1,5 @@
+테스트 9개 전부 통과합니다.
+
+- `todo.js` 에 `complete(store, id)` 추가 — 항목을 `done: true` 로 바꿔 반환, 없는 id는 `null`, 재호출해도 동일 결과.
+- `list(store, { status })` 로 확장 — `all`(기본)/`done`/`pending` 필터, 그 외 값은 예외.
+- `complete` 를 `module.exports` 에 등록.

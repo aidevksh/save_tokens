@@ -1,0 +1,5 @@
+테스트 9개 전부 통과합니다 (pass 9 / fail 0).
+
+- `todo.js` 에 `complete(store, id)` 추가 — 항목을 찾아 `done = true` 로 두고 반환, 없으면 `null` (재호출해도 같은 결과라 멱등).
+- `list(store, { status })` 로 확장 — `all`(기본)·`done`·`pending` 필터, 그 외 값은 `Error` 던짐.
+- `module.exports` 에 `complete` 를 넣었고, 테스트 파일은 수정하지 않았습니다.

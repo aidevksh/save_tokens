@@ -1,0 +1,5 @@
+테스트 9/9 통과.
+
+- `todo.js`에 `complete(store, id)` 추가 — `get`으로 찾아 없으면 `null`, 있으면 `done = true` 설정 후 반환(재호출해도 동일).
+- `list(store, { status })`로 시그니처 확장 — `all`(기본)/`done`/`pending` 필터, 그 외 값은 `Error` throw.
+- `module.exports`에 `complete` 추가. 테스트 파일은 수정하지 않음.

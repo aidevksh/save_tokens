@@ -1,0 +1,9 @@
+9개 테스트 전부 통과합니다 (pass 9 / fail 0).
+
+`todo.js` 변경 내용 (테스트 파일은 손대지 않음):
+
+1. `complete(store, id)` 추가 — `get()`으로 조회해 없으면 `null`, 있으면 `done = true` 후 항목 반환. 이미 완료된 항목에 다시 호출해도 같은 객체를 그대로 반환하므로 멱등이고 목록 길이도 변하지 않습니다.
+2. `list(store, options = {})` 확장 — `options.status`가 없으면 `'all'`로 간주해 기존 동작(전체 복사본)을 유지하고, `'done'`/`'pending'`은 `done` 플래그로 필터, 그 외 값은 `Error`를 던집니다. 허용 값은 `STATUSES` 상수 한 곳에 모아 뒀습니다.
+3. `module.exports`에 `complete` 추가.
+
+파일: `<RUNDIR>/todo.js`

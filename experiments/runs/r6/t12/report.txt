@@ -1,0 +1,8 @@
+9개 전부 통과합니다 (pass 9, fail 0).
+
+`todo.js` 변경 두 곳:
+
+- `complete(store, id)` 신규. `get()` 을 재사용해 없는 id면 `null`, 있으면 `done = true` 후 항목 반환. 대입이라 재호출해도 같은 결과(멱등)이고 항목 수도 늘지 않습니다.
+- `list(store, { status = 'all' } = {})` 로 확장. `STATUS_FILTERS` 표에서 술어를 찾아 `filter` 하고, 표에 없는 값이면 `unknown status: bogus` 로 throw 합니다. 인자를 안 주면 기본 `all` 이라 기존 호출부는 그대로 동작합니다.
+
+`module.exports` 에 `complete` 를 추가했습니다. 테스트 파일은 수정하지 않았습니다.

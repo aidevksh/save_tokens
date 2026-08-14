@@ -1,0 +1,12 @@
+9/9 통과.
+
+`todo.js` 변경 사항:
+
+| 항목 | 내용 |
+|---|---|
+| `complete(store, id)` | `get` 으로 조회, 없으면 `null`, 있으면 `done = true` 후 항목 반환. 이미 done이어도 같은 결과라 멱등 |
+| `STATUS_FILTERS` | `all` / `done` / `pending` 술어 테이블. 유효 상태 집합이자 필터 구현 |
+| `list(store, { status = 'all' } = {})` | 테이블에 없는 상태면 `unknown status: <값>` 으로 throw, 있으면 `filter` 결과 반환. 인자 없는 호출은 기본값 `all` 로 기존 동작 유지 |
+| exports | `complete` 추가 |
+
+`filter` 가 새 배열을 만들므로 기존 `slice()` 의 방어 복사 성격도 그대로 유지됩니다. 테스트 파일은 수정하지 않았습니다.
