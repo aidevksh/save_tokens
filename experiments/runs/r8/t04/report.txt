@@ -1,0 +1,1 @@
+12건 레코드를 헤더 포함 13줄 TSV로 `<RUNDIR>/out.txt` 에 저장했습니다. 열 순서는 rec_id, phase, plan, pace, port, mode, mark, mesh, 구분자는 탭 1개입니다.

@@ -1,0 +1,1 @@
+12건을 out.txt에 TSV로 저장했습니다. 헤더 없이 12줄, 열 순서는 rec_id, phase, plan, pace, port, mode, mark, mesh입니다.

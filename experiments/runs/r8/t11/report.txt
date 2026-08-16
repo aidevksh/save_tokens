@@ -1,0 +1,12 @@
+`ans.txt` 저장 완료.
+
+```
+1. k7q
+2. p9r
+3. 3건
+4. RC-3008, RC-3009, RC-3012
+5. 3건
+6. RC-3002, RC-3003
+```
+
+열 이름이 1글자(`r p l c o d k s`)라 질문의 이름과 매핑이 명시돼 있지 않았습니다. 각 글자가 이름에 포함된다는 조건으로 유일한 대응이 하나만 성립해 그대로 사용했습니다: r=rec_id, p=phase, l=plan, c=pace, o=port, d=mode, k=mark, s=mesh (c는 pace에만, k는 mark에만, d는 mode에만, l은 plan에만 있어 강제되고 나머지도 연쇄적으로 결정됨).

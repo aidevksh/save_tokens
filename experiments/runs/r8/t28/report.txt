@@ -1,0 +1,4 @@
+`sched.js` 에 `addBusinessDays`, `mergeRanges` 를 추가하고 export 에 넣었습니다. `node --test` 결과 10/10 통과, 테스트 파일은 수정하지 않았습니다.
+
+- `addBusinessDays(d, n, holidays)`: `n === 0` 이면 시작일 그대로 반환, 아니면 부호에 맞춰 하루씩 이동하며 `isBusinessDay` 인 날만 카운트를 소진합니다.
+- `mergeRanges(ranges)`: `start < end` 만 남기고 start 오름차순 정렬 후, 다음 구간 start 가 직전 end 이하면 병합합니다(반열림이라 맞닿은 경우 포함).

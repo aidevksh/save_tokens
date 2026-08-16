@@ -1,0 +1,5 @@
+`out.txt` 저장 완료. 헤더 1글자 축약 + 12줄, 탭 구분.
+
+- 헤더: `r p l c o m k s` (rec_id, phase, plan, pace, port, mode, mark, mesh 순)
+- 값은 원문 그대로, 설명·주석 없음
+- 도구 거부 없음

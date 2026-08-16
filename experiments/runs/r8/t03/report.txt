@@ -1,0 +1,1 @@
+12건 전부 TSV로 `<RUNDIR>/out.txt` 에 저장했습니다. 헤더 없이 12줄, 탭 구분, 열 순서 rec_id·phase·plan·pace·port·mode·mark·mesh.

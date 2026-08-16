@@ -1,0 +1,8 @@
+테스트 10/10 통과.
+
+`sched.js`에 두 함수를 추가하고 export에 등록했습니다.
+
+- `addBusinessDays(d, n, holidays)` — 하루씩 이동하며 `isBusinessDay`인 날만 카운트. `n=0`은 시작일을 그대로 반환(보정 없음), 음수는 역방향.
+- `mergeRanges(ranges)` — 길이 0 구간을 먼저 버리고 start 기준 정렬 후, `다음.start <= 직전.end`이면 병합(반열림이라 맞닿은 구간도 합쳐짐).
+
+기존 코드와 테스트 파일은 수정하지 않았습니다.

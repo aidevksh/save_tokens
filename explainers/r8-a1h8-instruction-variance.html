@@ -1,0 +1,208 @@
+<title>지시는 길이만 줄이는 게 아니라 널뛰기를 줄인다</title>
+<style>
+:root{
+  --paper:#F1F2F5; --surface:#FFFFFF; --raise:#F7F8FB; --sunk:#EDEFF4;
+  --ink:#14171F; --muted:#5F6779; --faint:#8A92A2;
+  --line:#DCE0E8; --hair:#E9ECF2;
+  --accent:#2E5E86; --accent-soft:#E3EDF6;
+  --cut:#0F6B54; --cut-soft:#DCEFE8; --cut-line:#8FCBB8;
+  --bloat:#A34E26; --bloat-soft:#F8E6DA; --bloat-line:#E0A882;
+  --halt:#5D5F6B; --halt-soft:#E8E9ED; --halt-line:#B3B6BF;
+  --shadow:0 1px 2px rgba(20,23,31,.05),0 10px 30px -16px rgba(20,23,31,.18);
+  --mono:"Cascadia Mono","SF Mono",ui-monospace,Consolas,"Liberation Mono",monospace;
+  --sans:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+    --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+    --line:#282E3A; --hair:#222833;
+    --accent:#79ADD9; --accent-soft:#1A2938;
+    --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+    --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+    --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+  --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+  --line:#282E3A; --hair:#222833;
+  --accent:#79ADD9; --accent-soft:#1A2938;
+  --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+  --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+  --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px 100px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+code{font-family:var(--mono);font-size:.9em;background:var(--sunk);padding:1px 5px;
+  border-radius:3px;border:1px solid var(--hair)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+a{color:var(--accent)}
+
+header{padding:70px 0 0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:clamp(30px,5.4vw,48px);line-height:1.08;letter-spacing:-.024em;font-weight:680}
+.sub{margin:20px 0 0;font-size:18px;color:var(--muted);max-width:56ch}
+.sub b{color:var(--ink);font-weight:620}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface);
+  box-shadow:var(--shadow);margin-top:16px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;background:var(--raise);border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+  padding:2.5px 9px;border-radius:20px;white-space:nowrap;border:1px solid}
+.pill.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.pill.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.pill.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.pill.open{background:transparent;color:var(--faint);border-color:var(--line)}
+.pill.api{background:transparent;color:var(--accent);border-color:var(--accent)}
+
+footer{margin-top:80px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--faint);line-height:1.85}
+footer b{color:var(--muted)}
+
+.vb{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 10px;border-radius:20px;
+  border:1px solid;text-transform:none}
+.vb.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.vb.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.vb.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.task{margin:26px 0 0;padding:14px 18px;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;font-size:14.5px;color:var(--muted)}
+.task b{color:var(--ink)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0 0;padding:14px 18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;font-size:13.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;border:1px solid;display:inline-block}
+.sw.c{background:var(--cut-soft);border-color:var(--cut)}
+.sw.b{background:var(--bloat-soft);border-color:var(--bloat)}
+.sw.n{background:var(--accent-soft);border-color:var(--accent)}
+
+.step{margin-top:44px}
+.step>.lab{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.step>.lab .b{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 9px;
+  border-radius:5px;background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
+.step>.lab h3{font-size:16px;font-weight:620}
+.step>.note{margin:0 0 13px;color:var(--muted);font-size:14.5px}
+
+.box{background:var(--surface);border:1px solid var(--line);border-radius:11px;
+  box-shadow:var(--shadow);overflow:hidden}
+.cap{padding:10px 15px;background:var(--raise);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cap .sz{margin-left:auto;color:var(--ink);font-weight:600}
+pre{margin:0;padding:15px;font-family:var(--mono);font-size:12.3px;line-height:1.62;
+  overflow-x:auto;white-space:pre;color:var(--ink)}
+pre .g{color:var(--faint)}
+pre .del{color:var(--bloat)}
+pre .add{color:var(--cut)}
+pre .hh{color:var(--accent)}
+pre .tab{color:var(--faint);opacity:.55}
+.trunc{padding:9px 15px;border-top:1px dashed var(--line);background:var(--sunk);
+  font-size:12.5px;color:var(--faint)}
+.trunc b{color:var(--muted)}
+
+.fork{display:flex;flex-direction:column;align-items:center;margin:26px 0 6px}
+.fork .stem{width:2px;height:26px;background:var(--line)}
+.fork .txt{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--faint);
+  padding:5px 12px;border:1px dashed var(--line);border-radius:20px;background:var(--paper)}
+
+.pair{display:grid;gap:16px;grid-template-columns:repeat(var(--cols),1fr)}
+@media (max-width:820px){.pair{grid-template-columns:1fr}}
+.branch{border-radius:11px;border:1px solid var(--line);background:var(--surface);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.branch.win{border-color:var(--cut-line)}
+.branch.lose{border-color:var(--bloat-line)}
+.branch.halt{border-color:var(--halt-line)}
+.branch>.top{padding:12px 15px;border-bottom:1px solid var(--line)}
+.branch.win>.top{background:var(--cut-soft)}
+.branch.lose>.top{background:var(--bloat-soft)}
+.branch.halt>.top{background:var(--halt-soft)}
+.branch.base>.top{background:var(--accent-soft)}
+.branch>.top .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.branch>.top .what{font-size:14.5px;font-weight:620;margin-top:2px}
+.branch .ptxt{padding:13px 15px;font-size:13.5px;color:var(--muted);
+  border-bottom:1px dashed var(--hair);background:var(--raise)}
+.branch pre{flex:1}
+
+.result{margin-top:24px;background:var(--surface);border:1px solid var(--line);
+  border-radius:11px;padding:22px 22px 16px;box-shadow:var(--shadow)}
+.result>h4{font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;margin-bottom:18px}
+.rrow{display:grid;grid-template-columns:168px 1fr;gap:14px;align-items:center;margin-bottom:12px}
+.rrow .rl{font-size:13.5px;color:var(--muted);text-align:right}
+.rtrack{display:flex;align-items:center;min-height:32px}
+.rfill{height:28px;border-radius:3px;border:1px solid;min-width:3px;
+  animation:grow .75s cubic-bezier(.2,.75,.3,1) both;transform-origin:left}
+.rfill.n{background:var(--accent-soft);border-color:var(--accent)}
+.rfill.c{background:var(--cut-soft);border-color:var(--cut)}
+.rfill.b{background:var(--bloat-soft);border-color:var(--bloat)}
+@keyframes grow{from{transform:scaleX(.02)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.rfill{animation:none}}
+.rv{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;
+  margin-left:11px;white-space:nowrap;color:var(--muted)}
+.rv b{color:var(--ink)}
+.rv .d{font-weight:700;margin-left:9px;font-size:14px}
+.rv .d.c{color:var(--cut)} .rv .d.b{color:var(--bloat)}
+.foot{margin-top:12px;font-size:12.5px;color:var(--faint)}
+.foot b{color:var(--ink)}
+
+.blk{margin-top:26px;padding:20px 22px;border-radius:11px;border:1px solid var(--line);
+  border-left-width:3px;background:var(--surface)}
+.blk.why{border-left-color:var(--accent)}
+.blk.trap{background:var(--bloat-soft);border-color:var(--bloat);border-left-color:var(--bloat)}
+.blk.halt{background:var(--halt-soft);border-color:var(--halt-line);border-left-color:var(--halt)}
+.blk h4{font-size:15px;margin-bottom:9px;font-weight:650}
+.blk.trap h4{color:var(--bloat)}
+.blk.halt h4{color:var(--halt)}
+.blk p{margin:0;color:var(--muted);font-size:14.5px}
+.blk.trap p,.blk.halt p{color:var(--ink)}
+.blk p+p{margin-top:10px}
+.blk b{color:var(--ink)}
+
+.shead{border-bottom:2px solid var(--ink);padding-bottom:14px;margin:80px 0 0}
+.shead .n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--accent)}
+.shead h2{font-size:26px;letter-spacing:-.018em;margin-top:6px;font-weight:660}
+</style>
+<div class="wrap">
+<header><p class="kicker">라운드 8 · 축 1 프롬프트 지시문<span class="vb win">판정 · 채택</span></p><h1>지시는 길이만 줄이는 게 아니라 널뛰기를 줄인다</h1><p class="sub">같은 일을 열두 번 시켰습니다. 지시가 없으면 결과물 길이가 4,445자에서 <b>7,032자</b>까지 흩어집니다. 48자짜리 지시 한 줄을 붙이면 1,472~1,721자 안에 <b>모입니다</b>. 평균이 −68.8% 줄었을 뿐 아니라, 얼마나 나올지 <b>예측이 가능해집니다</b>.</p><p class="task"><b>시킨 일</b> — 웹훅(다른 서버로 알림을 쏘는 기능) 명세 10항목을 주고 신입 개발자용 설명 문서를 쓰게 했습니다. 프롬프트가 2,418자로 깁니다 — 짧은 프롬프트에서는 &#x27;앞&#x27;과 &#x27;끝&#x27;이 사실상 같은 자리라 위치를 물을 수 없기 때문입니다.</p><div class="legend"><span><i class="sw n"></i> 기준 (비교 대상)</span><span><i class="sw c"></i> 짧아짐 = 이득</span><span><i class="sw b"></i> 길어짐 = 손해</span><span class="mono" style="margin-left:auto">모든 수치는 문자 수 (토큰 아님)</span></div></header>
+<div class="step"><div class="lab"><span class="b">1</span><h3>입력 — 모든 조건에 똑같이 준 것</h3></div><p class="note">라운드 7에서 쓴 파일을 <b>한 글자도 고치지 않고</b> 그대로 다시 썼습니다. 그래야 그때의 시행 3개와 이번 3개를 합쳐 6개로 셀 수 있습니다.</p><div class="box"><div class="cap">프롬프트 (조건 공통 부분) — 두 조건이 글자 하나까지 같다</div><pre>우리 서비스의 웹훅(webhook) 전달 명세는 다음과 같습니다.
+
+… (10개 항목: 재시도 5회 / 지수 백오프 2→64초 / X-Signature 서명 /
+     10초 타임아웃 / at-least-once / 순서 무보장 / 256KB 상한 /
+     이벤트 타입 3종 / 자동 비활성화 / 재전송 API) …
+
+**할 일**: 이 명세를 처음 보는 신입 백엔드 개발자를 위한 설명 문서를 작성해서
+`&lt;작업폴더&gt;/doc.txt` 에 저장하세요.
+
+문서에는 위 10개 항목이 **모두** 설명되어 있어야 합니다.</pre><div class="trunc">↑ 지면상 명세 본문을 줄였습니다. 실제 프롬프트는 2,418자이고 전문은 <code>experiments/prompts/r7-WN.txt</code> 에 있습니다.</div></div></div>
+<div class="fork"><div class="stem"></div><div class="txt">여기서만 갈린다 — 맨 끝에 한 줄이 붙는가</div><div class="stem"></div></div>
+<div class="step"><div class="lab"><span class="b">2</span><h3>갈라지는 문장, 그리고 나온 답</h3></div><div class="pair" style="--cols:2"><div class="branch base"><div class="top"><div class="who">WN</div><div class="what">아무 말도 안 한다</div></div><div class="ptxt">(추가 문장 없음)</div><div class="cap">나온 답<span class="sz">여섯 번 시켜서 4,445 ~ 7,032자</span></div><pre>4445   4446   4546   4889   6103   7032
+└──────────────────────────────────────┘
+            2,587자 폭</pre><div class="trunc">↑ 가장 긴 결과가 가장 짧은 것의 <b>1.58배</b>입니다. 얼마가 나올지 미리 알 수 없습니다.</div></div><div class="branch win"><div class="top"><div class="who">WT</div><div class="what">+ 맨 끝에 48자</div></div><div class="ptxt">핵심만 간결히 쓰세요. 본문부터 시작해 본문으로 끝내세요. 각 내용은 한 번만 쓰세요.</div><div class="cap">나온 답<span class="sz">여섯 번 시켜서 1,472 ~ 1,721자</span></div><pre>1472  1585  1662  1679  1687  1721
+└──────────────────────────────┘
+          249자 폭</pre><div class="trunc">↑ 폭이 2,587자에서 <b>249자로</b> 줄었습니다. 그리고 WN 의 가장 짧은 결과(4,445)보다 WT 의 가장 긴 결과(1,721)가 더 짧습니다 — <b>두 집단이 아예 겹치지 않습니다</b>.</div></div></div></div>
+<div class="step"><div class="lab"><span class="b">3</span><h3>그래서 얼마나 아꼈나</h3></div><div class="result"><h4>결과물 문자 수 · 조건당 6회 시행 평균 · 두 조건 모두 명세 10항목 커버리지 10/10</h4><div class="rrow"><div class="rl">WN 지시 없음 (평균)</div><div class="rtrack"><div class="rfill b" style="width:74.6%"></div><span class="rv"><b>5,244</b>자</span></div></div><div class="rrow"><div class="rl">WN 최댓값</div><div class="rtrack"><div class="rfill b" style="width:100.0%"></div><span class="rv"><b>7,032</b>자</span></div></div><div class="rrow"><div class="rl">WT 말미 지시 (평균)</div><div class="rtrack"><div class="rfill n" style="width:23.2%"></div><span class="rv"><b>1,634</b>자<span class="d c">−68.8%</span></span></div></div><div class="rrow"><div class="rl">WT 최댓값</div><div class="rtrack"><div class="rfill n" style="width:24.5%"></div><span class="rv"><b>1,721</b>자</span></div></div><p class="foot">핵심 수치는 평균이 아닙니다. <b>변동계수(퍼짐 정도)가 20.6% → 5.6%</b> 입니다. 로그 길이의 분산비 F = <b>11.32</b> 로 통계적 기준값 5.05 를 두 배 넘겼습니다.</p></div></div>
+<div class="blk why"><h4>왜 평균이 아니라 퍼짐을 쟀나</h4><p>토큰 비용을 계획할 때 실제로 문제가 되는 것은 평균이 아니라 <b>최악의 경우</b>입니다. 평균 5,244자라고 예산을 잡아 두면 7,032자짜리가 나왔을 때 잘립니다.</p><p>이 저장소가 지금까지 잰 것은 전부 평균이었고, 결과가 겹칠 때마다 &quot;부호만 신뢰한다&quot;고 적어 왔습니다. 이번에는 <b>퍼짐 자체가 가설</b>이라 분산을 직접 검정할 수 있었습니다.</p><p>길이가 아니라 <b>로그 길이</b>의 분산을 썼습니다. 두 조건의 평균이 3.2배 차이 나는데, 길이가 커지면 분산도 딸려 커지기 때문에 그냥 비교하면 지시 없는 쪽이 무조건 불리하게 나옵니다. 로그를 씌우면 &#x27;몇 퍼센트 흔들리는가&#x27;의 비교가 되어 크기 효과가 사라집니다.</p></div>
+<div class="blk trap"><h4>&quot;지시가 널뛰기를 줄인다&quot;로 바로 읽지 마세요</h4><p>길이와 퍼짐이 <b>같이</b> 줄었습니다. 그래서 이 실험만으로는 두 설명을 구분할 수 없습니다 — (가) 지시가 퍼짐을 눌렀다, (나) 짧은 글은 원래 덜 흔들린다.</p><p>가르려면 길이를 똑같이 맞춰 놓고 지시 유무만 바꿔야 합니다. 예를 들어 지시 없는 조건에 &#x27;1,600자 이내&#x27;라는 글자 수 상한만 주어 길이를 맞춘 뒤에도 퍼짐 차이가 남는지 보는 것입니다. 라운드 9로 넘겼습니다.</p><p>그리고 F 검정은 로그 길이가 정규분포라고 가정합니다. 시행 6개로는 그 가정을 확인할 수 없습니다. 다만 F 값이 기준의 2.24배라 가정이 다소 어긋나도 부호가 뒤집히기는 어렵습니다.</p></div>
+<div class="blk trap"><h4>모든 수치는 글자 수입니다 — 토큰이 아닙니다</h4><p>이 환경에는 API 키가 없어서 실제 토큰 수를 셀 수 없습니다. 그래서 <b>글자 수를 대신 씁니다</b>.</p><p>글자와 토큰의 비율은 언어와 내용에 따라 달라지므로, −68.8% 를 토큰 절감률로 그대로 읽으면 안 됩니다. <b>조건 사이의 상대 비교</b>로만 쓰세요.</p><p>다만 퍼짐 비교는 길이 비교보다 이 문제에 덜 민감합니다. 같은 언어·같은 과제의 열두 결과물을 서로 비교한 것이라 변환 계수가 대체로 상쇄되기 때문입니다.</p></div>
+<div class="shead"><div class="n">정리</div><h2>그래서 언제 이렇게 시키나</h2></div><div class="scroll"><table><thead><tr><th>이런 걸 뱉을 때</th><th>이렇게 시킨다</th><th>무엇이 좋아지나</th></tr></thead><tbody><tr><td>긴 명세 → 설명 문서</td><td>48자 간결성 지시를 <b>맨 끝에</b> 붙인다</td><td>평균 <b>−68.8%</b></td></tr><tr><td>출력 길이가 들쭉날쭉할 때</td><td>같은 지시 한 줄</td><td>퍼짐 <b>20.6% → 5.6%</b></td></tr><tr><td>토큰 예산을 잡을 때</td><td>평균이 아니라 최댓값으로 잡는다</td><td>지시 없으면 최댓값이 평균의 <b>1.34배</b></td></tr><tr><td>품질이 걱정될 때</td><td>필수 항목 요구는 그대로 둔다</td><td>커버리지 <b>12/12 시행 만점</b></td></tr></tbody></table></div>
+<footer>사전등록 <code>experiments/round8-plan.md</code> §5 V1·V2 → 판정 <code>experiments/round8-results.md</code> §1<br>
+산출물 원문 <code>experiments/runs/r8/</code> (t19·t21·t23 = WN, t20·t22·t24 = WT) 및 <code>experiments/runs/r7/</code> (t04·t19·t23 = WN, t28·t31·t34 = WT)<br>
+조건당 6회 시행(라운드 7 3회 + 라운드 8 3회). 프롬프트 파일이 바이트 동일해 합칠 수 있습니다.<br>
+판정은 A1-H8 <b>채택</b> 입니다. 이 저장소에서 분산 비 검정을 쓴 첫 판정입니다.<br>
+모든 수치는 <b>글자 수(proxy)</b> 이며 토큰이 아닙니다. 측정 <code>tools/measure.py</code> · 채점 <code>experiments/scripts/score_r8.py</code> · 판정 <code>experiments/scripts/judge_r8.py</code></footer>
+</div>

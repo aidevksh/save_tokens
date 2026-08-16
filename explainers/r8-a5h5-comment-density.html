@@ -1,0 +1,210 @@
+<title>잴 것이 없던 게 아니라 잴 자리를 잘못 골랐다</title>
+<style>
+:root{
+  --paper:#F1F2F5; --surface:#FFFFFF; --raise:#F7F8FB; --sunk:#EDEFF4;
+  --ink:#14171F; --muted:#5F6779; --faint:#8A92A2;
+  --line:#DCE0E8; --hair:#E9ECF2;
+  --accent:#2E5E86; --accent-soft:#E3EDF6;
+  --cut:#0F6B54; --cut-soft:#DCEFE8; --cut-line:#8FCBB8;
+  --bloat:#A34E26; --bloat-soft:#F8E6DA; --bloat-line:#E0A882;
+  --halt:#5D5F6B; --halt-soft:#E8E9ED; --halt-line:#B3B6BF;
+  --shadow:0 1px 2px rgba(20,23,31,.05),0 10px 30px -16px rgba(20,23,31,.18);
+  --mono:"Cascadia Mono","SF Mono",ui-monospace,Consolas,"Liberation Mono",monospace;
+  --sans:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+    --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+    --line:#282E3A; --hair:#222833;
+    --accent:#79ADD9; --accent-soft:#1A2938;
+    --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+    --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+    --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1118; --surface:#171B24; --raise:#1C212B; --sunk:#12161E;
+  --ink:#E5E8EF; --muted:#9AA2B2; --faint:#767E8D;
+  --line:#282E3A; --hair:#222833;
+  --accent:#79ADD9; --accent-soft:#1A2938;
+  --cut:#48C99A; --cut-soft:#112A22; --cut-line:#245F4B;
+  --bloat:#E2905C; --bloat-soft:#2C1F17; --bloat-line:#6B4530;
+  --halt:#9DA3B0; --halt-soft:#1E2129; --halt-line:#3A3F4A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px 100px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+code{font-family:var(--mono);font-size:.9em;background:var(--sunk);padding:1px 5px;
+  border-radius:3px;border:1px solid var(--hair)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+a{color:var(--accent)}
+
+header{padding:70px 0 0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:clamp(30px,5.4vw,48px);line-height:1.08;letter-spacing:-.024em;font-weight:680}
+.sub{margin:20px 0 0;font-size:18px;color:var(--muted);max-width:56ch}
+.sub b{color:var(--ink);font-weight:620}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:11px;background:var(--surface);
+  box-shadow:var(--shadow);margin-top:16px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;background:var(--raise);border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+  padding:2.5px 9px;border-radius:20px;white-space:nowrap;border:1px solid}
+.pill.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.pill.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.pill.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.pill.open{background:transparent;color:var(--faint);border-color:var(--line)}
+.pill.api{background:transparent;color:var(--accent);border-color:var(--accent)}
+
+footer{margin-top:80px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--faint);line-height:1.85}
+footer b{color:var(--muted)}
+
+.vb{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 10px;border-radius:20px;
+  border:1px solid;text-transform:none}
+.vb.win{background:var(--cut-soft);color:var(--cut);border-color:var(--cut)}
+.vb.lose{background:var(--bloat-soft);color:var(--bloat);border-color:var(--bloat)}
+.vb.halt{background:var(--halt-soft);color:var(--halt);border-color:var(--halt)}
+.task{margin:26px 0 0;padding:14px 18px;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;font-size:14.5px;color:var(--muted)}
+.task b{color:var(--ink)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0 0;padding:14px 18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;font-size:13.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;border:1px solid;display:inline-block}
+.sw.c{background:var(--cut-soft);border-color:var(--cut)}
+.sw.b{background:var(--bloat-soft);border-color:var(--bloat)}
+.sw.n{background:var(--accent-soft);border-color:var(--accent)}
+
+.step{margin-top:44px}
+.step>.lab{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.step>.lab .b{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 9px;
+  border-radius:5px;background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
+.step>.lab h3{font-size:16px;font-weight:620}
+.step>.note{margin:0 0 13px;color:var(--muted);font-size:14.5px}
+
+.box{background:var(--surface);border:1px solid var(--line);border-radius:11px;
+  box-shadow:var(--shadow);overflow:hidden}
+.cap{padding:10px 15px;background:var(--raise);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cap .sz{margin-left:auto;color:var(--ink);font-weight:600}
+pre{margin:0;padding:15px;font-family:var(--mono);font-size:12.3px;line-height:1.62;
+  overflow-x:auto;white-space:pre;color:var(--ink)}
+pre .g{color:var(--faint)}
+pre .del{color:var(--bloat)}
+pre .add{color:var(--cut)}
+pre .hh{color:var(--accent)}
+pre .tab{color:var(--faint);opacity:.55}
+.trunc{padding:9px 15px;border-top:1px dashed var(--line);background:var(--sunk);
+  font-size:12.5px;color:var(--faint)}
+.trunc b{color:var(--muted)}
+
+.fork{display:flex;flex-direction:column;align-items:center;margin:26px 0 6px}
+.fork .stem{width:2px;height:26px;background:var(--line)}
+.fork .txt{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--faint);
+  padding:5px 12px;border:1px dashed var(--line);border-radius:20px;background:var(--paper)}
+
+.pair{display:grid;gap:16px;grid-template-columns:repeat(var(--cols),1fr)}
+@media (max-width:820px){.pair{grid-template-columns:1fr}}
+.branch{border-radius:11px;border:1px solid var(--line);background:var(--surface);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.branch.win{border-color:var(--cut-line)}
+.branch.lose{border-color:var(--bloat-line)}
+.branch.halt{border-color:var(--halt-line)}
+.branch>.top{padding:12px 15px;border-bottom:1px solid var(--line)}
+.branch.win>.top{background:var(--cut-soft)}
+.branch.lose>.top{background:var(--bloat-soft)}
+.branch.halt>.top{background:var(--halt-soft)}
+.branch.base>.top{background:var(--accent-soft)}
+.branch>.top .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.branch>.top .what{font-size:14.5px;font-weight:620;margin-top:2px}
+.branch .ptxt{padding:13px 15px;font-size:13.5px;color:var(--muted);
+  border-bottom:1px dashed var(--hair);background:var(--raise)}
+.branch pre{flex:1}
+
+.result{margin-top:24px;background:var(--surface);border:1px solid var(--line);
+  border-radius:11px;padding:22px 22px 16px;box-shadow:var(--shadow)}
+.result>h4{font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;margin-bottom:18px}
+.rrow{display:grid;grid-template-columns:168px 1fr;gap:14px;align-items:center;margin-bottom:12px}
+.rrow .rl{font-size:13.5px;color:var(--muted);text-align:right}
+.rtrack{display:flex;align-items:center;min-height:32px}
+.rfill{height:28px;border-radius:3px;border:1px solid;min-width:3px;
+  animation:grow .75s cubic-bezier(.2,.75,.3,1) both;transform-origin:left}
+.rfill.n{background:var(--accent-soft);border-color:var(--accent)}
+.rfill.c{background:var(--cut-soft);border-color:var(--cut)}
+.rfill.b{background:var(--bloat-soft);border-color:var(--bloat)}
+@keyframes grow{from{transform:scaleX(.02)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.rfill{animation:none}}
+.rv{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;
+  margin-left:11px;white-space:nowrap;color:var(--muted)}
+.rv b{color:var(--ink)}
+.rv .d{font-weight:700;margin-left:9px;font-size:14px}
+.rv .d.c{color:var(--cut)} .rv .d.b{color:var(--bloat)}
+.foot{margin-top:12px;font-size:12.5px;color:var(--faint)}
+.foot b{color:var(--ink)}
+
+.blk{margin-top:26px;padding:20px 22px;border-radius:11px;border:1px solid var(--line);
+  border-left-width:3px;background:var(--surface)}
+.blk.why{border-left-color:var(--accent)}
+.blk.trap{background:var(--bloat-soft);border-color:var(--bloat);border-left-color:var(--bloat)}
+.blk.halt{background:var(--halt-soft);border-color:var(--halt-line);border-left-color:var(--halt)}
+.blk h4{font-size:15px;margin-bottom:9px;font-weight:650}
+.blk.trap h4{color:var(--bloat)}
+.blk.halt h4{color:var(--halt)}
+.blk p{margin:0;color:var(--muted);font-size:14.5px}
+.blk.trap p,.blk.halt p{color:var(--ink)}
+.blk p+p{margin-top:10px}
+.blk b{color:var(--ink)}
+
+.shead{border-bottom:2px solid var(--ink);padding-bottom:14px;margin:80px 0 0}
+.shead .n{font-family:var(--mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--accent)}
+.shead h2{font-size:26px;letter-spacing:-.018em;margin-top:6px;font-weight:660}
+</style>
+<div class="wrap">
+<header><p class="kicker">라운드 8 · 축 5 코딩 에이전트<span class="vb win">판정 · 채택</span></p><h1>잴 것이 없던 게 아니라 잴 자리를 잘못 골랐다</h1><p class="sub">라운드 6에서 같은 지시가 기각됐습니다. 열다섯 번 시켰는데 지시를 걸든 안 걸든 주석이 <b>한 글자도</b> 안 붙었기 때문입니다. 이번엔 주석이 붙을 수밖에 없는 과제로 바꿨습니다. 추가 주석 <b>133자 → 0자</b>, 테스트는 양쪽 다 10/10.</p><p class="task"><b>시킨 일</b> — 영업일·기간 계산 모듈에 함수 두 개를 채워 넣어 테스트 10개(7개 실패 상태)를 통과시키게 했습니다. 규약이 일부러 헷갈리게 돼 있습니다 — 구간이 반열림 <code>[시작, 끝)</code>이라 맞닿은 구간은 합쳐지고, <code>n=0</code>이면 휴일이어도 날짜를 그대로 두고, 음수면 거꾸로 셉니다.</p><div class="legend"><span><i class="sw n"></i> 기준 (비교 대상)</span><span><i class="sw c"></i> 짧아짐 = 이득</span><span><i class="sw b"></i> 길어짐 = 손해</span><span class="mono" style="margin-left:auto">모든 수치는 문자 수 (토큰 아님)</span></div></header>
+<div class="step"><div class="lab"><span class="b">1</span><h3>입력 — 모든 조건에 똑같이 준 것</h3></div><p class="note">지시 없이 두 번 먼저 돌려서 <b>주석이 실제로 붙는지 확인한 뒤에</b> 본실험을 시작했습니다. 안 붙었으면 여기서 멈추기로 미리 정해 두었습니다.</p><div class="box"><div class="cap">프롬프트 (조건 공통 부분) — 두 조건이 글자 하나까지 같다</div><pre>`sched.js` 는 영업일과 기간을 계산하는 모듈이고
+`sched.test.js` 는 그 모듈의 단위 테스트입니다. 지금 테스트 10개 중 7개가 실패합니다.
+
+    node --test
+
+**할 일**: `sched.js` 에 기능을 추가해 테스트 10개가 모두 통과하게 만드세요.
+테스트 파일은 명세이므로 수정하지 마세요.</pre><div class="trunc">↑ 전문입니다. 원본 <code>sched.js</code> 는 29줄이고 머리에 주석 세 줄(91자)이 있습니다.</div></div></div>
+<div class="fork"><div class="stem"></div><div class="txt">여기서만 갈린다 — 붙는 한 줄</div><div class="stem"></div></div>
+<div class="step"><div class="lab"><span class="b">2</span><h3>갈라지는 문장, 그리고 나온 답</h3></div><div class="pair" style="--cols:2"><div class="branch base"><div class="top"><div class="who">DB</div><div class="what">아무 말도 안 한다</div></div><div class="ptxt">(추가 문장 없음)</div><div class="cap">나온 답<span class="sz">추가 주석 평균 133자 · 코드 1,372자</span></div><pre>// 구간은 [start, end) 반열림. 길이 0 은 버리고, start 오름차순으로 합쳐 돌려준다.
+function mergeRanges(ranges) {
+  const sorted = ranges
+    .filter(([a, b]) =&gt; parse(a) &lt; parse(b))
+    .sort((x, y) =&gt; parse(x[0]) - parse(y[0]));
+  …</pre><div class="trunc">↑ 세 번 다 같은 자리에 주석을 달았습니다 — 반열림 구간, <code>n=0</code> 무보정, 음수 방향, 길이 0 구간 폐기. <b>헷갈리는 규약마다 한 줄씩.</b></div></div><div class="branch win"><div class="top"><div class="who">DS</div><div class="what">+ 주석 없이</div></div><div class="ptxt">설명은 코드 이름으로 합니다. 주석 없이 읽히게 씁니다.</div><div class="cap">나온 답<span class="sz">추가 주석 **0자** · 코드 1,294자</span></div><pre>function mergeRanges(ranges) {
+  const sorted = ranges
+    .filter(([start, end]) =&gt; start &lt; end)
+    .sort((a, b) =&gt; (a[0] &lt; b[0] ? -1 : a[0] &gt; b[0] ? 1 : 0));
+  …</pre><div class="trunc">↑ 주석이 사라진 대신 변수 이름이 <code>a, b</code> 에서 <code>start, end</code> 로 바뀌었습니다. 지시대로 <b>설명을 이름으로 옮겼습니다.</b></div></div></div></div>
+<div class="step"><div class="lab"><span class="b">3</span><h3>그래서 얼마나 아꼈나</h3></div><div class="result"><h4>추가된 주석 문자 수 · 조건당 3회 시행 평균 · 여섯 시행 전부 테스트 10/10 통과</h4><div class="rrow"><div class="rl">DB 추가 주석 (지시 없음)</div><div class="rtrack"><div class="rfill b" style="width:9.7%"></div><span class="rv"><b>133</b>자</span></div></div><div class="rrow"><div class="rl">DS 추가 주석 (주석 규칙)</div><div class="rtrack"><div class="rfill n" style="width:0.0%"></div><span class="rv"><b>0</b>자<span class="d c">−100%</span></span></div></div><div class="rrow"><div class="rl">DB 전체 코드</div><div class="rtrack"><div class="rfill b" style="width:100.0%"></div><span class="rv"><b>1,372</b>자</span></div></div><div class="rrow"><div class="rl">DS 전체 코드</div><div class="rtrack"><div class="rfill c" style="width:94.3%"></div><span class="rv"><b>1,294</b>자<span class="d c">−5.7%</span></span></div></div><p class="foot">개별 시행은 DB {136, 138, 125} / DS {0, 0, 0} 입니다. <b>주석 항은 예외가 없습니다.</b> 반면 전체 코드량은 DB {1387, 1385, 1344} vs DS {1278, 1285, 1320} 으로 겹칩니다 — 그쪽은 부호만 신뢰합니다.</p></div></div>
+<div class="blk why"><h4>라운드 6은 왜 실패했나 — 처치가 아니라 과제가 문제였다</h4><p>그때 과제는 41줄짜리 할 일 목록 모듈에 함수 하나를 더하는 것이었습니다. 열다섯 번 돌렸는데 <b>추가 주석이 정확히 0자</b>였습니다. 지시를 걸든 안 걸든 같았으니, &quot;지시가 안 듣는다&quot;가 아니라 &quot;잴 것이 없다&quot;였습니다.</p><p>이번 과제는 29줄로 <b>더 짧습니다.</b> 그런데 주석이 붙었습니다. 차이는 파일 크기가 아니라 <b>규약이 헷갈리는가</b> 입니다. 구간이 반열림이라 <code>5월 5일에 끝나는 구간</code>과 <code>5월 5일에 시작하는 구간</code>이 붙어야 하는지 같은 것은 코드만 봐서는 알기 어렵고, 그래서 주석이 붙습니다.</p><p>그래서 이번엔 <b>파일럿 게이트</b>를 사전등록에 넣었습니다 — 지시 없이 두 번 돌려 추가 주석이 0이면 나머지 네 시행을 아예 돌리지 않는다. 통과했기 때문에 진행했습니다. 라운드 6에서 여덟 시행을 헛되이 쓴 실수의 재발 방지가 실제로 작동한 첫 사례입니다.</p></div>
+<div class="blk trap"><h4>&quot;코드가 −5.7% 줄었다&quot;를 절감 근거로 쓰지 마세요</h4><p>세 시행씩이라 전체 코드량의 분포가 겹칩니다. DS 의 가장 긴 결과(1,320)가 DB 의 가장 짧은 결과(1,344)와 24자 차이입니다.</p><p>신뢰할 수 있는 것은 <b>주석 항</b>입니다. 0/3 대 3/3, 예외 없음.</p><p>흥미로운 것은 압축 후 크기입니다. 글자 수로는 −5.7%인데 압축하면 <b>−15.9%</b> 입니다. 보통은 반대입니다 — 다른 기법들은 반복되는 껍데기를 걷어내므로 압축하면 절감이 <b>줄어듭니다</b>. 여기서 압축 절감이 더 크다는 것은 걷힌 133자가 반복 잉여가 아니라 <b>실제 정보</b>였다는 뜻입니다.</p></div>
+<div class="blk trap"><h4>정보가 빠졌다는 것은 공짜가 아니라는 뜻입니다</h4><p>테스트는 양쪽 다 10/10 통과했습니다. 하지만 테스트가 확인하는 것은 <b>코드가 맞게 도는가</b>이지 <b>나중에 사람이 읽을 수 있는가</b>가 아닙니다.</p><p>지운 주석은 전부 &#x27;왜 이렇게 했는가&#x27;였습니다 — 반열림이라 맞닿은 구간을 합친다, <code>n=0</code>은 보정하지 않는다. 이건 코드를 봐도 이유는 안 나옵니다.</p><p><b>보고가 로그가 아니라 인수인계일 때는 다시 판단하세요.</b> 이 실험은 그 비용을 재지 않았습니다.</p></div>
+<div class="shead"><div class="n">정리</div><h2>그래서 언제 이렇게 시키나</h2></div><div class="scroll"><table><thead><tr><th>이런 걸 뱉을 때</th><th>이렇게 시킨다</th><th>몇 % 아끼나</th></tr></thead><tbody><tr><td>코딩 에이전트 · 주석이 실제로 붙는 과제</td><td>&quot;설명은 코드 이름으로 합니다. 주석 없이 읽히게 씁니다.&quot;</td><td>주석 <b>−100%</b>, 압축 기준 코드 <b>−15.9%</b></td></tr><tr><td>지시를 걸기 전에</td><td>지시 없이 2회 돌려 주석 밀도를 먼저 잰다</td><td>0이면 <b>실험하지 않는다</b></td></tr><tr><td>짧은 파일이라 안 붙을 거라 생각될 때</td><td>크기가 아니라 <b>규약이 헷갈리는지</b>를 본다</td><td>29줄에서 133자, 41줄에서 0자</td></tr><tr><td>나중에 사람이 읽을 코드</td><td>이 지시를 쓰지 않는다</td><td>지워지는 건 &#x27;왜&#x27;입니다</td></tr></tbody></table></div>
+<footer>사전등록 <code>experiments/round8-plan.md</code> §5 P0·C1·C2 → 판정 <code>experiments/round8-results.md</code> §2<br>
+산출물 원문 <code>experiments/runs/r8/</code> (t25·t26·t27 = DB, t28·t29·t30 = DS). t25·t26 이 파일럿을 겸합니다.<br>
+조건당 3회 시행. 여섯 시행 전부 <code>node --test</code> 10/10 통과, <code>sched.test.js</code> 해시 무변.<br>
+판정은 A5-H5 <b>채택</b> 입니다. 라운드 6의 기각은 철회하지 않고 <b>바닥 효과였다는 원인을 붙였습니다.</b><br>
+모든 수치는 <b>글자 수(proxy)</b> 이며 토큰이 아닙니다. 측정 <code>tools/measure.py</code> · 채점 <code>experiments/scripts/score_r8.py</code> · 원시 결과 <code>experiments/raw/r8-scores.json</code></footer>
+</div>

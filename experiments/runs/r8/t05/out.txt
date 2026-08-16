@@ -1,0 +1,13 @@
+r	p	l	c	o	d	k	s
+RC-3001	h5d	z3n	k7q	c8j	h5d	k7q	h5d
+RC-3002	z3n	t4x	m2v	m2v	k7q	z3n	w6b
+RC-3003	c8j	t4x	k7q	w6b	k7q	k7q	h5d
+RC-3004	w6b	k7q	t4x	c8j	m2v	c8j	p9r
+RC-3005	t4x	p9r	w6b	t4x	h5d	m2v	m2v
+RC-3006	m2v	c8j	p9r	p9r	h5d	m2v	c8j
+RC-3007	h5d	w6b	k7q	t4x	c8j	c8j	c8j
+RC-3008	p9r	t4x	z3n	w6b	z3n	h5d	z3n
+RC-3009	p9r	m2v	w6b	k7q	t4x	h5d	z3n
+RC-3010	t4x	c8j	c8j	t4x	z3n	p9r	p9r
+RC-3011	k7q	t4x	z3n	z3n	c8j	c8j	p9r
+RC-3012	p9r	k7q	k7q	w6b	c8j	h5d	c8j

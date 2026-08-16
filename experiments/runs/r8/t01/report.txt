@@ -1,0 +1,4 @@
+완료했습니다.
+
+- 파일: `<RUNDIR>/out.txt`
+- 헤더 1줄 + 레코드 12줄, 탭 구분, 열 순서 rec_id, phase, plan, pace, port, mode, mark, mesh
