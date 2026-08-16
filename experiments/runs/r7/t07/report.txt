@@ -1,0 +1,1 @@
+out.txt에 12줄 TSV를 저장했습니다. 헤더 없음, 탭 구분, 열 순서 asset_id·region·env·role·os·tier·cpu·status. asset_id와 cpu는 원문 유지, 나머지는 코드표대로 정수 변환했습니다.

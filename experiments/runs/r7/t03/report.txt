@@ -1,0 +1,1 @@
+12줄 TSV를 out.txt에 저장했습니다. 코드표대로 region/env/role/os/tier/status를 정수로 변환했고, asset_id와 cpu는 원문 그대로 두었습니다. 헤더·주석 없음, 구분자는 탭 1개입니다.

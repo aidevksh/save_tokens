@@ -1,0 +1,21 @@
+prediction	verdict	value	claim
+K1	채택	L_out(K) 597 vs T 625 = -4.5%	키 축약이 줄인다
+K2	기각	acc_q(UK) 6 vs UT 6	키 축약이 정확도를 깎는다
+E1	채택	L_out(E) 311 vs T 625 = -50.2%	코드화가 줄인다
+E2	채택	acc_q(UE) 6 vs UK 6	코드화의 손실이 키 축약보다 작다
+P1	채택	L_out(P) 267 vs E 311 vs K 597	positional 이 가장 짧다
+P2	기각	acc_q(UP) 6 vs UE 6 vs UK 6	positional 의 손실이 가장 크다
+I1	채택	L_file(CI) 1942.3 vs C0 2425 = -19.9%	서론·맺음말 억제가 줄인다
+I2	채택	cov(CI) 6	품질 유지
+I3	거짓 — 처치가 표적을 안 건드렸다	pre(CI) 181.3 vs C0 195.7 / sumsec(CI) 1 vs C0 1	표적에 맞았다
+I4	산출	CC 617.7 < CR 1892.3 < CI 1942.3	(산출) 세 명제의 기여 순위
+I5	산출	d(CK) 1681.3 vs Σd_i 2822.7 (CC 1807.3, CI 482.7, CR 532.7) = 59.6%	(산출) 하위가산성
+W1	채택	L_file(WF) 1840.7 vs WN 5145.7 = -64.2%	지시가 긴 프롬프트에서도 듣는다
+W2	채택	L_file(WB) 1708 vs WF 1840.7 = -7.2%	앞+말미가 앞보다 더 줄인다
+W3	위치가 작동	L_file(WT) 1656 vs WF 1840.7 = -10.0%	위치 효과
+W4	채택	min cov 10 (10항목 중)	품질 유지
+A2-H2	부분 채택		가설 판정
+A2-H3	채택		가설 판정
+A2-H5	부분 채택		가설 판정
+A1-H4	채택		가설 판정
+A1-H2	채택		가설 판정

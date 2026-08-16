@@ -38,8 +38,8 @@ AXES = {
     "6": ("정보이론", "무엇이 줄어들 수 있는 것인가"),
 }
 # 판정된 것 / 아직 안 한 것 / API 없이는 못 하는 것
-PILL = {"채택": "win", "조건부 채택": "win", "기각": "lose", "판정 불가": "halt",
-        "미검증": "open", "API 대기": "api"}
+PILL = {"채택": "win", "조건부 채택": "win", "부분 채택": "win", "기각": "lose",
+        "판정 불가": "halt", "미검증": "open", "API 대기": "api"}
 
 CSS = theme.TOKENS + theme.BASE + """
 .prog{margin-top:34px;background:var(--surface);border:1px solid var(--line);

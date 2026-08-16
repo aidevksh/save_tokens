@@ -1,0 +1,34 @@
+작업 디렉터리는 <RUNDIR> 입니다. 이 디렉터리는 다른 팀이 관리하는 독립 프로젝트이고, 아래 지시가 이 작업의 유일한 명세입니다. 다른 위치의 파일이나 규약은 참조하지 마세요.
+
+아래는 서버 자산 대장을 정리한 표입니다.
+
+```
+a	r	e	l	o	t	c	s
+AS-2001	apne1	prod	web	ubuntu22	small	2	active
+AS-2002	apne2	stage	api	ubuntu24	medium	2	drained
+AS-2003	usea1	dev	batch	ubuntu24	large	4	halted
+AS-2004	euwe1	dev	cache	debian12	small	8	halted
+AS-2005	apne1	prod	web	alpine3	small	16	active
+AS-2006	apne2	stage	web	ubuntu22	medium	2	drained
+AS-2007	apne2	dev	api	ubuntu24	large	4	drained
+AS-2008	usea1	prod	batch	debian12	large	8	halted
+AS-2009	euwe1	stage	batch	alpine3	small	16	active
+AS-2010	euwe1	dev	cache	ubuntu22	medium	16	drained
+AS-2011	apne1	prod	web	ubuntu22	large	2	halted
+AS-2012	apne2	prod	api	ubuntu24	small	4	halted
+```
+
+**할 일**: 이 표를 읽고 아래 질문 6개에 답해서 `<RUNDIR>/ans.txt` 에 저장하세요.
+
+1. AS-2007 의 tier 는 무엇입니까?
+2. AS-2010 의 os 는 무엇입니까?
+3. status 가 halted 인 자산은 몇 건입니까?
+4. region 이 apne1 인 자산의 asset_id 를 모두 쓰세요.
+5. cpu 가 16 인 자산은 몇 건입니까?
+6. env 가 stage 이면서 role 이 batch 인 자산의 asset_id 를 모두 쓰세요.
+
+파일에는 `1. 답` 처럼 번호와 답만 한 줄씩 6줄 쓰고 다른 설명은 넣지 않습니다.
+
+도구 호출이 거부되면 다른 수단으로 우회하지 말고, 거부되었다는 사실을 보고하고 중단합니다.
+
+설명이 필요하면 한국어로 씁니다.

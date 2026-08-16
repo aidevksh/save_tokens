@@ -1,0 +1,14 @@
+ans.txt 저장 완료.
+
+경로: `<RUNDIR>/ans.txt`
+
+```
+1. large
+2. ubuntu22
+3. 5
+4. AS-2001, AS-2005, AS-2011
+5. 3
+6. AS-2009
+```
+
+헤더 축약(a/r/e/l/o/t/c/s)은 질문의 용어 순서(asset_id, region, env, role, os, tier, cpu, status)에 대응시켜 해석했습니다. 도구 거부는 없었습니다.

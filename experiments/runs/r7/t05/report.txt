@@ -1,0 +1,6 @@
+TSV 저장 완료.
+
+- 경로: `<RUNDIR>/out.txt`
+- 헤더 1줄(`a r e l o t c s`, 탭 구분) + 자산 12줄
+- 열 이름은 asset_id→a, region→r, env→e, role→l, os→o, tier→t, cpu→c, status→s 로 1글자 축약. role과 os가 둘 다 o로 겹치므로 role은 두 번째 글자 l을 썼습니다.
+- 값은 원문 그대로, 설명·주석 없음. 도구 거부 없었습니다.

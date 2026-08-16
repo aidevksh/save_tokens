@@ -1,0 +1,10 @@
+ans.txt 저장 완료.
+
+1. large
+2. ubuntu22
+3. 5 (AS-2003, 2004, 2008, 2011, 2012)
+4. AS-2001, AS-2005, AS-2011
+5. 3 (AS-2005, 2009, 2010)
+6. AS-2009
+
+헤더 약어는 a=asset_id, r=region, e=env, l=role, o=os, t=tier, c=cpu, s=status로 해석했습니다. 도구 거부는 없었습니다.

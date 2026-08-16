@@ -52,7 +52,8 @@ import theme  # noqa: E402  (경로 삽입 뒤에 와야 한다)
 REPO = Path(__file__).resolve().parents[1]
 SRC = REPO / "explainers"
 
-VERDICT_KIND = {"채택": "win", "기각": "lose", "판정 불가": "halt"}
+VERDICT_KIND = {"채택": "win", "부분 채택": "win", "조건부 채택": "win",
+                "기각": "lose", "판정 불가": "halt"}
 
 CSS = theme.TOKENS + theme.BASE + """
 .vb{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 10px;border-radius:20px;

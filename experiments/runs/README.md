@@ -37,6 +37,8 @@ python tools/preserve.py --import <작업루트> --round r3
 | r1 | `experiments/prompts/r1-H*-*.txt` | 조건당 1개. 사전등록 §3 원문을 추출한 것 |
 | r2 | `experiments/runs/r2/t*/prompt.txt` | 시행마다 실제로 준 전문 |
 | r3 | `experiments/prompts/r3-{B,N,P,V,F,T,M}.txt` | 조건당 1개. 생성기 `experiments/scripts/gen_r3_prompts.py` 산출물이고 경로만 `<RUNDIR>` 자리표시자다. 시행→조건은 `r3/conditions.tsv` |
+| r4–r6 | `experiments/prompts/r{4,5,6}-*.txt` | r3과 같은 방식. 생성기 `gen_r4.py` · `gen_r5.py` · `gen_r6.py` |
+| r7 | `experiments/prompts/r7-*.txt` **와** `experiments/runs/r7/t*/prompt.txt` | 둘 다 있다. 생산자 조건(T11·T13·T14)은 조건당 1개(생성기 `gen_r7.py`)이고, **2차 소비자(T12, t08–t15)는 앞 시행의 산출물을 페이로드로 물고 있어 시행마다 다르므로** 조건당 1개로는 복원되지 않는다. 그래서 라운드 7은 **시행마다 실제로 준 전문**을 시행 디렉터리에도 남긴다 — 준비기 `setup_r7.py`(+`--consumers`)가 만든다 |
 
 라운드 1은 시행별 프롬프트 파일을 남기지 않았다(조건이 같으면 프롬프트가 같아서 조건당 1개로 충분하다). 라운드 2는 시행 디렉터리에 그대로 들어 있다. 라운드 3은 프롬프트를 **생성기로 만들었으므로** 조건당 1개 + 생성기를 남긴다 — 손으로 쓴 파일보다 이쪽이 재현성이 높다(생성기가 조건 공통부의 바이트 동일성을 매 실행 검사한다).
 
